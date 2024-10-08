@@ -1,0 +1,10 @@
+{
+  "//": "Path to the image used as a base for favicon generation.",
+  "baseImage": "src/assets/me.png",
+
+  "//": "Data used to generate webmanifest file describing the website.",
+  "appName": "Martin Collado Resume",
+  "appShortName": "Martin Collado Resume",
+  "appDescription": "Virtual resume of Martin Collado",
+  "lang": "en"
+}
