@@ -1,0 +1,28 @@
+---
+import type { IconProps } from '@/types/icon-props';
+import { getElementAttributes, removeTopElement } from '@/utils/html-string';
+
+import { iconsStore } from './icons-store';
+
+interface Props extends IconProps {
+  set: string;
+  icon: string;
+}
+
+const { set, icon, ...props } = Astro.props;
+
+const svg = await iconsStore.get(set, icon, Astro);
+---
+
+{
+  svg.isFirst ? (
+    <svg {...getElementAttributes(svg.element)} {...props}>
+      <symbol id={svg.key} set:html={removeTopElement(svg.element)} />
+      <use xlink:href={`#${svg.key}`} />
+    </svg>
+  ) : (
+    <svg {...getElementAttributes(svg.element)} {...props}>
+      <use xlink:href={`#${svg.key}`} />
+    </svg>
+  )
+}

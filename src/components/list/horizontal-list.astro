@@ -1,0 +1,13 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+import { cn } from '@/utils/cn';
+
+interface Props extends HTMLAttributes<'div'> {}
+
+const { class: className, ...props } = Astro.props;
+---
+
+<div class={cn('flex flex-wrap', className)} {...props}>
+  <slot />
+</div>

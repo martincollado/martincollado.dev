@@ -1,0 +1,42 @@
+---
+import type { IconProps } from '@/types/icon-props';
+import type { ImageProps } from '@/types/image';
+import { getIconData } from '@/utils/get-icon-data';
+import { getLoadingStrategy } from '@/utils/get-loading-strategy';
+
+import IconClient from './icon-client.astro';
+import IconLocal from './icon-local.astro';
+import IconServer from './icon-server.astro';
+
+interface Props extends IconProps {
+  /**
+   * Name of the icon in `"set:name"` format for [Iconify](https://icon-sets.iconify.design/) icons or
+   * `"filename"` format for [local icons](https://www.astroicon.dev/guides/customization/#local-icons).
+   **/
+  name: string;
+
+  /**
+   * Controls the loading strategy of the icon.
+   *
+   * - `"lazy"`: The icon will be loaded client-side.
+   * - `"eager"`: The icon will be loaded server-side.
+   *
+   * @default 'lazy' on the web, 'eager' on other platforms
+   **/
+  loading?: ImageProps['loading'];
+}
+
+const { name, loading = getLoadingStrategy(Astro), ...props } = Astro.props;
+
+const icon = await getIconData(name);
+---
+
+{
+  icon.type === 'local' ? (
+    <IconLocal name={icon.name} aria-hidden {...props} />
+  ) : loading === 'lazy' ? (
+    <IconClient set={icon.set} icon={icon.icon} aria-hidden {...props} />
+  ) : (
+    <IconServer set={icon.set} icon={icon.icon} aria-hidden {...props} />
+  )
+}

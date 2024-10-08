@@ -1,0 +1,44 @@
+---
+import type { ContextSlice } from '@/types/context';
+import { cn } from '@/utils/cn';
+import { getGlobalContext } from '@/utils/get-global-context';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  bodyClass?: string;
+  lang?: string;
+}
+
+const { bodyClass } = Astro.props;
+
+const lang = Astro.props.lang ?? getGlobalContext<ContextSlice<'locale'>>(Astro).locale.code;
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <slot name="head" />
+    <ClientRouter />
+  </head>
+  <body class={cn('font-body antialiased', bodyClass)}>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --black: 0 0% 0%;
+    --white: 0 0% 100%;
+  }
+
+  :root:not(.dark) {
+    color-scheme: light;
+  }
+
+  :root.dark {
+    color-scheme: dark;
+  }
+</style>

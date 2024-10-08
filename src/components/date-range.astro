@@ -1,0 +1,23 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+import type { ContextSlice } from '@/types/context';
+import { formatDate } from '@/utils/format-date';
+import { getGlobalContext } from '@/utils/get-global-context';
+
+interface Props extends HTMLAttributes<'div'> {
+  startDate: Date;
+  endDate?: Date;
+  class?: string;
+}
+
+const { class: className, startDate, endDate, ...props } = Astro.props;
+const context = getGlobalContext<ContextSlice<'i18n'>>(Astro);
+
+const from = formatDate(startDate, Astro);
+const to = endDate ? formatDate(endDate, Astro) : context.i18n.t('current');
+---
+
+<div class={className} {...props}>
+  {from} - {to}
+</div>
