@@ -1,0 +1,48 @@
+{
+  /**
+   * Provides intellisense for Tailwind directives like @tailwind and apply.
+   * @see https://duncanleung.com/tailwind-css-unknown-at-rule
+   */
+  "css.customData": [".vscode/tailwind.json"],
+
+  /** Automatically formats code with Prettier and ESLint on save. */
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  /** Triggers autocompletion when editing strings. */
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+
+  /** Enables ESLint for JavaScript, TypeScript, and Astro files. */
+  "eslint.useFlatConfig": true,
+  "eslint.runtime": "node",
+  "eslint.validate": ["javascript", "typescript", "astro", "css"],
+
+  /** Enables Prettier in .astro and .svg files. */
+  "prettier.documentSelectors": ["**/*.astro", "**/*.svg"],
+
+  /** Disables formatting if we remove Prettier config file. */
+  "prettier.requireConfig": true,
+
+  /** Enables Tailwind intellisense in cn function. */
+  "tailwindCSS.experimental.classRegex": [["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]],
+
+  /** Uses TypeScript version installed within the project for intellisense. */
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+
+  /** Sets color theme provided by the Astro team, if we have it installed. */
+  "workbench.colorTheme": "Houston",
+
+  /** Wraps long lines in Markdown and MDX files. */
+  "[md][mdx]": {
+    "editor.wordWrap": "on"
+  },
+
+  /** Adds project specific words to the spell checker. */
+  "cSpell.words": ["astro", "favicons"]
+}
