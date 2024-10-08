@@ -1,0 +1,81 @@
+---
+import type { ComponentProps } from 'astro/types';
+
+import DateRange from '@/components/date-range.astro';
+import Img from '@/components/img.astro';
+import type { AsyncEntry } from '@/types/entries';
+import type { ImageProps } from '@/types/image';
+import type { Configurable } from '@/utils/configurable';
+import { shouldDisplay } from '@/utils/configurable';
+import { removeTopElement } from '@/utils/html-string';
+import { markdownToHtml } from '@/utils/markdown-to-html';
+import Details from '@/web/components/details.astro';
+import RenderedContent from '@/web/components/rendered-content.astro';
+import { RelatedSkills } from '@/web/components/skills';
+
+interface Props {
+  /** An entry from the `jobs` collection. */
+  entry: AsyncEntry<'jobs'>;
+
+  /** Loading strategy passed to the <Img /> component. */
+  loading?: ImageProps['loading'];
+
+  /** Configuration for job related skills. Pass `null` to hide related skills. */
+  relatedSkills?: Configurable<Pick<ComponentProps<typeof RelatedSkills>, 'label' | 'include' | 'exclude'>>;
+}
+
+const { entry, loading, relatedSkills } = Astro.props;
+const { data: job, body, render } = await entry;
+---
+
+<div>
+  <div class="mb-5 flex items-start gap-4">
+    {
+      job.image && (
+        <Img
+          class="hidden size-20 rounded object-contain sm:block"
+          src={job.image}
+          alt={job.organization}
+          width={160}
+          height={160}
+          {loading}
+        />
+      )
+    }
+    <div>
+      <h3 class="text-lg font-bold text-color-text-title sm:text-xl">
+        {job.position}
+      </h3>
+      <div class="flex gap-1.5">
+        {
+          job.image && (
+            <Img
+              class="size-5 rounded object-contain sm:hidden"
+              src={job.image}
+              alt={job.organization}
+              width={40}
+              height={40}
+              {loading}
+            />
+          )
+        }
+        <div
+          class="text-sm font-medium text-color-text-title sm:text-base"
+          set:html={removeTopElement(markdownToHtml(job.organization))}
+        />
+      </div>
+      <DateRange
+        class="text-sm font-normal text-color-text-primary sm:text-base"
+        startDate={job.startDate}
+        endDate={job.endDate}
+      />
+    </div>
+  </div>
+  {job.details && <Details class="mb-3" details={job.details} />}
+  {body.trim().length > 0 && <RenderedContent {render} />}
+  {
+    job.skills && shouldDisplay(relatedSkills) && (
+      <RelatedSkills class="mt-5" skillRefs={job.skills} {...relatedSkills} />
+    )
+  }
+</div>

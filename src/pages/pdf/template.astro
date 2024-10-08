@@ -1,0 +1,125 @@
+---
+import type { ComponentProps } from 'astro/types';
+
+import MainTemplate from '@/pdf/templates/main-template.astro';
+import AccentColors from '@/styles/colors/accent/indigo.astro';
+import DuskColors from '@/styles/colors/dusk/slate.astro';
+import ElementColors from '@/styles/colors/elements/default.astro';
+import Font from '@/styles/fonts/inter.astro';
+
+const props: ComponentProps<typeof MainTemplate> = {
+  context: {
+    locale: 'enUS',
+    translations: 'en',
+    dateFormat: 'MMMM yyyy',
+    website: '/template',
+  },
+  basics: 'main-pdf',
+  footer:
+    'I hereby give consent for my personal data included in my application to be processed for the purposes of the recruitment process.',
+  sections: [
+    {
+      collection: 'skills',
+      title: 'Skills',
+      subsections: [
+        {
+          title: 'Technologies',
+          withLevel: true,
+          // prettier-ignore
+          entries: ['k8s', 'python', 'docker', 'grafana', 'prometheus', 'terraform', 'fastapi', 'playwright', 'postgresql', 'shadcn', 'argo', 'nats', 'k6', 'keycloak', 'istio', 'traefik', 'rust', 'astro'],
+        },
+        {
+          title: 'Tools',
+          entries: ['ghactions', 'ado', 'gitlab', 'sentry', 'datadog', 'sonar'],
+        },
+        {
+          title: 'Platforms',
+          entries: ['gcp', 'aws', 'azure', 'vercel'],
+        },
+        {
+          title: 'Languages',
+          entries: ['spanish', 'english'],
+        },
+      ],
+    },
+    {
+      collection: 'jobs',
+      title: 'Work',
+      entries: ['acciona', 'fab', 'acciona-idi', 'upm'],
+    },
+    {
+      collection: 'projects',
+      title: 'Projects',
+      entries: ['moni-buddy', 'user-board'],
+    },
+    {
+      collection: 'references',
+      title: 'References',
+      entries: ['alberto-bornstein'],
+    },
+    {
+      collection: 'achievements',
+      title: 'Achievements',
+      entries: ['google-developer-expert', 'reactathon-hackathon', 'redux-toolkit-contributor'],
+    },
+    {
+      collection: 'education',
+      title: 'Education',
+      entries: ['bachelor-computer-science', 'bachelor-civil-engineering'],
+    },
+    {
+      collection: 'favorites',
+      title: 'Favorites',
+      subsections: [
+        {
+          title: 'Books I read',
+          icon: 'material-symbols:book-2',
+          entries: [
+            'books/domain-driven-design',
+            'books/grokkking-simplicity',
+            'books/learning-javascript-design-patterns',
+            'books/the-pragmatic-programmer',
+          ],
+        },
+        {
+          title: 'Articles I come back to',
+          withSource: true,
+          icon: 'material-symbols:article',
+          entries: [
+            'articles/client-side-architecture-basics',
+            'articles/future-facing-frontend-architectures',
+            'articles/practical-react-query',
+            'articles/the-least-worst-architecture',
+          ],
+        },
+        {
+          title: 'People I learn from',
+          icon: 'material-symbols:person',
+          entries: [
+            'people/addy-osmani',
+            'people/anthony-fu',
+            'people/dan-abramov',
+            'people/josh-w-comeau',
+            'people/kent-c-dodds',
+            'people/lee-robinson',
+          ],
+        },
+      ],
+    },
+    {
+      collection: 'interests',
+      title: 'Interests',
+      entries: ['3dprinting', 'bodyboard', 'surfing', 'drones', 'electronics', 'photography', 'scuba'],
+    },
+  ],
+};
+---
+
+<MainTemplate {...props}>
+  <Fragment slot="head">
+    <Font />
+    <DuskColors />
+    <AccentColors />
+    <ElementColors />
+  </Fragment>
+</MainTemplate>

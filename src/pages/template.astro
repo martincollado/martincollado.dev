@@ -1,0 +1,149 @@
+---
+import type { ComponentProps } from 'astro/types';
+
+import AccentColors from '@/styles/colors/accent/indigo.astro';
+import DuskColors from '@/styles/colors/dusk/slate.astro';
+import ElementColors from '@/styles/colors/elements/default.astro';
+import Font from '@/styles/fonts/inter.astro';
+import MainTemplate from '@/web/templates/main-template.astro';
+
+const props: ComponentProps<typeof MainTemplate> = {
+  context: {
+    locale: 'enUS',
+    translations: 'en',
+    dateFormat: 'MMMM yyyy',
+    theme: 'custom',
+    pdf: {
+      path: '/generated/pdf/template.pdf',
+      label: 'Download resume',
+      filename: 'mark-freeman-resume.pdf',
+    },
+  },
+  metadata: 'main',
+  sidebar: [
+    { sectionId: 'basics', icon: 'fa6-solid:user', text: 'About me' },
+    { sectionId: 'skills', icon: 'fa6-solid:bars-progress', text: 'Skills' },
+    { sectionId: 'jobs', icon: 'fa6-solid:suitcase', text: 'Work experience' },
+    { sectionId: 'projects', icon: 'fa6-solid:rocket', text: 'Projects' },
+    { sectionId: 'references', icon: 'fa6-solid:comment', text: 'References' },
+    { sectionId: 'achievements', icon: 'fa6-solid:trophy', text: 'Achievements' },
+    { sectionId: 'education', icon: 'fa6-solid:graduation-cap', text: 'Education' },
+    { sectionId: 'favorites', icon: 'fa6-solid:star', text: 'Favorites' },
+  ],
+  basics: 'main',
+  sections: [
+    {
+      collection: 'skills',
+      title: 'Skills',
+      subsections: [
+        {
+          title: 'Technologies',
+          withLevel: true,
+          // prettier-ignore
+          entries: ['k8s', 'python', 'docker', 'grafana', 'prometheus', 'terraform', 'playwright', 'fastapi', 'postgresql', 'shadcn', 'argo', 'nats', 'k6', 'keycloak', 'istio', 'traefik', 'rust', 'astro', 'sketchup', 'fusion360', 'davinci'],
+        },
+        {
+          title: 'Tools',
+          entries: ['ghactions', 'gitlab', 'ado', 'sentry', 'datadog', 'sonar'],
+        },
+        {
+          title: 'Platforms',
+          entries: ['gcp', 'aws', 'azure', 'vercel'],
+        },
+        {
+          title: 'Languages',
+          entries: ['english', 'spanish'],
+        },
+      ],
+    },
+    {
+      collection: 'jobs',
+      title: 'Work',
+      entries: ['acciona', 'fab', 'acciona-idi', 'upm'],
+    },
+    {
+      collection: 'projects',
+      title: 'Projects',
+      entries: ['moni-buddy', 'user-board'],
+    },
+    {
+      collection: 'references',
+      title: 'References',
+      entries: ['alberto-bornstein'],
+    },
+    {
+      collection: 'achievements',
+      title: 'Achievements',
+      entries: [
+        'advanced-react-developer',
+        'google-developer-expert',
+        'reactathon-hackathon',
+        'redux-toolkit-contributor',
+      ],
+    },
+    {
+      collection: 'education',
+      title: 'Education',
+      entries: ['bachelor-computer-science', 'bachelor-civil-engineering'],
+    },
+    {
+      collection: 'favorites',
+      title: 'Favorites',
+      subsections: [
+        {
+          title: 'Books I read',
+          image: 'poster',
+          entries: [
+            'books/domain-driven-design',
+            'books/grokkking-simplicity',
+            'books/learning-javascript-design-patterns',
+            'books/the-pragmatic-programmer',
+          ],
+        },
+        {
+          title: 'Articles I come back to',
+          withSource: true,
+          image: 'favicon',
+          entries: [
+            'articles/client-side-architecture-basics',
+            'articles/future-facing-frontend-architectures',
+            'articles/practical-react-query',
+            'articles/the-least-worst-architecture',
+          ],
+        },
+        {
+          title: 'Videos I watched',
+          image: 'video',
+          entries: ['videos/mind-the-gap', 'videos/monads', 'videos/principled-coders', 'videos/scaling-yourself'],
+        },
+        {
+          title: 'People I learn from',
+          image: 'person',
+          entries: [
+            'people/addy-osmani',
+            'people/anthony-fu',
+            'people/dan-abramov',
+            'people/josh-w-comeau',
+            'people/kent-c-dodds',
+            'people/lee-robinson',
+          ],
+        },
+      ],
+    },
+    {
+      collection: 'interests',
+      title: 'Interests',
+      entries: ['3dprinting', 'bodyboard', 'surfing', 'drones', 'electronics', 'photography', 'scuba'],
+    },
+  ],
+};
+---
+
+<MainTemplate {...props}>
+  <Fragment slot="head">
+    <Font />
+    <DuskColors />
+    <AccentColors />
+    <ElementColors />
+  </Fragment>
+</MainTemplate>

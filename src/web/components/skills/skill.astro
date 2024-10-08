@@ -1,0 +1,18 @@
+---
+import type { AsyncEntry } from '@/types/entries';
+
+import SkillWithLevel from './skill-with-level.astro';
+import SkillWithoutLevel from './skill-without-level.astro';
+
+interface Props {
+  /** An entry from the `skills` collection. */
+  entry: AsyncEntry<'skills'>;
+
+  /** Whether to display the skill level. */
+  withLevel?: boolean;
+}
+
+const { withLevel, ...props } = Astro.props;
+---
+
+{withLevel ? <SkillWithLevel {...props} /> : <SkillWithoutLevel {...props} />}

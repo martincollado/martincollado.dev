@@ -1,0 +1,52 @@
+---
+import type { ComponentProps } from 'astro/types';
+
+import DateRange from '@/components/date-range.astro';
+import Img from '@/components/img.astro';
+import Details from '@/pdf/components/details.astro';
+import RenderedContent from '@/pdf/components/rendered-content.astro';
+import { RelatedSkills } from '@/pdf/components/skills';
+import type { AsyncEntry } from '@/types/entries';
+import type { Configurable } from '@/utils/configurable';
+import { shouldDisplay } from '@/utils/configurable';
+import { removeTopElement } from '@/utils/html-string';
+import { markdownToHtml } from '@/utils/markdown-to-html';
+
+interface Props {
+  /** An entry from the `jobs` collection. */
+  entry: AsyncEntry<'jobs'>;
+
+  /** Configuration for job related skills. Pass `null` to hide related skills. */
+  relatedSkills?: Configurable<Pick<ComponentProps<typeof RelatedSkills>, 'label' | 'include' | 'exclude'>>;
+}
+
+const { entry, relatedSkills } = Astro.props;
+const { data: job, body, render } = await entry;
+---
+
+<div>
+  <div class="mb-4 flex items-start gap-3">
+    {
+      job.image && (
+        <Img class="size-15 rounded object-contain" src={job.image} alt={job.organization} width={128} height={128} />
+      )
+    }
+    <div>
+      <h3 class="text-base font-black leading-tight text-color-text-title">
+        {job.position}
+      </h3>
+      <div
+        class="text-sm font-medium text-color-text-title"
+        set:html={removeTopElement(markdownToHtml(job.organization))}
+      />
+      <DateRange class="text-sm font-normal text-color-text-primary" startDate={job.startDate} endDate={job.endDate} />
+    </div>
+  </div>
+  {job.details && <Details class="mb-2" details={job.details} />}
+  {body.trim().length > 0 && <RenderedContent {render} />}
+  {
+    job.skills && shouldDisplay(relatedSkills) && (
+      <RelatedSkills class="mt-3" skillRefs={job.skills} {...relatedSkills} />
+    )
+  }
+</div>

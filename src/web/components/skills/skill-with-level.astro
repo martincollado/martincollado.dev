@@ -1,0 +1,58 @@
+---
+import { Icon } from '@/components/icon';
+import Linkable from '@/components/linkable.astro';
+import type { AsyncEntry } from '@/types/entries';
+import { cn } from '@/utils/cn';
+import Popover from '@/web/components/popover.astro';
+
+interface Props {
+  /** An entry from the `skills` collection. */
+  entry: AsyncEntry<'skills'>;
+}
+
+const { entry } = Astro.props;
+const { data: skill, body, render } = await entry;
+
+if (!skill.level) {
+  throw new Error(`Skill "${skill.name}" is missing a "level" field.`);
+}
+
+const [level, maxLevel] = skill.level.split('/').map(Number) as [number, number];
+const Description = body.trim().length > 0 && (await render()).Content;
+const iconStyle = skill.color ? { color: skill.color } : undefined;
+
+// Icon height + margin must equal text line height so they align properly.
+const iconClass = cn('my-0.5 size-4 sm:my-1');
+const textClass = cn('text-sm font-medium text-color-text-primary sm:text-base');
+---
+
+<div class="flex flex-col gap-1.5">
+  <div class="flex items-start gap-1.5">
+    {skill.icon && <Icon name={skill.icon} style={iconStyle} class={iconClass} />}
+    <Linkable class={textClass} href={skill.url}>
+      {skill.name}
+    </Linkable>
+    {
+      Description && (
+        <Popover>
+          <button slot="trigger" class="ml-auto">
+            <Icon
+              name="fa6-solid:circle-info"
+              class={cn(iconClass, 'text-color-icon-light transition-colors hover:text-color-icon-light/80')}
+            />
+          </button>
+          <Description />
+        </Popover>
+      )
+    }
+  </div>
+  <div>
+    <div class="flex gap-1">
+      {
+        Array.from({ length: maxLevel }, (_, i) => (
+          <div class={`h-1.5 flex-1 rounded-sm sm:h-2 ${i < level ? 'bg-color-bg-dark' : 'bg-color-bg-main'}`} />
+        ))
+      }
+    </div>
+  </div>
+</div>

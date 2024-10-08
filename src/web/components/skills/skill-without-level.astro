@@ -1,0 +1,38 @@
+---
+import { Icon } from '@/components/icon';
+import Linkable from '@/components/linkable.astro';
+import type { AsyncEntry } from '@/types/entries';
+import { cn } from '@/utils/cn';
+import Popover from '@/web/components/popover.astro';
+
+interface Props {
+  /** An entry from the `skills` collection. */
+  entry: AsyncEntry<'skills'>;
+}
+
+const { entry } = Astro.props;
+const { data: skill, body, render } = await entry;
+
+const Description = body.trim().length > 0 && (await render()).Content;
+const iconStyle = skill.color ? { color: skill.color } : undefined;
+---
+
+<div class="flex items-center gap-2 overflow-hidden rounded bg-color-bg-light pl-2">
+  {skill.icon && <Icon name={skill.icon} class="size-4" style={iconStyle} />}
+  <Linkable class={cn('py-1 text-sm font-medium text-color-text-primary', !Description && 'pr-2')} href={skill.url}>
+    {skill.name}
+  </Linkable>
+  {
+    Description && (
+      <Popover>
+        <button
+          slot="trigger"
+          class="group flex size-7 items-center justify-center bg-color-bg-main transition-colors hover:bg-color-bg-main/80"
+        >
+          <Icon name="fa6-solid:circle-info" class="size-4 text-color-icon-light" />
+        </button>
+        <Description />
+      </Popover>
+    )
+  }
+</div>

@@ -1,0 +1,26 @@
+---
+import type { AsyncEntry } from '@/types/entries';
+
+import GeneratedFavicons from './generated/favicons.astro';
+
+interface Props {
+  /** An entry from the `metadata` collection. */
+  entry: AsyncEntry<'metadata'>;
+}
+
+const { entry } = Astro.props;
+const { data: meta } = await entry;
+
+const ogImage = typeof meta.openGraph?.image === 'string' ? meta.openGraph.image : meta.openGraph?.image?.src;
+---
+
+<title>{meta.title}</title>
+<link rel="sitemap" href="/sitemap-index.xml" />
+<GeneratedFavicons />
+<meta name="title" content={meta.title} />
+<meta name="description" content={meta.description} />
+<meta property="og:title" content={meta.openGraph?.title ?? meta.title} />
+<meta property="og:description" content={meta.openGraph?.description ?? meta.description} />
+{ogImage && <meta property="og:image" content={ogImage} />}
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />

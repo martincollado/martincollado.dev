@@ -1,0 +1,30 @@
+---
+import { Icon } from '@/components/icon';
+import Linkable from '@/components/linkable.astro';
+import type { AsyncEntry } from '@/types/entries';
+import { cn } from '@/utils/cn';
+
+interface Props {
+  /** An entry from the `skills` collection. */
+  entry: AsyncEntry<'skills'>;
+}
+
+const { entry } = Astro.props;
+const { data: skill } = await entry;
+
+if (!skill.level) {
+  throw new Error(`Skill "${skill.name}" is missing a "level" field.`);
+}
+
+const iconStyle = skill.color ? { color: skill.color } : undefined;
+---
+
+<div class="flex h-6 items-center overflow-hidden rounded border border-color-border pl-2">
+  {skill.icon && <Icon name={skill.icon} class="mr-1.5 size-3" style={iconStyle} />}
+  <Linkable class={cn('text-sm font-medium text-color-text-primary')} href={skill.url}>
+    {skill.name}
+  </Linkable>
+  <div class="ml-2 flex h-full items-center bg-color-bg-light px-2 text-xs font-bold text-color-text-primary">
+    {skill.level}
+  </div>
+</div>

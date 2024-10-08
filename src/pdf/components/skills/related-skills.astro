@@ -1,0 +1,41 @@
+---
+import type { ValidContentEntrySlug } from 'astro:content';
+import { getEntries } from 'astro:content';
+
+import type { ContextSlice } from '@/types/context';
+import { cn } from '@/utils/cn';
+import type { Configurable } from '@/utils/configurable';
+import { shouldDisplay } from '@/utils/configurable';
+import { getGlobalContext } from '@/utils/get-global-context';
+
+import SkillWithoutLevel from './skill-without-level.astro';
+
+interface Props {
+  skillRefs: { collection: 'skills'; slug: ValidContentEntrySlug<'skills'> }[];
+  label?: Configurable<string>;
+  include?: ValidContentEntrySlug<'skills'>[];
+  exclude?: ValidContentEntrySlug<'skills'>[];
+  class?: string;
+}
+
+const context = getGlobalContext<ContextSlice<'i18n'>>(Astro);
+
+const { skillRefs, label = context.i18n.t('related_skills'), include, exclude, class: className } = Astro.props;
+
+let skillEntries = (await getEntries(skillRefs)).map((entry) => ({ ...entry, body: '' }));
+
+if (include) {
+  skillEntries = skillEntries.filter((entry) => include.includes(entry.slug));
+}
+
+if (exclude) {
+  skillEntries = skillEntries.filter((entry) => !exclude.includes(entry.slug));
+}
+---
+
+<div class={cn('flex flex-wrap gap-1', className)}>
+  {shouldDisplay(label) && <div class="text-sm font-semibold leading-6 text-color-text-title">{label}:</div>}
+  <div class="flex flex-wrap gap-1.5">
+    {skillEntries.map((entry) => <SkillWithoutLevel {entry} />)}
+  </div>
+</div>

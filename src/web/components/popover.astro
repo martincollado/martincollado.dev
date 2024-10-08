@@ -1,0 +1,114 @@
+---
+import { nanoid } from 'nanoid';
+
+import type { ContextSlice } from '@/types/context';
+import { getGlobalContext } from '@/utils/get-global-context';
+import { addElementAttributes } from '@/utils/html-string';
+
+const trigger = await Astro.slots.render('trigger');
+
+if (!trigger) {
+  throw new Error('Popover must have a trigger slot');
+}
+
+const id = nanoid();
+const context = getGlobalContext<ContextSlice<'i18n'>>(Astro);
+const triggerProps = { 'data-target': `popover-${id}`, 'aria-label': context.i18n.t('popover_trigger') };
+---
+
+<Fragment set:html={addElementAttributes(trigger, triggerProps)} />
+<div
+  data-popover
+  id={`popover-${id}`}
+  role="tooltip"
+  class="prose prose-sm max-w-[520px] rounded-lg border border-color-border bg-color-bg-popover px-4 py-3 shadow-md sm:prose-base"
+>
+  <slot />
+</div>
+
+<style is:global>
+  [data-popover] {
+    margin: 0 !important;
+    position: absolute;
+    animation: show 200ms ease-out 100ms forwards;
+    opacity: 0;
+    display: none;
+  }
+
+  @keyframes show {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+<script>
+  import { autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
+
+  const elements = [...document.querySelectorAll('[data-target]')].flatMap((trigger) => {
+    if (!(trigger instanceof HTMLElement)) return [];
+
+    const popoverId = trigger.dataset['target'];
+
+    if (!popoverId || !popoverId.startsWith('popover')) return [];
+
+    const popover = document.getElementById(popoverId);
+
+    if (!popover) return [];
+
+    return [{ trigger, popover }];
+  });
+
+  function updatePosition(trigger: HTMLElement, popover: HTMLElement) {
+    computePosition(trigger, popover, {
+      middleware: [offset(8), flip(), shift({ padding: 8 })],
+      placement: 'top',
+    }).then(({ x, y }) => {
+      Object.assign(popover.style, {
+        left: `${x}px`,
+        top: `${y}px`,
+      });
+    });
+  }
+
+  function addHidePopoverListeners(trigger: HTMLElement, popover: HTMLElement) {
+    const hidePopover = () => {
+      popover.style.display = 'none';
+      document.removeEventListener('keydown', escapeKey);
+      document.removeEventListener('click', clickOutside);
+    };
+
+    const clickOutside = (event: MouseEvent) => {
+      if (!popover.contains(event.target as Node) && !trigger.contains(event.target as Node)) {
+        hidePopover();
+      }
+    };
+
+    const escapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        hidePopover();
+      }
+    };
+
+    document.addEventListener('click', clickOutside);
+    document.addEventListener('keydown', escapeKey);
+  }
+
+  function addOpenPopoverListeners(trigger: HTMLElement, popover: HTMLElement, updateFn: () => void) {
+    trigger.addEventListener('click', () => {
+      popover.style.display = 'block';
+      updateFn();
+
+      addHidePopoverListeners(trigger, popover);
+    });
+  }
+
+  elements.forEach(({ trigger, popover }) => {
+    const updateFn = () => updatePosition(trigger, popover);
+
+    autoUpdate(trigger, popover, updateFn);
+    addOpenPopoverListeners(trigger, popover, updateFn);
+  });
+</script>

@@ -1,0 +1,68 @@
+---
+import type { ComponentProps } from 'astro/types';
+
+import { Icon } from '@/components/icon';
+import Linkable from '@/components/linkable.astro';
+import type { AsyncEntry } from '@/types/entries';
+import type { ImageProps } from '@/types/image';
+import { cn } from '@/utils/cn';
+import type { Configurable } from '@/utils/configurable';
+import { shouldDisplay } from '@/utils/configurable';
+import { formatDate } from '@/utils/format-date';
+import { removeTopElement } from '@/utils/html-string';
+import { markdownToHtml } from '@/utils/markdown-to-html';
+import RenderedContent from '@/web/components/rendered-content.astro';
+import { RelatedSkills } from '@/web/components/skills';
+
+interface Props {
+  /** An entry from the `achievements` collection. */
+  entry: AsyncEntry<'achievements'>;
+
+  /** Loading strategy passed to the <Icon /> component. */
+  loading?: ImageProps['loading'];
+
+  /** Configuration for achievement related skills. Pass `null` to hide related skills. */
+  relatedSkills?: Configurable<Pick<ComponentProps<typeof RelatedSkills>, 'label' | 'include' | 'exclude'>>;
+}
+
+const { entry, loading, relatedSkills } = Astro.props;
+const { data: achievement, body, render } = await entry;
+
+const date = achievement.date && formatDate(achievement.date, Astro);
+---
+
+<div class="grid gap-2">
+  <div class="grid">
+    <div class="flex flex-wrap gap-x-1.5 gap-y-0.5 sm:gap-3">
+      {
+        achievement.icon && (
+          <div class="my-0.5 flex size-6 shrink-0 items-center justify-center rounded bg-color-bg-main">
+            <Icon name={achievement.icon} class="size-3.5 text-color-icon-dark" {loading} />
+          </div>
+        )
+      }
+      <Linkable class="text-lg font-bold text-color-text-title sm:text-xl" href={achievement.url}>
+        {achievement.name}
+      </Linkable>
+    </div>
+    <div class={cn(achievement.icon && 'sm:pl-9')}>
+      {
+        achievement.issuer && (
+          <div
+            class="text-sm font-medium text-color-text-title sm:text-base"
+            set:html={removeTopElement(markdownToHtml(achievement.issuer))}
+          />
+        )
+      }
+      {date && <div class="text-sm font-normal text-color-text-primary sm:text-base">{date}</div>}
+    </div>
+  </div>
+  <div class={cn(achievement.icon && 'sm:pl-9')}>
+    {body.trim().length > 0 && <RenderedContent {render} />}
+    {
+      achievement.skills && shouldDisplay(relatedSkills) && (
+        <RelatedSkills class="mt-5" skillRefs={achievement.skills} {...relatedSkills} />
+      )
+    }
+  </div>
+</div>

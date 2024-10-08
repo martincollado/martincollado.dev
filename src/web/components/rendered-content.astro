@@ -1,0 +1,46 @@
+---
+import type { Render } from 'astro:content';
+
+import { cn } from '@/utils/cn';
+
+interface Props {
+  class?: string;
+  render: () => Render['.mdx'] | Render['.md'];
+}
+
+const { render, class: className } = Astro.props;
+
+const { Content } = await render();
+---
+
+<div class={cn('prose prose-sm max-w-none text-justify sm:prose-base', className)}>
+  <Content />
+</div>
+
+<style>
+  .prose {
+    p {
+      margin: 0;
+
+      & + p {
+        margin-top: 0.5em;
+      }
+    }
+
+    ul,
+    ol {
+      margin-top: 0.5em;
+      padding-inline-start: 1rem;
+    }
+
+    li {
+      margin: 0;
+      padding-inline-start: 0px;
+      line-height: 1.5;
+
+      & + li {
+        margin-top: 0.5em;
+      }
+    }
+  }
+</style>

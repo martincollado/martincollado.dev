@@ -1,0 +1,41 @@
+---
+import { Icon } from '@/components/icon';
+import type { AsyncEntry } from '@/types/entries';
+import type { ImageProps } from '@/types/image';
+import Popover from '@/web/components/popover.astro';
+
+interface Props {
+  /** An entry from the `interests` collection. */
+  entry: AsyncEntry<'interests'>;
+
+  /** Loading strategy passed to the <Icon /> component. */
+  loading?: ImageProps['loading'];
+}
+
+const { entry, loading } = Astro.props;
+const { data: interest, body, render } = await entry;
+
+const Description = body.trim().length > 0 && (await render()).Content;
+---
+
+<div class="flex flex-wrap gap-6 rounded border border-color-border px-3 py-2 sm:px-4 sm:py-3">
+  <div class="flex items-center gap-2">
+    {interest.icon && <Icon name={interest.icon} class="size-5 text-color-icon-dark" {loading} />}
+    <div class="text-sm font-medium text-color-text-primary sm:text-base">
+      {interest.name}
+    </div>
+  </div>
+  {
+    Description && (
+      <Popover>
+        <button slot="trigger" class="ml-auto">
+          <Icon
+            name="fa6-solid:circle-info"
+            class="size-4 text-color-icon-light transition-colors hover:text-color-icon-light/80"
+          />
+        </button>
+        <Description />
+      </Popover>
+    )
+  }
+</div>
