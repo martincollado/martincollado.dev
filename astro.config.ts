@@ -13,16 +13,21 @@ import spotlightjs from '@spotlightjs/astro';
 import { defineConfig, envField } from 'astro/config';
 import icon from 'astro-icon';
 import metaTags from 'astro-meta-tags';
+// import node from '@astrojs/node';
 import vercel from '@astrojs/vercel/serverless';
 
 // https://astro.build/config
 export default defineConfig({
   site: getSiteUrl(),
+
   // i18n: {
   //   defaultLocale: 'en',
   //   locales: ['es', 'en'],
   // },
   output: 'server',
+  // adapter: node({
+  //   mode: 'standalone',
+  // }),
   adapter: vercel({
     imageService: true,
   }),

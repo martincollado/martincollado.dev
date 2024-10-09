@@ -13,7 +13,8 @@ interface Props {
 const { entry } = Astro.props;
 const { data: skill, body, render } = await entry;
 
-const Description = body.trim().length > 0 && (await render()).Content;
+// Verifica si el body existe antes de usar .trim()
+const Description = body && body.trim().length > 0 && (await render()).Content;
 const iconStyle = skill.color ? { color: skill.color } : undefined;
 ---
 
