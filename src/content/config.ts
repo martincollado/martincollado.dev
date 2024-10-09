@@ -7,7 +7,6 @@ const labelledValueSchema = z.object({
 
 export const collections = {
   achievements: defineCollection({
-    type: 'content',
     schema: z.object({
       name: z.string(),
       url: z.string().url().optional(),
@@ -18,114 +17,99 @@ export const collections = {
     }),
   }),
   basics: defineCollection({
-    type: 'content',
-    schema: ({ image }) =>
-      z.object({
-        name: z.string(),
-        label: z.string().optional(),
-        image: image().or(z.string()).optional(),
-        birthdate: z.date().optional(),
-        email: z.string().email().optional(),
-        phone: z.string().optional(),
-        country: z.string().optional(),
-        city: z.string().optional(),
-        details: z.array(labelledValueSchema).min(1).optional(),
-        socials: z.array(
-          z.object({
-            label: z.string(),
-            icon: z.string(),
-            url: z.string().url(),
-          }),
-        ),
-      }),
+    schema: z.object({
+      name: z.string(),
+      label: z.string().optional(),
+      image: z.string().optional(), // Modificado para aceptar solo string
+      birthdate: z.date().optional(),
+      email: z.string().email().optional(),
+      phone: z.string().optional(),
+      country: z.string().optional(),
+      city: z.string().optional(),
+      details: z.array(labelledValueSchema).min(1).optional(),
+      socials: z.array(
+        z.object({
+          label: z.string(),
+          icon: z.string(),
+          url: z.string().url(),
+        }),
+      ),
+    }),
   }),
   education: defineCollection({
-    type: 'content',
-    schema: ({ image }) =>
-      z.object({
-        title: z.string(),
-        institution: z.string(),
-        image: image().or(z.string()).optional(),
-        startDate: z.date(),
-        endDate: z.date().optional(),
-        isFinished: z.boolean().optional(),
-        details: z.array(labelledValueSchema).min(1).optional(),
-        skills: z.array(reference('skills')).min(1).optional(),
-      }),
+    schema: z.object({
+      title: z.string(),
+      institution: z.string(),
+      image: z.string().optional(), // Modificado para aceptar solo string
+      startDate: z.date(),
+      endDate: z.date().optional(),
+      isFinished: z.boolean().optional(),
+      details: z.array(labelledValueSchema).min(1).optional(),
+      skills: z.array(reference('skills')).min(1).optional(),
+    }),
   }),
   favorites: defineCollection({
-    type: 'content',
-    schema: ({ image }) =>
-      z.object({
-        title: z.string(),
-        subtitle: z.string().optional(),
-        url: z.string().url(),
-        image: image().or(z.string()).optional(),
-      }),
+    schema: z.object({
+      title: z.string(),
+      subtitle: z.string().optional(),
+      url: z.string().url(),
+      image: z.string().optional(), // Modificado para aceptar solo string
+    }),
   }),
   interests: defineCollection({
-    type: 'content',
     schema: z.object({
       name: z.string(),
       icon: z.string().optional(),
     }),
   }),
   jobs: defineCollection({
-    type: 'content',
-    schema: ({ image }) =>
-      z.object({
-        position: z.string(),
-        organization: z.string(),
-        image: image().or(z.string()).optional(),
-        startDate: z.date(),
-        endDate: z.date().optional(),
-        details: z.array(labelledValueSchema).min(1).optional(),
-        skills: z.array(reference('skills')).min(1).optional(),
-      }),
+    schema: z.object({
+      position: z.string(),
+      organization: z.string(),
+      image: z.string().optional(), // Modificado para aceptar solo string
+      startDate: z.date(),
+      endDate: z.date().optional(),
+      details: z.array(labelledValueSchema).min(1).optional(),
+      skills: z.array(reference('skills')).min(1).optional(),
+    }),
   }),
   metadata: defineCollection({
     type: 'data',
-    schema: ({ image }) =>
-      z.object({
-        title: z.string(),
-        description: z.string(),
-        openGraph: z
-          .object({
-            image: image().or(z.string()).optional(),
-            title: z.string().optional(),
-            description: z.string().optional(),
-          })
-          .optional(),
-      }),
+    schema: z.object({
+      title: z.string(),
+      description: z.string(),
+      openGraph: z
+        .object({
+          image: z.string().optional(), // Modificado para aceptar solo string
+          title: z.string().optional(),
+          description: z.string().optional(),
+        })
+        .optional(),
+    }),
   }),
   projects: defineCollection({
-    type: 'content',
-    schema: ({ image }) =>
-      z.object({
-        name: z.string(),
-        description: z.string(),
-        image: image().or(z.string()).optional(),
-        startDate: z.date(),
-        endDate: z.date().optional(),
-        details: z.array(labelledValueSchema).min(1).optional(),
-        skills: z.array(reference('skills')).min(1).optional(),
-      }),
+    schema: z.object({
+      name: z.string(),
+      description: z.string(),
+      image: z.string().optional(), // Modificado para aceptar solo string
+      startDate: z.date(),
+      endDate: z.date().optional(),
+      details: z.array(labelledValueSchema).min(1).optional(),
+      skills: z.array(reference('skills')).min(1).optional(),
+    }),
   }),
   references: defineCollection({
-    type: 'content',
-    schema: ({ image }) =>
-      z.object({
-        author: z.object({
-          name: z.string(),
-          position: z.string().optional(),
-          relation: z.string().optional(),
-          image: image().or(z.string()).optional(),
-          url: z.string().url().optional(),
-        }),
+    schema: z.object({
+      author: z.object({
+        name: z.string(),
+        position: z.string().optional(),
+        relation: z.string().optional(),
+        image: z.string().optional(), // Modificado para aceptar solo string
+        url: z.string().url().optional(),
       }),
+    }),
   }),
   skills: defineCollection({
-    type: 'content',
     schema: z.object({
       name: z.string(),
       icon: z.string().optional(),
@@ -134,7 +118,6 @@ export const collections = {
         .custom<`${number}/${number}`>(
           (value) => {
             const [current, max] = value.split('/').map(Number);
-
             return !isNaN(current) && !isNaN(max) && current <= max;
           },
           { message: "Skill level must be in the format 'current/max' where current <= max." },

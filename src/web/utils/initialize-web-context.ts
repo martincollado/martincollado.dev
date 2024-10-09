@@ -25,34 +25,32 @@ export interface WebContext {
   /** Store used for server icon caching. */
   iconStore: IconStore;
 
-  /** Configuration of the resume ThemeSwitcher. Possible values are:
-   * - `light` - use light theme.
-   * - `dark` - use dark theme.
-   * - `system` - use system theme.
-   * - `custom` - use system theme by default, but allow user to change it.
-   */
+  /** Configuration of the resume ThemeSwitcher. */
   theme: Theme;
 
   /** Details of the PDF resume linked on the website. */
   pdf?: {
-    /** Path to the PDF resume within the `/public` directory. */
     path: string;
-
-    /** Label displayed on the PDF download button. */
     label: string;
-
-    /** Name of the downloaded PDF file. */
     filename: string;
   };
 }
 
 /** Initializes global context for a web resume. */
 export async function initializeWebContext(astro: AstroGlobal, data: WebContextData) {
+  // Verifica que data.translations exista y tenga la propiedad 'data'
+  const translationsData = (await data.translations)?.data;
+  if (!translationsData) {
+    throw new Error('Translations data is not available');
+  }
+
+  // Inicializa i18next
   await i18next.init({
     lng: data.locale.code,
-    resources: { [data.locale.code]: { translation: (await data.translations).data } },
+    resources: { [data.locale.code]: { translation: translationsData } },
   });
 
+  // Crea el contexto web
   const context: WebContext = {
     ...data,
     type: 'web',
@@ -60,5 +58,6 @@ export async function initializeWebContext(astro: AstroGlobal, data: WebContextD
     iconStore: new Map<string, string | Promise<string>>(),
   };
 
+  // Asigna el contexto global a astro.locals
   astro.locals.globalContext = context;
 }

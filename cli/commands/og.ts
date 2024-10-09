@@ -1,4 +1,4 @@
-import type { Page } from 'puppeteer';
+import type { Page } from 'playwright';
 
 import { SERVER_URL } from '../constants';
 import { assertServerIsRunning, ensureCleanDirExists, forAllPages, log, runBrowser, visitPage } from '../helpers';

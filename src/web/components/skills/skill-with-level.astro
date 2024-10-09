@@ -18,7 +18,8 @@ if (!skill.level) {
 }
 
 const [level, maxLevel] = skill.level.split('/').map(Number) as [number, number];
-const Description = body.trim().length > 0 && (await render()).Content;
+// Verifica si el body existe y tiene contenido antes de llamar a .trim()
+const Description = body && body.trim().length > 0 && (await render()).Content;
 const iconStyle = skill.color ? { color: skill.color } : undefined;
 
 // Icon height + margin must equal text line height so they align properly.
