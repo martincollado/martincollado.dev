@@ -24,7 +24,7 @@ export default defineConfig({
   //   defaultLocale: 'en',
   //   locales: ['es', 'en'],
   // },
-  output: 'server',
+  output: 'static',
   // adapter: node({
   //   mode: 'standalone',
   // }),
