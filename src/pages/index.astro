@@ -119,6 +119,8 @@ await initializeWebContext(Astro, {
   <Section class="gap-8" id="jobs">
     <SectionTitle>Work</SectionTitle>
     <VerticalList class="gap-10">
+      <Job entry={getEntry('jobs', 'devoteam')} />
+      <Separator />
       <Job entry={getEntry('jobs', 'acciona')} />
       <Separator />
       <Job entry={getEntry('jobs', 'fab')} />

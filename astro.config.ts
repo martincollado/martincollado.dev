@@ -7,14 +7,14 @@ import { join } from 'node:path';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
+// import node from '@astrojs/node';
+import vercel from '@astrojs/vercel';
 import compress from '@playform/compress';
 import sentry from '@sentry/astro';
 import spotlightjs from '@spotlightjs/astro';
 import { defineConfig, envField } from 'astro/config';
 import icon from 'astro-icon';
 import metaTags from 'astro-meta-tags';
-// import node from '@astrojs/node';
-import vercel from '@astrojs/vercel/serverless';
 
 // https://astro.build/config
 export default defineConfig({
@@ -24,7 +24,7 @@ export default defineConfig({
   //   defaultLocale: 'en',
   //   locales: ['es', 'en'],
   // },
-  output: 'server',
+  output: 'static',
   // adapter: node({
   //   mode: 'standalone',
   // }),
