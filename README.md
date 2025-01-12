@@ -1,2 +1,3 @@
 # martincollado.dev
-Martin Collado Resume Website
+
+Martin Collado resume website.
