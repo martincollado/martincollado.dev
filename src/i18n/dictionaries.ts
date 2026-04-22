@@ -143,7 +143,7 @@ const en: Dictionary = {
     titleL1: 'WHERE I',
     titleL2: 'BROKE AND FIXED',
     titleL3: 'THINGS.',
-    labels: { type: 'TYPE', model: 'MODEL' },
+    labels: { type: 'TYPE', model: 'MODE' },
   },
   education: {
     sectionMeta: '03 / EDUCATION + REFERENCES',

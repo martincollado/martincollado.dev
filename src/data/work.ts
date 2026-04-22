@@ -87,7 +87,7 @@ export const work: WorkItem[] = [
     company: 'FUNDACIÓN A. BETANCOURT',
     companyUrl: 'https://fundacionabetancourt.org/',
     date: { es: 'JUN 2020<br/>— ACTUAL', en: 'JUN 2020<br/>— CURRENT' },
-    type: { es: 'CONSULTORÍA', en: 'CONSULTANT' },
+    type: { es: 'CONSULTORÍA', en: 'CONSULTING' },
     model: { es: 'REMOTO', en: 'REMOTE' },
     bullets: {
       es: [

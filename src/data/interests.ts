@@ -16,7 +16,7 @@ export const interests: Interest[] = [
   {
     num: '01',
     title: { es: 'SURF', en: 'SURF' },
-    tag: { es: '// PLAYAS CANTÁBRICAS · WIP', en: '// CANTABRIC BEACHES · WIP' },
+    tag: { es: '// PLAYAS CANTÁBRICAS · WIP', en: '// CANTABRIAN BEACHES · WIP' },
   },
   {
     num: '02',
@@ -40,7 +40,7 @@ export const interests: Interest[] = [
   },
   {
     num: '06',
-    title: { es: 'IMPRE<br/>SIÓN 3D', en: '3D PRINT' },
+    title: { es: 'IMPRESIÓN<br/>3D', en: '3D<br/>PRINT' },
     tag: { es: '// FUSION 360 · SKETCHUP', en: '// FUSION 360 · SKETCHUP' },
   },
   {
