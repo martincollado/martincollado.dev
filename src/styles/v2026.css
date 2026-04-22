@@ -136,14 +136,22 @@ main { position: relative; z-index: 2; }
 .nav {
   position: sticky; top: 0; z-index: 50;
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   background: rgba(13,13,13,0.72);
   border-bottom: 1px solid var(--line);
+  transition: background .2s ease, border-color .2s ease;
+}
+.nav.is-scrolled {
+  background: rgba(13,13,13,0.92);
+  border-bottom-color: rgba(199, 242, 61, 0.2);
 }
 .nav-inner {
   display: flex; align-items: center; justify-content: space-between;
   padding: 14px 0;
   gap: 24px;
+  transition: padding .2s ease;
 }
+.nav.is-scrolled .nav-inner { padding: 8px 0; }
 .nav-logo {
   display: flex; align-items: center; gap: 10px;
   font-family: var(--font-mono);
@@ -309,6 +317,25 @@ main { position: relative; z-index: 2; }
   display: grid;
   gap: 14px;
 }
+.hero-meta-card {
+  margin-top: 56px;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--line);
+  border-left-width: 1px;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 20px 22px;
+}
+@media (max-width: 720px) {
+  .hero-meta-card {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    padding: 18px;
+    margin-top: 40px;
+  }
+}
+@media (max-width: 420px) {
+  .hero-meta-card { grid-template-columns: 1fr; gap: 14px; }
+}
 .hero-meta dt {
   color: var(--fg-dim);
   text-transform: uppercase;
@@ -370,12 +397,11 @@ main { position: relative; z-index: 2; }
 
 .hero-portrait {
   aspect-ratio: 4/5;
-  background:
-    radial-gradient(ellipse 70% 50% at 50% 55%, rgba(199, 242, 61, 0.08) 0%, transparent 70%),
-    #0a0a0a;
+  background: transparent;
   position: relative;
   display: flex; align-items: flex-end; justify-content: center;
   overflow: hidden;
+  isolation: isolate;
 }
 .hero-portrait .placeholder-label {
   position: absolute; top: 12px; left: 12px;
@@ -392,17 +418,17 @@ main { position: relative; z-index: 2; }
   display: block;
   position: relative;
   z-index: 1;
-  /* `lighten` blend makes the PNG's solid black background disappear into
-     the card — only the subject + neon outline show through, no visible
-     rectangle edge. */
-  mix-blend-mode: lighten;
+  /* `screen` blend treats the PNG's pure-black background as transparent,
+     so the figure + neon outline float cleanly on whatever is behind the
+     card — no banding, no visible rectangle edge. */
+  mix-blend-mode: screen;
   filter:
     contrast(1.04) saturate(1.08)
-    drop-shadow(0 0 14px rgba(199, 242, 61, 0.35))
-    drop-shadow(0 0 40px rgba(199, 242, 61, 0.18));
+    drop-shadow(0 0 18px rgba(199, 242, 61, 0.35))
+    drop-shadow(0 0 48px rgba(199, 242, 61, 0.16));
 }
-/* Mobile Safari can over-aggressively darken lighten-blended images;
-   give the subject a solid safety net via a secondary layer. */
+/* Mobile Safari can mis-render screen blend on compressed images; fall
+   back to normal with a stronger accent glow to keep the subject punchy. */
 @media (max-width: 720px) {
   .hero-portrait .portrait-img {
     mix-blend-mode: normal;
@@ -412,15 +438,13 @@ main { position: relative; z-index: 2; }
       drop-shadow(0 0 50px rgba(199, 242, 61, 0.22));
   }
 }
-/* Grain overlay to key the portrait into the site's concrete texture */
-.hero-portrait::after {
+/* Soft radial key light behind the figure — sits BEHIND the image, not on top. */
+.hero-portrait::before {
   content: "";
   position: absolute; inset: 0;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9  0 0 0 0 0.9  0 0 0 0 0.9  0 0 0 0.22 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  opacity: 0.4;
-  mix-blend-mode: overlay;
+  background: radial-gradient(ellipse 70% 55% at 50% 52%, rgba(199, 242, 61, 0.10), transparent 70%);
   pointer-events: none;
-  z-index: 2;
+  z-index: 0;
 }
 .hero-id-meta {
   display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
@@ -438,6 +462,8 @@ main { position: relative; z-index: 2; }
   overflow: hidden;
   background: rgba(0,0,0,0.3);
   position: relative;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
 }
 .ticker-track {
   display: flex; gap: 48px;
@@ -809,8 +835,36 @@ main { position: relative; z-index: 2; }
 .footer a:hover { color: var(--accent); }
 
 /* ---------- STAGGER ANIMATION ---------- */
-.reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.in { opacity: 1; transform: none; }
+.reveal[data-delay='1'] { transition-delay: .06s; }
+.reveal[data-delay='2'] { transition-delay: .12s; }
+.reveal[data-delay='3'] { transition-delay: .18s; }
+.reveal[data-delay='4'] { transition-delay: .24s; }
+
+/* ---------- SCROLL HINT ---------- */
+.scroll-hint {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  margin: 56px auto 0;
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--fg-dim);
+  position: relative;
+  width: max-content;
+}
+.scroll-hint::after {
+  content: ""; width: 1px; height: 32px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scrollHintPulse 1.8s ease-in-out infinite;
+}
+@keyframes scrollHintPulse {
+  0%, 100% { opacity: 0.35; transform: scaleY(0.6); transform-origin: top; }
+  50%      { opacity: 1;    transform: scaleY(1);   transform-origin: top; }
+}
+@media (max-width: 720px) {
+  .scroll-hint { margin-top: 32px; font-size: 9px; }
+  .scroll-hint::after { height: 24px; }
+}
 
 /* ---------- TWEAKS PANEL ---------- */
 #tweaks {

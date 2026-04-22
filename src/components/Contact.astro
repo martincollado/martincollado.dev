@@ -11,14 +11,14 @@ const resumeUrl = site.resumeUrlByLocale[locale];
 <section class="contact container" id="contact">
   <div class="section-meta">{dict.contact.sectionMeta}</div>
   <div class="section-tag"><span>{dict.contact.sectionTag}</span></div>
-  <h2>
+  <h2 class="reveal">
     <span>{dict.contact.titleL1}</span>
     <span class="accent">{dict.contact.titleL2}</span>
     <span class="outline">{dict.contact.titleL3}</span>
   </h2>
 
   <div class="contact-grid">
-    <div class="contact-links">
+    <div class="contact-links reveal" data-delay="1">
       <a class="contact-link" href={`mailto:${site.email}`}>
         <span>{site.email.toUpperCase()}</span>
         <span class="arrow">↗</span>
@@ -41,7 +41,7 @@ const resumeUrl = site.resumeUrlByLocale[locale];
       </a>
     </div>
 
-    <div class="terminal">
+    <div class="terminal reveal" data-delay="2">
       <div class="terminal-bar">
         <span></span><span></span><span class="g"></span>
         <span class="file">~/martin/contact.sh</span>

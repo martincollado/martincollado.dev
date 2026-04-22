@@ -57,10 +57,14 @@ const resumeUrl = site.resumeUrlByLocale[locale];
     </div>
   </div>
 
-  <dl class="hero-meta" style="margin-top:56px; grid-template-columns: repeat(4, 1fr); display:grid; padding:20px 22px; border:1px solid var(--line); background:rgba(0,0,0,.35)">
+  <dl class="hero-meta hero-meta-card">
     <div><dt>{dict.hero.meta.email}</dt><dd><a href={`mailto:${site.email}`}>{site.email}</a></dd></div>
     <div><dt>{dict.hero.meta.location}</dt><dd>{site.location}</dd></div>
     <div><dt>{dict.hero.meta.freelance}</dt><dd class="status">{dict.hero.meta.freelanceValue}</dd></div>
     <div><dt>{dict.hero.meta.years}</dt><dd>{dict.hero.meta.yearsValue}</dd></div>
   </dl>
+
+  <a href="#skills" class="scroll-hint" aria-label={locale === 'es' ? 'Desplázate para explorar' : 'Scroll to explore'}>
+    <span>{locale === 'es' ? 'DESPLÁZATE' : 'SCROLL'}</span>
+  </a>
 </section>
