@@ -13,7 +13,7 @@
   "author": "Martin Collado <info@martincollado.dev>",
   "type": "module",
   "engines": {
-    "node": ">=25"
+    "node": ">=22"
   },
   "scripts": {
     "dev": "astro dev",
