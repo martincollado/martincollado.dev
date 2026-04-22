@@ -42,7 +42,7 @@ const es: Dictionary = {
   },
   hero: {
     tag: 'SRE EN 2026 / FIABILIDAD Y CLOUD',
-    h1: { line1: 'INFRAESTRUCTURA', line2Before: '/ QUE NO SE', line3: 'CAE NUNCA.' },
+    h1: { line1: 'SISTEMAS', line2Before: '/ QUE NO TE', line3: 'DESPIERTAN.' },
     description:
       'Soy <strong>Martín Collado</strong>, <strong>Senior Site Reliability Engineer</strong> y <strong>Senior Python Developer</strong> con más de una década construyendo y optimizando sistemas de alto rendimiento en la nube. Mi especialidad: diseñar infraestructuras escalables en <span class="hl">Kubernetes</span>, <span class="hl">GCP</span> y <span class="hl">AWS</span> — con Argo CD, KEDA, Terraform e Istio como herramientas de cabecera. Me mantengo al día con LLMs y agentes autónomos, colaboro en proyectos open-source y llevo mi propio negocio de consultoría.',
     cta: { resume: 'DESCARGAR CV', work: 'VER EXPERIENCIA', contact: 'CONTACTAR' },
@@ -117,7 +117,7 @@ const en: Dictionary = {
   },
   hero: {
     tag: 'SRE IN 2026 / SITE RELIABILITY & CLOUD',
-    h1: { line1: 'INFRASTRUCTURE', line2Before: '/ THAT DOES', line3: "NOT FALL." },
+    h1: { line1: 'SYSTEMS', line2Before: "/ THAT DON'T", line3: 'WAKE YOU UP.' },
     description:
       "I'm <strong>Martín Collado</strong>, <strong>Senior Site Reliability Engineer</strong> and <strong>Senior Python Developer</strong> with over a decade building and optimizing high-performance systems in the cloud. My focus: designing scalable infrastructure on <span class=\"hl\">Kubernetes</span>, <span class=\"hl\">GCP</span> and <span class=\"hl\">AWS</span> — with Argo CD, KEDA, Terraform and Istio as everyday tools. I stay on top of LLMs and autonomous agents, contribute to open-source and run my own consulting business.",
     cta: { resume: 'DOWNLOAD CV', work: 'SEE EXPERIENCE', contact: 'GET IN TOUCH' },

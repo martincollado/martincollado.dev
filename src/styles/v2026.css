@@ -367,11 +367,14 @@ main { position: relative; z-index: 2; }
   display: block;
   position: relative;
   z-index: 1;
+  /* `lighten` blend makes the PNG's solid black background disappear into
+     the card — only the subject + neon outline show through, no visible
+     rectangle edge. */
+  mix-blend-mode: lighten;
   filter:
     contrast(1.04) saturate(1.08)
     drop-shadow(0 0 14px rgba(199, 242, 61, 0.35))
-    drop-shadow(0 0 40px rgba(199, 242, 61, 0.18))
-    drop-shadow(0 10px 30px rgba(0, 0, 0, 0.6));
+    drop-shadow(0 0 40px rgba(199, 242, 61, 0.18));
 }
 /* Grain overlay to key the portrait into the site's concrete texture */
 .hero-portrait::after {

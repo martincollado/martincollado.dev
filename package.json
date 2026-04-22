@@ -18,6 +18,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build-cloud": "astro build",
     "preview": "astro preview",
     "check": "concurrently \"eslint .\" \"astro check\" \"prettier --check .\" -n eslint,astro,prettier -c magenta,red,yellow",
     "format": "prettier --write ."
