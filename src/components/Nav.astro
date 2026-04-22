@@ -1,0 +1,77 @@
+---
+import type { Locale } from '../i18n/config';
+import { switchLocalePath, locales } from '../i18n/config';
+import { navLinks } from '../data/site';
+import { t } from '../i18n/dictionaries';
+
+export interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dict = t(locale);
+---
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="nav-logo">
+      <span class="nav-logo-dot"></span>
+      <span>MARTIN COLLADO / v2026</span>
+    </a>
+    <div class="nav-links">
+      {navLinks.map((l) => (
+        <a href={l.href}><span class="idx">{l.idx}</span>{dict.nav[l.key]}</a>
+      ))}
+    </div>
+    <div class="nav-right">
+      <div class="lang-switch" aria-label={dict.lang.selectorLabel}>
+        {locales.map((l) => (
+          <a
+            href={switchLocalePath(Astro.url, l)}
+            class={['lang-opt', l === locale ? 'active' : ''].join(' ')}
+            hreflang={l}
+            aria-current={l === locale ? 'true' : undefined}
+          >{l.toUpperCase()}</a>
+        ))}
+      </div>
+      <a href="#contact" class="nav-cta">{dict.nav.hireMe} <span>→</span></a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+  .lang-switch {
+    display: inline-flex;
+    border: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 10px; letter-spacing: 0.12em;
+  }
+  .lang-opt {
+    padding: 7px 10px;
+    color: var(--fg-mute);
+    text-transform: uppercase;
+    transition: all .15s ease;
+    border-right: 1px solid var(--line);
+  }
+  .lang-opt:last-child { border-right: none; }
+  .lang-opt:hover { color: var(--fg); }
+  .lang-opt.active { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+</style>
+
+<script>
+  const navLinksEls = [...document.querySelectorAll('.nav-links a')] as HTMLAnchorElement[];
+  const sections = navLinksEls
+    .map((a) => document.querySelector(a.getAttribute('href')!))
+    .filter(Boolean) as Element[];
+
+  const navIo = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          navLinksEls.forEach((l) => l.classList.remove('active'));
+          const i = sections.indexOf(e.target);
+          if (i >= 0) navLinksEls[i]?.classList.add('active');
+        }
+      });
+    },
+    { rootMargin: '-40% 0px -55% 0px' }
+  );
+  sections.forEach((s) => navIo.observe(s));
+</script>

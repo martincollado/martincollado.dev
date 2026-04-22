@@ -1,0 +1,32 @@
+---
+import type { Locale } from '../i18n/config';
+import { skills, getSubtitle } from '../data/skills';
+import { t } from '../i18n/dictionaries';
+import SkillTag from './SkillTag.astro';
+
+export interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dict = t(locale);
+---
+<section class="section container" id="skills">
+  <div class="section-meta">{dict.skills.sectionMeta}</div>
+  <div class="section-tag"><span>{dict.skills.sectionTag}</span></div>
+  <h2 class="section-title reveal">{dict.skills.titleL1}<br/><em>{dict.skills.titleL2}</em></h2>
+
+  <div class="skill-grid">
+    {skills.map((cat) => (
+      <div class="skill-cat reveal">
+        <div class="skill-cat-num">{cat.num}</div>
+        <h3>{cat.title}</h3>
+        {cat.groups.map((g, i) => (
+          <>
+            <div class="cat-sub" style={i === 0 ? '' : 'margin-top:32px'}>{getSubtitle(g, locale)}</div>
+            <div class="skill-tags">
+              {g.tags.map((tag) => <SkillTag tag={tag} />)}
+            </div>
+          </>
+        ))}
+      </div>
+    ))}
+  </div>
+</section>

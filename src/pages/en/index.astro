@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Hero from '../../components/Hero.astro';
+import Ticker from '../../components/Ticker.astro';
+import Skills from '../../components/Skills.astro';
+import Work from '../../components/Work.astro';
+import Education from '../../components/Education.astro';
+import Interests from '../../components/Interests.astro';
+import Contact from '../../components/Contact.astro';
+import Tweaks from '../../components/Tweaks.astro';
+
+const locale = 'en' as const;
+---
+<Base locale={locale}>
+  <Nav locale={locale} />
+  <main id="top">
+    <Hero locale={locale} />
+    <Ticker />
+    <Skills locale={locale} />
+    <Work locale={locale} />
+    <Education locale={locale} />
+    <Interests locale={locale} />
+    <Contact locale={locale} />
+  </main>
+  <Tweaks />
+</Base>

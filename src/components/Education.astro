@@ -1,0 +1,48 @@
+---
+import type { Locale } from '../i18n/config';
+import { education, references, trEdu } from '../data/education';
+import { t } from '../i18n/dictionaries';
+
+export interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dict = t(locale);
+---
+<section class="section container" id="education">
+  <div class="section-meta">{dict.education.sectionMeta}</div>
+  <div class="section-tag"><span>{dict.education.sectionTag}</span></div>
+  <h2 class="section-title reveal">{dict.education.titleL1}<br/><em>{dict.education.titleL2}</em></h2>
+
+  <div class="two-col">
+    <div>
+      {education.map((edu) => (
+        <article class="edu-item reveal">
+          <div class="row">
+            <h3>{trEdu(edu.title, locale)} {edu.chip && <span class="chip">{trEdu(edu.chip, locale)}</span>}</h3>
+            <div class="date">{trEdu(edu.date, locale)}</div>
+          </div>
+          <div class="school">{edu.school}</div>
+          <p class="desc">{trEdu(edu.description, locale)}</p>
+          <div class="skill-tags" style="margin-top:16px">
+            {edu.skills.map((s) => <span class="skill-tag">{s}</span>)}
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <aside class="reveal">
+      <div class="section-meta" style="margin-bottom:18px">{dict.education.reference}</div>
+      {references.map((ref) => (
+        <div class="quote corner-marks">
+          <p class="quote-text">{trEdu(ref.text, locale)}</p>
+          <div class="quote-by">
+            <div class="avatar"></div>
+            <div>
+              <b>{ref.author}</b>
+              <span>{trEdu(ref.role, locale)}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </aside>
+  </div>
+</section>

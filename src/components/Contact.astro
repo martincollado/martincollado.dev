@@ -1,0 +1,60 @@
+---
+import type { Locale } from '../i18n/config';
+import { site } from '../data/site';
+import { t } from '../i18n/dictionaries';
+
+export interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dict = t(locale);
+const resumeUrl = site.resumeUrlByLocale[locale];
+---
+<section class="contact container" id="contact">
+  <div class="section-meta">{dict.contact.sectionMeta}</div>
+  <div class="section-tag"><span>{dict.contact.sectionTag}</span></div>
+  <h2>
+    <span>{dict.contact.titleL1}</span>
+    <span class="accent">{dict.contact.titleL2}</span>
+    <span class="outline">{dict.contact.titleL3}</span>
+  </h2>
+
+  <div class="contact-grid">
+    <div class="contact-links">
+      <a class="contact-link" href={`mailto:${site.email}`}>
+        <span>{site.email.toUpperCase()}</span>
+        <span class="arrow">↗</span>
+      </a>
+      <a class="contact-link" href={site.socials.linkedin} target="_blank" rel="noopener">
+        <span>{dict.contact.linkedin}</span>
+        <span class="arrow">↗</span>
+      </a>
+      <a class="contact-link" href={site.socials.github} target="_blank" rel="noopener">
+        <span>{dict.contact.github}</span>
+        <span class="arrow">↗</span>
+      </a>
+      <a class="contact-link" href={site.socials.instagram} target="_blank" rel="noopener">
+        <span>{dict.contact.instagram}</span>
+        <span class="arrow">↗</span>
+      </a>
+      <a class="contact-link" href={resumeUrl}>
+        <span>{dict.contact.resume}</span>
+        <span class="arrow">↓</span>
+      </a>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span></span><span></span><span class="g"></span>
+        <span class="file">~/martin/contact.sh</span>
+      </div>
+      <div><span class="prompt">$</span> whoami<br/><span class="val">senior-sre · senior-python</span></div>
+      <div><span class="prompt">$</span> cat availability.txt<br/><span class="val">{dict.contact.terminal.availability}</span><br/><span class="val">OPEN_TO_FREELANCE=true</span></div>
+      <div><span class="prompt">$</span> echo $LOCATION<br/><span class="val">{dict.contact.terminal.location}</span></div>
+      <div><span class="prompt">$</span> curl martincollado.dev/contact<span class="cursor"></span></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>{dict.footer.built} <a href="https://astro.build/" target="_blank" style="color:var(--accent)">ASTRO</a> · HOSTED ON VERCEL</div>
+    <div>{dict.footer.version}</div>
+  </div>
+</section>

@@ -1,0 +1,900 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Martin Collado · CV / Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#f5f4ef;
+    --ink:#0d0d0d;
+    --ink-2:#2a2a28;
+    --mute:#6b6a65;
+    --rule:#1a1a1a;
+    --ghost:#d9d8d2;
+    --accent:#c7f23d;
+    --accent-ink:#0d0d0d;
+    --f-disp:'Archivo Black','Archivo',system-ui,sans-serif;
+    --f-ui:'Archivo',system-ui,sans-serif;
+    --f-mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#2b2b2b;font-family:var(--f-ui);color:var(--ink);-webkit-font-smoothing:antialiased}
+
+  /* ---------- Screen controls ---------- */
+  .toolbar{
+    position:fixed;top:16px;left:50%;transform:translateX(-50%);
+    z-index:100;display:flex;gap:6px;align-items:center;
+    background:#0d0d0d;padding:8px;border:2px solid var(--accent);
+    font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#f5f4ef;
+    box-shadow:5px 5px 0 var(--accent);
+  }
+  .toolbar button{
+    font:inherit;background:transparent;color:#f5f4ef;border:1px solid transparent;
+    padding:8px 14px;cursor:pointer;
+  }
+  .toolbar button.active,.toolbar button:hover{background:var(--accent);color:var(--accent-ink);}
+  .toolbar .sep{width:1px;height:22px;background:#333;margin:0 4px}
+  .toolbar .hint{color:#8a8a82;padding:0 10px;font-size:10px}
+
+  /* ---------- Page ---------- */
+  .doc{padding:40px 0 80px;display:flex;flex-direction:column;align-items:center;gap:24px}
+  .page{
+    width:210mm;min-height:297mm;
+    background:var(--paper);color:var(--ink);
+    padding:16mm 15mm 14mm;
+    position:relative;
+    box-shadow:0 30px 60px rgba(0,0,0,.45);
+    overflow:hidden;
+  }
+  /* subtle paper texture */
+  .page::before{
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0.07 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode:multiply;
+  }
+  .page > *{position:relative;z-index:1}
+
+  /* corner registration marks */
+  .page .reg{position:absolute;width:10mm;height:10mm;pointer-events:none}
+  .page .reg::before,.page .reg::after{content:"";position:absolute;background:var(--ink)}
+  .page .reg::before{width:100%;height:1px;top:50%}
+  .page .reg::after{height:100%;width:1px;left:50%}
+  .reg.tl{top:5mm;left:5mm}
+  .reg.tr{top:5mm;right:5mm}
+  .reg.bl{bottom:5mm;left:5mm}
+  .reg.br{bottom:5mm;right:5mm}
+
+  /* ---------- Header ---------- */
+  .hdr{
+    display:grid;grid-template-columns:1fr auto;gap:18mm;align-items:end;
+    padding-bottom:6mm;border-bottom:1.5px solid var(--rule);
+  }
+  .hdr .name{
+    font-family:var(--f-disp);
+    font-size:52pt;line-height:.82;letter-spacing:-.02em;
+    text-transform:uppercase;
+  }
+  .hdr .name .outline{color:transparent;-webkit-text-stroke:1.2px var(--ink);}
+  .hdr .name .accent{background:var(--accent);padding:0 6px;}
+  .hdr .role-tag{
+    display:inline-block;font-family:var(--f-disp);font-size:10pt;
+    background:var(--accent);color:var(--accent-ink);padding:3px 10px 2px;
+    transform:skewX(-6deg);margin-bottom:10px;letter-spacing:.03em;
+  }
+  .hdr .role-tag span{display:inline-block;transform:skewX(6deg);}
+  .hdr .role{font-family:var(--f-ui);font-size:11pt;color:var(--ink-2);font-weight:500;line-height:1.35;max-width:110mm;margin-top:6px}
+
+  .hdr .meta{
+    font-family:var(--f-mono);font-size:8pt;line-height:1.55;color:var(--ink);
+    text-align:right;min-width:62mm;
+  }
+  .hdr .meta div{display:flex;justify-content:flex-end;gap:8px;align-items:baseline}
+  .hdr .meta b{font-weight:500}
+  .hdr .meta .k{color:var(--mute);text-transform:uppercase;letter-spacing:.1em;font-size:7.5pt}
+  .hdr .meta .status{display:inline-flex;align-items:center;gap:6px}
+  .hdr .meta .status::before{content:"";width:7px;height:7px;background:#1aa84a;border-radius:50%}
+
+  .tagline{
+    font-family:var(--f-mono);font-size:8pt;color:var(--mute);
+    text-transform:uppercase;letter-spacing:.14em;
+    margin-top:4mm;display:flex;gap:10px;align-items:center;
+  }
+  .tagline::before{content:"";width:26px;height:1px;background:var(--mute)}
+
+  /* ---------- Section chrome ---------- */
+  .section{margin-top:7mm}
+  .section-head{
+    display:flex;align-items:center;gap:10px;margin-bottom:4mm;
+  }
+  .section-idx{
+    font-family:var(--f-mono);font-size:8pt;color:var(--mute);
+    letter-spacing:.12em;text-transform:uppercase;
+  }
+  .section-title{
+    font-family:var(--f-disp);font-size:15pt;text-transform:uppercase;
+    letter-spacing:-.005em;line-height:1;
+  }
+  .section-rule{flex:1;height:1px;background:var(--rule)}
+
+  /* ---------- Summary ---------- */
+  .summary{font-size:10pt;line-height:1.5;color:var(--ink-2);max-width:175mm}
+  .summary .hl{background:var(--accent);color:var(--accent-ink);padding:0 3px;font-weight:600}
+  .summary b{color:var(--ink);font-weight:700}
+
+  /* ---------- Two-col body ---------- */
+  .body{display:grid;grid-template-columns:118mm 1fr;gap:9mm;margin-top:6mm}
+
+  /* ---------- Work ---------- */
+  .work{display:flex;flex-direction:column;gap:5mm}
+  .job{display:grid;grid-template-columns:18mm 1fr;gap:5mm;padding-top:3mm;border-top:.8px dashed #c8c6bf}
+  .job:first-child{border-top:none;padding-top:0}
+  .job .num{
+    font-family:var(--f-disp);font-size:24pt;line-height:.85;
+    color:transparent;-webkit-text-stroke:1.1px var(--ghost);
+  }
+  .job .title{
+    font-family:var(--f-disp);font-size:12pt;text-transform:uppercase;
+    line-height:1;letter-spacing:-.005em;
+  }
+  .job .company{
+    font-family:var(--f-mono);font-size:8pt;color:var(--ink);
+    text-transform:uppercase;letter-spacing:.08em;margin:2px 0 3px;
+  }
+  .job .company b{background:var(--accent);color:var(--accent-ink);padding:0 4px;font-weight:600}
+  .job .dates{
+    font-family:var(--f-mono);font-size:7.5pt;color:var(--mute);
+    text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;
+    display:flex;gap:10px;flex-wrap:wrap;
+  }
+  .job .dates span{display:inline-flex;align-items:center;gap:4px}
+  .job .dates span::before{content:"";width:5px;height:5px;background:var(--ink);transform:rotate(45deg)}
+  .job ul{list-style:none;display:flex;flex-direction:column;gap:1.5mm;margin-top:2mm}
+  .job li{
+    font-size:9pt;line-height:1.45;color:var(--ink-2);
+    padding-left:5mm;position:relative;
+  }
+  .job li::before{
+    content:"";position:absolute;left:0;top:1.5mm;
+    width:2.2mm;height:2.2mm;background:var(--accent);transform:rotate(45deg);
+  }
+  .job li b{color:var(--ink);font-weight:700}
+  .job li .hl{background:var(--accent);color:var(--accent-ink);padding:0 3px;font-weight:600}
+  .job .stack{display:flex;flex-wrap:wrap;gap:3px;margin-top:2.5mm}
+  .tag{
+    font-family:var(--f-mono);font-size:7pt;padding:1.5px 5px;
+    border:.8px solid var(--rule);text-transform:uppercase;letter-spacing:.04em;
+    color:var(--ink-2);
+  }
+  .tag.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tag.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+
+  /* ---------- Sidebar blocks ---------- */
+  .aside-block{margin-bottom:6mm}
+  .aside-block h3{
+    font-family:var(--f-disp);font-size:10pt;text-transform:uppercase;
+    margin-bottom:3mm;padding-bottom:1.5mm;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;
+  }
+  .aside-block h3 .num{font-family:var(--f-mono);font-size:8pt;color:var(--mute);letter-spacing:.08em}
+  .aside-block .sub{
+    font-family:var(--f-mono);font-size:7pt;color:var(--mute);
+    text-transform:uppercase;letter-spacing:.1em;margin:2mm 0 1.5mm;
+  }
+  .aside-block .tags{display:flex;flex-wrap:wrap;gap:3px}
+
+  /* Languages / contact blocks */
+  .kv{display:grid;gap:1.5mm}
+  .kv .row{
+    display:flex;justify-content:space-between;align-items:baseline;gap:6px;
+    font-size:8.5pt;line-height:1.3;
+    padding-bottom:1mm;border-bottom:.5px dotted #c8c6bf;
+  }
+  .kv .row:last-child{border-bottom:none}
+  .kv .row .k{font-family:var(--f-mono);font-size:7pt;color:var(--mute);text-transform:uppercase;letter-spacing:.1em}
+  .kv .row .v{font-weight:500}
+  .kv .row .v.accent{background:var(--accent);padding:0 4px}
+
+  /* Education */
+  .edu{display:flex;flex-direction:column;gap:3mm}
+  .edu .item{padding-bottom:2.5mm;border-bottom:.5px dotted #c8c6bf}
+  .edu .item:last-child{border-bottom:none}
+  .edu .item h4{
+    font-family:var(--f-disp);font-size:10pt;text-transform:uppercase;
+    line-height:1.1;letter-spacing:-.005em;
+  }
+  .edu .item .chip{
+    display:inline-block;font-family:var(--f-mono);font-size:6.5pt;
+    padding:0 4px;background:var(--ghost);color:var(--mute);
+    text-transform:uppercase;letter-spacing:.08em;margin-left:4px;vertical-align:1px;
+  }
+  .edu .item .school{
+    font-family:var(--f-mono);font-size:7.5pt;color:var(--ink-2);
+    text-transform:uppercase;letter-spacing:.06em;margin-top:1mm;
+  }
+  .edu .item .dates{
+    font-family:var(--f-mono);font-size:7pt;color:var(--mute);
+    text-transform:uppercase;letter-spacing:.08em;margin-top:.5mm;
+  }
+  .edu .item .desc{font-size:8.5pt;line-height:1.4;color:var(--ink-2);margin-top:1.5mm}
+
+  /* Quote */
+  .quote{
+    padding:4mm 4mm 4mm 10mm;background:#efeee8;position:relative;
+    border-left:3px solid var(--accent);
+  }
+  .quote::before{
+    content:"“";position:absolute;left:2mm;top:-2mm;
+    font-family:var(--f-disp);font-size:34pt;line-height:1;color:var(--accent);
+  }
+  .quote p{font-size:8.5pt;line-height:1.45;color:var(--ink-2);font-style:italic}
+  .quote .by{display:flex;flex-direction:column;margin-top:2mm}
+  .quote .by b{font-family:var(--f-disp);font-size:9pt;text-transform:uppercase}
+  .quote .by span{font-family:var(--f-mono);font-size:7pt;color:var(--mute);text-transform:uppercase;letter-spacing:.08em}
+
+  /* Interests grid on page 2 */
+  .interests{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:var(--rule);border:.8px solid var(--rule);
+  }
+  .interest{
+    background:var(--paper);padding:3mm 3mm 3mm;min-height:22mm;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .interest .n{
+    font-family:var(--f-disp);font-size:18pt;line-height:.85;
+    color:transparent;-webkit-text-stroke:1px var(--ghost);
+  }
+  .interest h5{font-family:var(--f-disp);font-size:9.5pt;text-transform:uppercase;line-height:1;margin-bottom:1mm}
+  .interest .t{font-family:var(--f-mono);font-size:6.5pt;color:var(--mute);text-transform:uppercase;letter-spacing:.1em}
+
+  /* Page footer */
+  .pfoot{
+    position:absolute;left:15mm;right:15mm;bottom:10mm;
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--f-mono);font-size:7pt;color:var(--mute);
+    text-transform:uppercase;letter-spacing:.12em;
+    padding-top:3mm;border-top:1px solid var(--rule);
+  }
+  .pfoot .dot{width:6px;height:6px;background:var(--accent);display:inline-block;margin:0 6px;transform:rotate(45deg)}
+
+  /* Locale visibility */
+  .lang-en{display:none}
+  body.en .lang-es{display:none}
+  body.en .lang-en{display:block}
+  body.en span.lang-en,body.en a.lang-en,body.en b.lang-en,body.en em.lang-en,body.en i.lang-en{display:inline}
+  span.lang-en,a.lang-en,b.lang-en,em.lang-en,i.lang-en{display:none}
+  body.en span.lang-es,body.en a.lang-es,body.en b.lang-es,body.en em.lang-es,body.en i.lang-es{display:none}
+  span.lang-es,a.lang-es,b.lang-es,em.lang-es,i.lang-es{display:inline}
+
+  /* ---------- PRINT ---------- */
+  @page{size:A4;margin:0}
+  @media print{
+    html,body{background:var(--paper)}
+    .toolbar{display:none}
+    .doc{padding:0;gap:0}
+    .page{box-shadow:none;margin:0;page-break-after:always}
+    .page:last-child{page-break-after:auto}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar" role="toolbar" aria-label="Language & export">
+  <button id="lang-es" class="active">ES</button>
+  <button id="lang-en">EN</button>
+  <div class="sep"></div>
+  <button id="print">↓ SAVE AS PDF</button>
+  <span class="hint">Ctrl/Cmd + P</span>
+</div>
+
+<div class="doc">
+
+  <!-- ============================================================ -->
+  <!-- PAGE 1                                                        -->
+  <!-- ============================================================ -->
+  <article class="page">
+    <span class="reg tl"></span><span class="reg tr"></span>
+    <span class="reg bl"></span><span class="reg br"></span>
+
+    <!-- HEADER -->
+    <header class="hdr">
+      <div>
+        <div class="role-tag">
+          <span class="lang-es">CV / 2026 · SENIOR SRE</span>
+          <span class="lang-en">RESUME / 2026 · SENIOR SRE</span>
+        </div>
+        <h1 class="name">
+          MARTIN<br/>
+          <span class="accent">COLLADO</span> <span class="outline">/</span>
+        </h1>
+        <p class="role">
+          <span class="lang-es">Senior Site Reliability Engineer &amp; Senior Python Developer — 10+ años construyendo infraestructuras que no se caen nunca.</span>
+          <span class="lang-en">Senior Site Reliability Engineer &amp; Senior Python Developer — 10+ years building infrastructure that simply doesn't go down.</span>
+        </p>
+      </div>
+
+      <div class="meta">
+        <div><span class="k">EMAIL</span><b>info@martincollado.dev</b></div>
+        <div><span class="k">WEB</span><b>martincollado.dev</b></div>
+        <div><span class="k">LINKEDIN</span><b>/in/mcollado</b></div>
+        <div><span class="k">GITHUB</span><b>@mcollado</b></div>
+        <div><span class="k">LOC</span><b>Santander · ES</b></div>
+        <div><span class="k">
+          <span class="lang-es">DISPONIBILIDAD</span>
+          <span class="lang-en">AVAILABILITY</span>
+        </span><b class="status">
+          <span class="lang-es">Abierto a oportunidades</span>
+          <span class="lang-en">Open to opportunities</span>
+        </b></div>
+      </div>
+    </header>
+
+    <div class="tagline">
+      <span class="lang-es">SRE · KUBERNETES · GCP / AWS · TERRAFORM · PYTHON · GITOPS</span>
+      <span class="lang-en">SRE · KUBERNETES · GCP / AWS · TERRAFORM · PYTHON · GITOPS</span>
+    </div>
+
+    <!-- SUMMARY -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-idx">00</span>
+        <h2 class="section-title">
+          <span class="lang-es">PERFIL</span>
+          <span class="lang-en">PROFILE</span>
+        </h2>
+        <span class="section-rule"></span>
+      </div>
+      <p class="summary">
+        <span class="lang-es">
+          <b>Senior SRE</b> y <b>Senior Python Developer</b> con más de una década diseñando y optimizando sistemas de alto rendimiento en la nube. Especializado en <span class="hl">Kubernetes</span>, <span class="hl">GCP</span> y <span class="hl">AWS</span>, con Argo CD, KEDA, Terraform e Istio como herramientas diarias. Experiencia liderando equipos, migrando infraestructuras on-premise a cloud y reduciendo costes y tiempos de despliegue drásticamente. Al día con LLMs y agentes autónomos, contribuciones open-source y consultoría propia.
+        </span>
+        <span class="lang-en">
+          <b>Senior SRE</b> and <b>Senior Python Developer</b> with 10+ years designing and optimizing high-performance cloud systems. Specialized in <span class="hl">Kubernetes</span>, <span class="hl">GCP</span> and <span class="hl">AWS</span>, with Argo CD, KEDA, Terraform and Istio as daily tools. Proven track record leading SRE teams, migrating on-premise workloads to cloud and slashing cost and time-to-deploy. Active with LLMs and autonomous agents, open-source contributions and independent consulting.
+        </span>
+      </p>
+    </section>
+
+    <!-- BODY -->
+    <div class="body">
+
+      <!-- WORK -->
+      <section>
+        <div class="section-head">
+          <span class="section-idx">01</span>
+          <h2 class="section-title">
+            <span class="lang-es">EXPERIENCIA</span>
+            <span class="lang-en">EXPERIENCE</span>
+          </h2>
+          <span class="section-rule"></span>
+        </div>
+
+        <div class="work">
+          <!-- 01 DEVOTEAM -->
+          <article class="job">
+            <div class="num">01</div>
+            <div>
+              <h3 class="title">
+                <span class="lang-es">CLOUD &amp; DEVOPS ARCHITECT</span>
+                <span class="lang-en">CLOUD &amp; DEVOPS ARCHITECT</span>
+              </h3>
+              <div class="company"><b>DEVOTEAM</b> / GCLOUD PARTNER</div>
+              <div class="dates">
+                <span>
+                  <span class="lang-es">ENE 2025 — ACTUAL</span>
+                  <span class="lang-en">JAN 2025 — PRESENT</span>
+                </span>
+                <span>REMOTE</span>
+                <span>FULL-TIME</span>
+              </div>
+              <ul>
+                <li class="lang-es"><b>Cloud Architect</b> diseñando arquitecturas GCP-first para clientes enterprise.</li>
+                <li class="lang-es">Diseño de <span class="hl">landing zones</span> y prácticas GitOps a escala multi-equipo.</li>
+                <li class="lang-en"><b>Cloud Architect</b> designing GCP-first architectures for enterprise clients.</li>
+                <li class="lang-en">Design of <span class="hl">landing zones</span> and GitOps practices at multi-team scale.</li>
+              </ul>
+              <div class="stack">
+                <span class="tag primary">KUBERNETES</span>
+                <span class="tag solid">PYTHON</span>
+                <span class="tag solid">TERRAFORM</span>
+                <span class="tag">GCP</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 02 ACCIONA SRE -->
+          <article class="job">
+            <div class="num">02</div>
+            <div>
+              <h3 class="title">
+                <span class="lang-es">PRINCIPAL SITE RELIABILITY ENGINEER</span>
+                <span class="lang-en">PRINCIPAL SITE RELIABILITY ENGINEER</span>
+              </h3>
+              <div class="company"><b>ACCIONA</b> / IT CONSTRUCTION</div>
+              <div class="dates">
+                <span>
+                  <span class="lang-es">ABR 2022 — DIC 2024</span>
+                  <span class="lang-en">APR 2022 — DEC 2024</span>
+                </span>
+                <span>REMOTE</span>
+                <span>FULL-TIME</span>
+              </div>
+              <ul>
+                <li class="lang-es"><b>Lideré el equipo SRE</b>: diseño, implementación y mantenimiento de infra y aplicaciones.</li>
+                <li class="lang-es"><b>Migración on-premise → GCP</b> con Kubernetes y Terraform — <span class="hl">−30% coste de infra</span>, mayor escalabilidad.</li>
+                <li class="lang-es"><b>GitOps con Argo CD</b> — <span class="hl">−70% time-to-deploy</span> en nuevas features.</li>
+                <li class="lang-es"><b>Keycloak como IdP corporativo</b> — <span class="hl">−90% onboarding</span> de nuevas aplicaciones.</li>
+                <li class="lang-es">Arquitecturas complejas con microservicios y serverless. Formación de developers en best practices.</li>
+
+                <li class="lang-en"><b>Led the SRE team</b>: design, implementation and maintenance of infra and applications.</li>
+                <li class="lang-en"><b>On-prem → GCP migration</b> with Kubernetes and Terraform — <span class="hl">−30% infra cost</span>, higher scalability.</li>
+                <li class="lang-en"><b>GitOps with Argo CD</b> — <span class="hl">−70% time-to-deploy</span> on new features.</li>
+                <li class="lang-en"><b>Keycloak as corporate IdP</b> — <span class="hl">−90% onboarding time</span> for new applications.</li>
+                <li class="lang-en">Complex microservices &amp; serverless architectures. Developer enablement and best-practice training.</li>
+              </ul>
+              <div class="stack">
+                <span class="tag primary">KUBERNETES</span>
+                <span class="tag solid">PYTHON</span>
+                <span class="tag solid">TERRAFORM</span>
+                <span class="tag solid">GCP</span>
+                <span class="tag">KEYCLOAK</span>
+                <span class="tag">ISTIO</span>
+                <span class="tag">ARGO CD</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 03 BETANCOURT -->
+          <article class="job">
+            <div class="num">03</div>
+            <div>
+              <h3 class="title">
+                <span class="lang-es">CHIEF TECHNOLOGY OFFICER</span>
+                <span class="lang-en">CHIEF TECHNOLOGY OFFICER</span>
+              </h3>
+              <div class="company"><b>FUNDACIÓN A. BETANCOURT</b></div>
+              <div class="dates">
+                <span>
+                  <span class="lang-es">JUN 2020 — ACTUAL</span>
+                  <span class="lang-en">JUN 2020 — PRESENT</span>
+                </span>
+                <span>REMOTE</span>
+                <span>CONSULTANT</span>
+              </div>
+              <ul>
+                <li class="lang-es"><b>Infraestructura hybrid-cloud</b> con Kubernetes + GCP hospedando todos los servicios de la fundación.</li>
+                <li class="lang-es"><b>Digitalización de procesos manuales</b> — <span class="hl">−50% tiempo de tareas</span> y mayor calidad.</li>
+                <li class="lang-es">Lidero la transformación digital: productos, servicios y procesos internos optimizados.</li>
+
+                <li class="lang-en"><b>Hybrid-cloud infrastructure</b> on Kubernetes + GCP hosting all foundation services.</li>
+                <li class="lang-en"><b>Digitized manual processes</b> — <span class="hl">−50% task time</span> and higher quality.</li>
+                <li class="lang-en">Leading digital transformation: new digital products, services and optimized internal processes.</li>
+              </ul>
+              <div class="stack">
+                <span class="tag primary">KUBERNETES</span>
+                <span class="tag solid">PYTHON</span>
+                <span class="tag solid">FASTAPI</span>
+                <span class="tag">GCP</span>
+                <span class="tag">DOCKER</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 04 ACCIONA DEVOPS -->
+          <article class="job">
+            <div class="num">04</div>
+            <div>
+              <h3 class="title">DEVOPS ENGINEER</h3>
+              <div class="company"><b>ACCIONA</b> / DIGITAL INNOVATION · SEVILLE</div>
+              <div class="dates">
+                <span>
+                  <span class="lang-es">FEB 2020 — ABR 2022</span>
+                  <span class="lang-en">FEB 2020 — APR 2022</span>
+                </span>
+                <span>ON-SITE</span>
+                <span>FULL-TIME</span>
+              </div>
+              <ul>
+                <li class="lang-es"><b>Migración OVH/IONOS → AWS</b> sobre Docker: escalabilidad y fiabilidad mejoradas.</li>
+                <li class="lang-es"><b>Cultura DevOps + GitLab CI/CD</b> desde cero — <span class="hl">−70% time-to-deploy</span>.</li>
+                <li class="lang-es">Diseño de <b>VPCs y VPNs</b> conectando red on-premise con AWS. Deployments en obras de construcción.</li>
+
+                <li class="lang-en"><b>Migration OVH/IONOS → AWS</b> on Docker: improved scalability and reliability.</li>
+                <li class="lang-en"><b>DevOps culture + GitLab CI/CD</b> from scratch — <span class="hl">−70% time-to-deploy</span>.</li>
+                <li class="lang-en">Designed <b>VPCs and VPNs</b> bridging on-prem with AWS. Rollouts for construction sites.</li>
+              </ul>
+              <div class="stack">
+                <span class="tag solid">PYTHON</span>
+                <span class="tag solid">AWS</span>
+                <span class="tag">DOCKER</span>
+                <span class="tag">TERRAFORM</span>
+                <span class="tag">GITLAB</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 05 UPM -->
+          <article class="job">
+            <div class="num">05</div>
+            <div>
+              <h3 class="title">
+                <span class="lang-es">RESEARCH &amp; BACKEND DEVELOPER</span>
+                <span class="lang-en">RESEARCH &amp; BACKEND DEVELOPER</span>
+              </h3>
+              <div class="company"><b>UNIVERSIDAD POLITÉCNICA DE MADRID</b></div>
+              <div class="dates">
+                <span>
+                  <span class="lang-es">SEP 2015 — ENE 2020</span>
+                  <span class="lang-en">SEP 2015 — JAN 2020</span>
+                </span>
+                <span>ON-SITE</span>
+                <span>PART-TIME</span>
+              </div>
+              <ul>
+                <li class="lang-es">Backend e investigación para el dpto. de <b>Hidráulica e Hidrología</b> (ETSI Caminos).</li>
+                <li class="lang-es">Web apps y servicios para el dpto. de <b>Puertos e Ingeniería Costera</b>.</li>
+                <li class="lang-es">Modelos matemáticos procesados en backend; infra on-premise del laboratorio.</li>
+                <li class="lang-es">Introduje <b>Docker + GitLab CI/CD</b> al equipo — <span class="hl">−40% time-to-deploy</span>.</li>
+
+                <li class="lang-en">Backend &amp; research for the <b>Hydraulics &amp; Hydrology</b> dept. (ETSI Caminos).</li>
+                <li class="lang-en">Web apps and services for the <b>Ports &amp; Coastal Engineering</b> dept.</li>
+                <li class="lang-en">Mathematical models served from backend; on-premise lab infrastructure.</li>
+                <li class="lang-en">Introduced <b>Docker + GitLab CI/CD</b> to the team — <span class="hl">−40% time-to-deploy</span>.</li>
+              </ul>
+              <div class="stack">
+                <span class="tag solid">PYTHON</span>
+                <span class="tag">DOCKER</span>
+                <span class="tag">GITLAB</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- SIDEBAR -->
+      <aside>
+
+        <div class="aside-block">
+          <h3>
+            <span>
+              <span class="lang-es">TECNOLOGÍAS</span>
+              <span class="lang-en">TECHNOLOGIES</span>
+            </span>
+            <span class="num">02</span>
+          </h3>
+          <div class="sub">// CORE STACK</div>
+          <div class="tags">
+            <span class="tag primary">KUBERNETES</span>
+            <span class="tag primary">PYTHON</span>
+            <span class="tag primary">DOCKER</span>
+            <span class="tag solid">TERRAFORM</span>
+            <span class="tag solid">FASTAPI</span>
+            <span class="tag solid">ARGO CD</span>
+            <span class="tag">GRAFANA</span>
+            <span class="tag">PROMETHEUS</span>
+            <span class="tag">POSTGRESQL</span>
+            <span class="tag">MYSQL</span>
+            <span class="tag">NATS</span>
+            <span class="tag">KEYCLOAK</span>
+            <span class="tag">ISTIO</span>
+            <span class="tag">TRAEFIK</span>
+            <span class="tag">PLAYWRIGHT</span>
+            <span class="tag">K6</span>
+            <span class="tag">RUST</span>
+            <span class="tag">ASTRO</span>
+          </div>
+        </div>
+
+        <div class="aside-block">
+          <h3>
+            <span>
+              <span class="lang-es">PLATAFORMAS</span>
+              <span class="lang-en">PLATFORMS</span>
+            </span>
+            <span class="num">03</span>
+          </h3>
+          <div class="sub">// CLOUD</div>
+          <div class="tags">
+            <span class="tag primary">GOOGLE CLOUD</span>
+            <span class="tag primary">AWS</span>
+            <span class="tag solid">VERCEL</span>
+            <span class="tag">AZURE</span>
+          </div>
+          <div class="sub">// CI/CD &amp; TOOLS</div>
+          <div class="tags">
+            <span class="tag primary">GITHUB ACTIONS</span>
+            <span class="tag solid">AZURE DEVOPS</span>
+            <span class="tag">GITLAB</span>
+            <span class="tag">SENTRY</span>
+            <span class="tag">DATADOG</span>
+            <span class="tag">SONARQUBE</span>
+          </div>
+        </div>
+
+        <div class="aside-block">
+          <h3>
+            <span>
+              <span class="lang-es">IDIOMAS</span>
+              <span class="lang-en">LANGUAGES</span>
+            </span>
+            <span class="num">04</span>
+          </h3>
+          <div class="kv">
+            <div class="row">
+              <span class="k">
+                <span class="lang-es">ESPAÑOL</span>
+                <span class="lang-en">SPANISH</span>
+              </span>
+              <span class="v accent">
+                <span class="lang-es">NATIVO</span>
+                <span class="lang-en">NATIVE</span>
+              </span>
+            </div>
+            <div class="row">
+              <span class="k">
+                <span class="lang-es">INGLÉS</span>
+                <span class="lang-en">ENGLISH</span>
+              </span>
+              <span class="v">
+                <span class="lang-es">PROFESIONAL</span>
+                <span class="lang-en">PROFESSIONAL</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="aside-block">
+          <h3>
+            <span>
+              <span class="lang-es">REFERENCIA</span>
+              <span class="lang-en">REFERENCE</span>
+            </span>
+            <span class="num">05</span>
+          </h3>
+          <div class="quote">
+            <p class="lang-es">
+              Martin es un profesional excepcional con amplio conocimiento en tecnología, optimización de procesos y mejora continua. Gracias a su expertise hemos digitalizado la fundación y agilizado procesos internos que antes eran mucho más complicados.
+            </p>
+            <p class="lang-en">
+              Martin is an exceptional professional with extensive knowledge in technology, process optimization and continuous improvement. Thanks to his expertise we have digitalized the foundation and streamlined internal processes that were previously much more complicated.
+            </p>
+            <div class="by">
+              <b>ALBERTO BORNSTEIN</b>
+              <span>
+                <span class="lang-es">DIRECTOR · FUND. A. BETANCOURT</span>
+                <span class="lang-en">DIRECTOR · A. BETANCOURT FOUNDATION</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+
+    <div class="pfoot">
+      <span>MARTIN COLLADO · CV / 2026</span>
+      <span>PAGE 01 <span class="dot"></span> 02</span>
+      <span>martincollado.dev</span>
+    </div>
+  </article>
+
+  <!-- ============================================================ -->
+  <!-- PAGE 2                                                        -->
+  <!-- ============================================================ -->
+  <article class="page">
+    <span class="reg tl"></span><span class="reg tr"></span>
+    <span class="reg bl"></span><span class="reg br"></span>
+
+    <header class="hdr" style="grid-template-columns:1fr auto;align-items:center;padding-bottom:5mm">
+      <div>
+        <div class="role-tag"><span>CONT. / EDUCATION + OFF-DUTY</span></div>
+        <h1 class="name" style="font-size:36pt">
+          <span class="outline">M.</span>COLLADO <span class="accent" style="font-size:28pt">/02</span>
+        </h1>
+      </div>
+      <div class="meta">
+        <div><span class="k">REF</span><b>CV-2026-EN-ES</b></div>
+        <div><span class="k">WEB</span><b>martincollado.dev</b></div>
+      </div>
+    </header>
+
+    <!-- EDUCATION -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-idx">06</span>
+        <h2 class="section-title">
+          <span class="lang-es">FORMACIÓN</span>
+          <span class="lang-en">EDUCATION</span>
+        </h2>
+        <span class="section-rule"></span>
+      </div>
+
+      <div class="edu" style="display:grid;grid-template-columns:1fr 1fr;gap:8mm">
+        <div class="item">
+          <h4>
+            <span class="lang-es">BSC · INFORMATION TECHNOLOGY</span>
+            <span class="lang-en">BSC · INFORMATION TECHNOLOGY</span>
+            <span class="chip">
+              <span class="lang-es">INTERRUMPIDO</span>
+              <span class="lang-en">DISCONTINUED</span>
+            </span>
+          </h4>
+          <div class="school">UNIVERSIDAD POLITÉCNICA DE MADRID · ESPAÑA</div>
+          <div class="dates">SEP 2017 — JUN 2022</div>
+          <p class="desc">
+            <span class="lang-es">
+              Desde joven he sido apasionado de la tecnología y los ordenadores — horas explorando internet y videojuegos me llevaron a estudiar Informática en la UPM. Durante la carrera trabajé en proyectos del Laboratorio de Hidráulica e Hidrología y del dpto. de Puertos, desarrollando herramientas para optimizar experimentos.
+            </span>
+            <span class="lang-en">
+              Lifelong passion for tech &amp; computers — endless hours on the internet and gaming led me to study CS at UPM. During the degree I worked on projects at the Hydraulics &amp; Hydrology Lab and the Ports dept., building tools to optimize lab experiments.
+            </span>
+          </p>
+          <div class="stack" style="margin-top:2mm">
+            <span class="tag">DOCKER</span>
+            <span class="tag">JAVA</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <h4>
+            <span class="lang-es">BSC · INGENIERÍA CIVIL</span>
+            <span class="lang-en">BSC · CIVIL ENGINEERING</span>
+            <span class="chip">
+              <span class="lang-es">INTERRUMPIDO</span>
+              <span class="lang-en">DISCONTINUED</span>
+            </span>
+          </h4>
+          <div class="school">UNIVERSIDAD POLITÉCNICA DE MADRID · ESPAÑA</div>
+          <div class="dates">SEP 2015 — JUN 2017</div>
+          <p class="desc">
+            <span class="lang-es">
+              Pasión temprana por construir — horas con LEGO montando casas y puentes. Esa curiosidad me llevó a Ingeniería Civil en la UPM, donde adquirí una base sólida en matemáticas, física y principios de ingeniería.
+            </span>
+            <span class="lang-en">
+              Early love for building — countless hours with LEGO assembling houses and bridges. That curiosity took me to Civil Engineering at UPM, where I built a solid foundation in math, physics and engineering principles.
+            </span>
+          </p>
+          <div class="stack" style="margin-top:2mm">
+            <span class="tag">PYTHON</span>
+            <span class="tag">MATLAB</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTS -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-idx">07</span>
+        <h2 class="section-title">
+          <span class="lang-es">CERTIFICACIONES &amp; LICENCIAS</span>
+          <span class="lang-en">CERTIFICATIONS &amp; LICENSES</span>
+        </h2>
+        <span class="section-rule"></span>
+      </div>
+      <div class="tags" style="gap:4px">
+        <span class="tag solid">PADI · OPEN WATER</span>
+        <span class="tag solid">PADI · ADVANCED OW</span>
+        <span class="tag">
+          <span class="lang-es">DRONES AESA · A1/A3</span>
+          <span class="lang-en">DRONES AESA · A1/A3</span>
+        </span>
+        <span class="tag">DRONES STS-ES-01</span>
+        <span class="tag">DRONES STS-ES-02</span>
+      </div>
+    </section>
+
+    <!-- INTERESTS -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-idx">08</span>
+        <h2 class="section-title">
+          <span class="lang-es">OFF-DUTY · INTERESES</span>
+          <span class="lang-en">OFF-DUTY · INTERESTS</span>
+        </h2>
+        <span class="section-rule"></span>
+      </div>
+
+      <div class="interests">
+        <div class="interest">
+          <div class="n">01</div>
+          <div><h5>SURF</h5><div class="t">// CANTABRIC BEACHES</div></div>
+        </div>
+        <div class="interest">
+          <div class="n">02</div>
+          <div><h5>BODYBOARD</h5><div class="t">// COLD WATER</div></div>
+        </div>
+        <div class="interest">
+          <div class="n">03</div>
+          <div><h5>SCUBA DIVING</h5><div class="t">// PADI OW + ADVANCED</div></div>
+        </div>
+        <div class="interest">
+          <div class="n">04</div>
+          <div><h5>
+            <span class="lang-es">FOTOGRAFÍA</span>
+            <span class="lang-en">PHOTOGRAPHY</span>
+          </h5><div class="t">// @MCOLLADOPHOTOGRAPHY</div></div>
+        </div>
+        <div class="interest">
+          <div class="n">05</div>
+          <div><h5>DRONES</h5><div class="t">// A1/A3 · STS-ES-01/02</div></div>
+        </div>
+        <div class="interest">
+          <div class="n">06</div>
+          <div><h5>
+            <span class="lang-es">IMPRESIÓN 3D</span>
+            <span class="lang-en">3D PRINTING</span>
+          </h5><div class="t">// FUSION 360 · SKETCHUP</div></div>
+        </div>
+        <div class="interest">
+          <div class="n">07</div>
+          <div><h5>
+            <span class="lang-es">ELECTRÓNICA</span>
+            <span class="lang-en">ELECTRONICS</span>
+          </h5><div class="t">// ARDUINO · RPI · ESP8266</div></div>
+        </div>
+        <div class="interest">
+          <div class="n">08</div>
+          <div><h5>OPEN SOURCE</h5><div class="t">// CONTRIBS &amp; SIDE PROJECTS</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUTRO -->
+    <section class="section" style="margin-top:9mm">
+      <div class="section-head">
+        <span class="section-idx">09</span>
+        <h2 class="section-title">
+          <span class="lang-es">¿HABLAMOS?</span>
+          <span class="lang-en">LET'S TALK</span>
+        </h2>
+        <span class="section-rule"></span>
+      </div>
+      <p class="summary">
+        <span class="lang-es">
+          Abierto a oportunidades <b>full-time remote</b> y <b>colaboraciones freelance</b> en SRE, plataformas cloud y backend Python. Contáctame en <span class="hl">info@martincollado.dev</span> o visita <b>martincollado.dev</b> para ver el portfolio completo.
+        </span>
+        <span class="lang-en">
+          Open to <b>full-time remote</b> opportunities and <b>freelance collaborations</b> in SRE, cloud platforms and Python backend. Reach me at <span class="hl">info@martincollado.dev</span> or visit <b>martincollado.dev</b> for the full portfolio.
+        </span>
+      </p>
+    </section>
+
+    <div class="pfoot">
+      <span>MARTIN COLLADO · CV / 2026</span>
+      <span>PAGE 02 <span class="dot"></span> 02</span>
+      <span>info@martincollado.dev</span>
+    </div>
+  </article>
+
+</div>
+
+<script>
+  const body = document.body;
+  const es = document.getElementById('lang-es');
+  const en = document.getElementById('lang-en');
+  const printBtn = document.getElementById('print');
+
+  function setLang(l) {
+    body.classList.toggle('en', l === 'en');
+    es.classList.toggle('active', l === 'es');
+    en.classList.toggle('active', l === 'en');
+    document.documentElement.lang = l;
+    document.title = l === 'es'
+      ? 'Martín Collado · CV 2026'
+      : 'Martin Collado · Resume 2026';
+    localStorage.setItem('cv-lang', l);
+  }
+  es.addEventListener('click', () => setLang('es'));
+  en.addEventListener('click', () => setLang('en'));
+  printBtn.addEventListener('click', () => window.print());
+
+  const saved = localStorage.getItem('cv-lang');
+  if (saved) setLang(saved);
+</script>
+
+</body>
+</html>
