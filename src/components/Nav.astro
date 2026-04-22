@@ -69,6 +69,17 @@ const dict = t(locale);
       </a>
     ))}
     <a href="#contact" class="nav-drawer-cta">{dict.nav.hireMe} <span aria-hidden="true">→</span></a>
+
+    <div class="nav-drawer-lang" aria-label={dict.lang.selectorLabel}>
+      {locales.map((l) => (
+        <a
+          href={switchLocalePath(Astro.url, l)}
+          class={['nav-drawer-lang-opt', l === locale ? 'active' : ''].join(' ')}
+          hreflang={l}
+          aria-current={l === locale ? 'true' : undefined}
+        >{l.toUpperCase()}</a>
+      ))}
+    </div>
   </div>
 </div>
 
@@ -213,6 +224,26 @@ const dict = t(locale);
     border: 2px solid var(--accent);
     font-weight: 700;
   }
+
+  .nav-drawer-lang {
+    display: inline-flex;
+    margin-top: 28px;
+    border: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    align-self: flex-start;
+  }
+  .nav-drawer-lang-opt {
+    padding: 10px 14px;
+    color: var(--fg-dim);
+    text-transform: uppercase;
+    transition: all .15s ease;
+    border-right: 1px solid var(--line);
+  }
+  .nav-drawer-lang-opt:last-child { border-right: none; }
+  .nav-drawer-lang-opt:hover { color: var(--fg); }
+  .nav-drawer-lang-opt.active { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
 
   @media (max-width: 860px) {
     .nav-links { display: none; }
