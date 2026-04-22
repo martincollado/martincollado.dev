@@ -343,9 +343,7 @@ main { position: relative; z-index: 2; }
 
 .hero-portrait {
   aspect-ratio: 4/5;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 30%, #1a1a1a 0%, #0a0a0a 70%),
-    repeating-linear-gradient(45deg, #141414 0 12px, #0e0e0e 12px 24px);
+  background: #0a0a0a;
   position: relative;
   display: flex; align-items: flex-end; justify-content: center;
   overflow: hidden;
@@ -362,40 +360,12 @@ main { position: relative; z-index: 2; }
   width: 70%; height: 100%; color: var(--fg-mute); opacity: .5;
 }
 .hero-portrait .portrait-img {
-  position: absolute; inset: 0;
   width: 100%; height: 100%; object-fit: cover; object-position: center top;
   display: block;
-  transform: scale(1.04);
-  /* Feather edges to blend into the card background */
-  -webkit-mask-image:
-    linear-gradient(to bottom, transparent 0%, #000 5%, #000 95%, transparent 100%),
-    linear-gradient(to right,  transparent 0%, #000 4%, #000 96%, transparent 100%);
-  mask-image:
-    linear-gradient(to bottom, transparent 0%, #000 5%, #000 95%, transparent 100%),
-    linear-gradient(to right,  transparent 0%, #000 4%, #000 96%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
-  filter: contrast(1.05) saturate(1.08);
-  z-index: 1;
-}
-/* Soft accent glow behind subject to key into the site's neon palette */
-.hero-portrait::after {
-  content: "";
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 55% 45% at 50% 42%, rgba(199, 242, 61, 0.06) 0%, transparent 60%);
-  pointer-events: none;
-  z-index: 2;
-  mix-blend-mode: screen;
-}
-/* Top+bottom vignette for seamless integration with card frame */
-.hero-portrait::before {
-  content: "";
-  position: absolute; inset: 0;
-  background:
-    linear-gradient(180deg, rgba(10,10,10,0.45) 0%, transparent 18%, transparent 80%, rgba(10,10,10,0.55) 100%);
-  pointer-events: none;
-  z-index: 2;
+  /* Scale up so the thin white halo baked into the source PNG is cropped
+     away by the parent's overflow:hidden. */
+  transform: scale(1.05);
+  filter: contrast(1.04) saturate(1.05);
 }
 .hero-id-meta {
   display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
