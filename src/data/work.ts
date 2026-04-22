@@ -25,9 +25,9 @@ export const work: WorkItem[] = [
     title: { es: 'CLOUD & DEVOPS ARCHITECT', en: 'CLOUD & DEVOPS ARCHITECT' },
     company: 'DEVOTEAM / GCLOUD PARTNER',
     companyUrl: 'https://devoteam.com',
-    date: { es: 'ENE 2025<br/>— CURRENT', en: 'JAN 2025<br/>— CURRENT' },
-    type: { es: 'FULL-TIME', en: 'FULL-TIME' },
-    model: { es: 'REMOTE', en: 'REMOTE' },
+    date: { es: 'ENE 2025<br/>— ACTUAL', en: 'JAN 2025<br/>— CURRENT' },
+    type: { es: 'JORNADA COMPLETA', en: 'FULL-TIME' },
+    model: { es: 'REMOTO', en: 'REMOTE' },
     bullets: {
       es: [
         '<strong>Cloud Architect</strong> diseñando arquitecturas GCP-first para clientes enterprise.',
@@ -51,8 +51,8 @@ export const work: WorkItem[] = [
     company: 'ACCIONA / IT CONSTRUCTION',
     companyUrl: 'https://acciona.com/',
     date: { es: 'ABR 2022<br/>— DIC 2024', en: 'APR 2022<br/>— DEC 2024' },
-    type: { es: 'FULL-TIME', en: 'FULL-TIME' },
-    model: { es: 'REMOTE', en: 'REMOTE' },
+    type: { es: 'JORNADA COMPLETA', en: 'FULL-TIME' },
+    model: { es: 'REMOTO', en: 'REMOTE' },
     bullets: {
       es: [
         '<strong>Lideré el equipo de SRE</strong>, responsable del diseño, implementación y mantenimiento de infra y aplicaciones.',
@@ -86,9 +86,9 @@ export const work: WorkItem[] = [
     title: { es: 'CHIEF TECHNOLOGY OFFICER', en: 'CHIEF TECHNOLOGY OFFICER' },
     company: 'FUNDACIÓN A. BETANCOURT',
     companyUrl: 'https://fundacionabetancourt.org/',
-    date: { es: 'JUN 2020<br/>— CURRENT', en: 'JUN 2020<br/>— CURRENT' },
-    type: { es: 'CONSULTANT', en: 'CONSULTANT' },
-    model: { es: 'REMOTE', en: 'REMOTE' },
+    date: { es: 'JUN 2020<br/>— ACTUAL', en: 'JUN 2020<br/>— CURRENT' },
+    type: { es: 'CONSULTORÍA', en: 'CONSULTANT' },
+    model: { es: 'REMOTO', en: 'REMOTE' },
     bullets: {
       es: [
         '<strong>Diseñé una infraestructura hybrid-cloud</strong> con Kubernetes y GCP para hostear todos los servicios de la fundación.',
@@ -118,8 +118,8 @@ export const work: WorkItem[] = [
     company: 'ACCIONA / DIGITAL INNOVATION SEVILLE',
     companyUrl: 'https://acciona.com/',
     date: { es: 'FEB 2020<br/>— ABR 2022', en: 'FEB 2020<br/>— APR 2022' },
-    type: { es: 'FULL-TIME', en: 'FULL-TIME' },
-    model: { es: 'ON-SITE', en: 'ON-SITE' },
+    type: { es: 'JORNADA COMPLETA', en: 'FULL-TIME' },
+    model: { es: 'PRESENCIAL', en: 'ON-SITE' },
     bullets: {
       es: [
         '<strong>Migré servicios desde OVH e IONOS a AWS</strong>, basados en Docker — escalabilidad y fiabilidad mejoradas.',
@@ -148,8 +148,8 @@ export const work: WorkItem[] = [
     company: 'UNIVERSIDAD POLITÉCNICA DE MADRID',
     companyUrl: 'https://upm.es/',
     date: { es: 'SEP 2015<br/>— ENE 2020', en: 'SEP 2015<br/>— JAN 2020' },
-    type: { es: 'PART-TIME', en: 'PART-TIME' },
-    model: { es: 'ON-SITE', en: 'ON-SITE' },
+    type: { es: 'MEDIA JORNADA', en: 'PART-TIME' },
+    model: { es: 'PRESENCIAL', en: 'ON-SITE' },
     bullets: {
       es: [
         '<strong>Investigación y desarrollo de servicios backend</strong> para el dpto. de Hidráulica e Hidrología de la ETSI de Caminos, Canales y Puertos.',

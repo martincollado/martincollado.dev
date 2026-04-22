@@ -21,8 +21,8 @@ export const site = {
   location: 'Santander, Cantabria · ES',
   age: 36,
   resumeUrlByLocale: {
-    es: '/generated/pdf/index.es.pdf',
-    en: '/generated/pdf/index.en.pdf',
+    es: '/cv.html',
+    en: '/cv.html',
   } satisfies Record<Locale, string>,
   socials: {
     linkedin: 'https://www.linkedin.com/',
