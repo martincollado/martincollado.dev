@@ -81,8 +81,13 @@
 }
 
 /* ========================================
-   BRUTALIST PRIMITIVES (merged from global.css)
+   BRUTALIST PRIMITIVES
+   All component-scoped rules live inside Tailwind v4's `components` layer.
+   This keeps utility classes authored in markup winning over these defaults
+   (the normal cascade order in v4 is: base < components < utilities).
    ======================================== */
+
+@layer components {
 
 .concrete-bg {
   position: fixed;
@@ -1043,3 +1048,5 @@ main { position: relative; z-index: 2; }
   }
   .footer { padding-bottom: max(24px, env(safe-area-inset-bottom)); }
 }
+
+} /* end @layer components */
