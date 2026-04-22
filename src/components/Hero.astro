@@ -24,8 +24,8 @@ const resumeUrl = site.resumeUrlByLocale[locale];
       <p class="hero-desc" set:html={dict.hero.description} />
 
       <div class="hero-actions">
-        <a href={resumeUrl} class="btn primary">
-          {dict.hero.cta.resume} <span class="arrow">↓</span>
+        <a href={resumeUrl} class="btn primary" target="_blank" rel="noopener noreferrer">
+          {dict.hero.cta.resume} <span class="arrow">↗</span>
         </a>
         <a href="#work" class="btn">
           {dict.hero.cta.work} <span class="arrow">→</span>
