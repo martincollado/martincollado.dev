@@ -24,7 +24,6 @@
   },
   "dependencies": {
     "@astrojs/check": "0.9.8",
-    "@astrojs/compiler-rs": "0.1.8",
     "@astrojs/mdx": "5.0.3",
     "@astrojs/sitemap": "3.7.2",
     "@astrojs/vercel": "10.0.4",

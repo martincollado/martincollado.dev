@@ -367,6 +367,21 @@ main { position: relative; z-index: 2; }
   display: block;
   position: relative;
   z-index: 1;
+  filter:
+    contrast(1.04) saturate(1.08)
+    drop-shadow(0 0 14px rgba(199, 242, 61, 0.35))
+    drop-shadow(0 0 40px rgba(199, 242, 61, 0.18))
+    drop-shadow(0 10px 30px rgba(0, 0, 0, 0.6));
+}
+/* Grain overlay to key the portrait into the site's concrete texture */
+.hero-portrait::after {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9  0 0 0 0 0.9  0 0 0 0 0.9  0 0 0 0.22 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 2;
 }
 .hero-id-meta {
   display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
@@ -427,9 +442,14 @@ main { position: relative; z-index: 2; }
 .skill-cat-num {
   font-family: var(--font-display);
   font-size: 88px; line-height: 0.85;
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--ghost);
+  color: rgba(244, 244, 239, 0.05);
+  -webkit-text-stroke: 1.5px var(--fg-mute);
   margin-bottom: 8px;
+  transition: color .2s, -webkit-text-stroke-color .2s;
+}
+.skill-cat:hover .skill-cat-num {
+  color: rgba(199, 242, 61, 0.08);
+  -webkit-text-stroke-color: var(--accent);
 }
 .skill-cat h3 {
   font-family: var(--font-display);
@@ -489,8 +509,8 @@ main { position: relative; z-index: 2; }
   font-family: var(--font-display);
   font-size: 96px;
   line-height: 0.85;
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--ghost);
+  color: rgba(244, 244, 239, 0.05);
+  -webkit-text-stroke: 1.5px var(--fg-mute);
   transition: all .2s;
 }
 .work-main h3 {
@@ -651,8 +671,8 @@ main { position: relative; z-index: 2; }
 .interest-num {
   font-family: var(--font-display);
   font-size: 60px;
-  color: transparent;
-  -webkit-text-stroke: 1.2px var(--ghost);
+  color: rgba(244, 244, 239, 0.05);
+  -webkit-text-stroke: 1.2px var(--fg-mute);
   transition: all .2s;
   line-height: 0.85;
 }
