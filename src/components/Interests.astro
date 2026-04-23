@@ -1,0 +1,26 @@
+---
+import type { Locale } from '../i18n/config';
+import { interests, trInt } from '../data/interests';
+import { t } from '../i18n/dictionaries';
+
+export interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dict = t(locale);
+---
+<section class="section container" id="interests">
+  <div class="section-meta">{dict.interests.sectionMeta}</div>
+  <div class="section-tag"><span>{dict.interests.sectionTag}</span></div>
+  <h2 class="section-title reveal">{dict.interests.titleL1}<br/><em>{dict.interests.titleL2}</em> {dict.interests.titleL3}</h2>
+
+  <div class="interests-grid">
+    {interests.map((it) => (
+      <div class="interest reveal">
+        <div class="interest-num">{it.num}</div>
+        <div>
+          <h4 set:html={trInt(it.title, locale)} />
+          <div class="tag">{trInt(it.tag, locale)}</div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

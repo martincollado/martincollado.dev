@@ -1,0 +1,13 @@
+---
+import type { SkillTag } from '../data/skills';
+export interface Props {
+  tag: SkillTag;
+  size?: 'sm' | 'md';
+}
+const { tag, size = 'md' } = Astro.props;
+const cls = ['skill-tag', tag.variant === 'primary' ? 'primary' : '', tag.variant === 'solid' ? 'solid' : '']
+  .filter(Boolean)
+  .join(' ');
+const style = size === 'sm' ? 'font-size:10px;padding:5px 8px' : '';
+---
+<span class={cls} style={style}>{tag.label}</span>

@@ -1,0 +1,27 @@
+---
+const items = [
+  'KUBERNETES', 'PYTHON', 'TERRAFORM', 'GOOGLE CLOUD', 'ARGO CD',
+  'ISTIO', 'KEYCLOAK', 'GRAFANA', 'FASTAPI', 'DOCKER', 'RUST', 'AWS',
+];
+const hollowSet = new Set(['GOOGLE CLOUD', 'GRAFANA', 'AWS']);
+---
+<div class="ticker">
+  <div class="ticker-track">
+    <span>
+      {items.map((it) => (
+        <>
+          {hollowSet.has(it) ? <span class="hollow">{it}</span> : it}
+          <span class="dot"></span>
+        </>
+      ))}
+    </span>
+    <span aria-hidden="true">
+      {items.map((it) => (
+        <>
+          {hollowSet.has(it) ? <span class="hollow">{it}</span> : it}
+          <span class="dot"></span>
+        </>
+      ))}
+    </span>
+  </div>
+</div>

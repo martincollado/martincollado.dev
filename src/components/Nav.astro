@@ -1,0 +1,350 @@
+---
+import type { Locale } from '../i18n/config';
+import { switchLocalePath, locales } from '../i18n/config';
+import { navLinks } from '../data/site';
+import { t } from '../i18n/dictionaries';
+
+export interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dict = t(locale);
+---
+<a href="#about" class="skip-link">{locale === 'es' ? 'Saltar al contenido' : 'Skip to content'}</a>
+
+<nav class="nav" aria-label={locale === 'es' ? 'Principal' : 'Primary'}>
+  <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress-fill"></span></div>
+
+  <div class="container nav-inner">
+    <a href="#top" class="nav-logo" aria-label="Martin Collado">
+      <span class="nav-logo-dot"></span>
+      <span>MARTIN COLLADO / SRE</span>
+    </a>
+
+    <div class="nav-links" id="nav-links">
+      {navLinks.map((l) => (
+        <a href={l.href}><span class="idx">{l.idx}</span>{dict.nav[l.key]}</a>
+      ))}
+    </div>
+
+    <div class="nav-right">
+      <div class="lang-switch" aria-label={dict.lang.selectorLabel}>
+        {locales.map((l) => (
+          <a
+            href={switchLocalePath(Astro.url, l)}
+            class={['lang-opt', l === locale ? 'active' : ''].join(' ')}
+            hreflang={l}
+            aria-current={l === locale ? 'true' : undefined}
+          >{l.toUpperCase()}</a>
+        ))}
+      </div>
+      <a href="#contact" class="nav-cta">{dict.nav.hireMe} <span aria-hidden="true">→</span></a>
+      <button
+        class="nav-burger"
+        type="button"
+        aria-label={locale === 'es' ? 'Abrir menú' : 'Open menu'}
+        aria-expanded="false"
+        aria-controls="nav-drawer"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Drawer is a SIBLING of <nav> so that the nav's backdrop-filter doesn't
+     create a containing block that clips the fixed-positioned drawer. -->
+<div
+  class="nav-drawer"
+  id="nav-drawer"
+  role="dialog"
+  aria-modal="true"
+  aria-label={locale === 'es' ? 'Menú de navegación' : 'Navigation menu'}
+  hidden
+>
+  <div class="nav-drawer-inner">
+    {navLinks.map((l) => (
+      <a href={l.href} class="nav-drawer-link">
+        <span class="idx">{l.idx}</span>
+        <span class="lbl">{dict.nav[l.key]}</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    ))}
+    <a href="#contact" class="nav-drawer-cta">{dict.nav.hireMe} <span aria-hidden="true">→</span></a>
+
+    <div class="nav-drawer-lang" aria-label={dict.lang.selectorLabel}>
+      {locales.map((l) => (
+        <a
+          href={switchLocalePath(Astro.url, l)}
+          class={['nav-drawer-lang-opt', l === locale ? 'active' : ''].join(' ')}
+          hreflang={l}
+          aria-current={l === locale ? 'true' : undefined}
+        >{l.toUpperCase()}</a>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .skip-link {
+    position: absolute; top: -100px; left: 12px;
+    z-index: 200;
+    background: var(--accent);
+    color: var(--accent-ink);
+    padding: 10px 14px;
+    font-family: var(--font-mono);
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    transition: top .18s ease;
+  }
+  .skip-link:focus { top: 12px; }
+
+  .scroll-progress {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 2px;
+    background: transparent;
+    pointer-events: none;
+  }
+  .scroll-progress-fill {
+    display: block; height: 100%;
+    width: var(--scroll-progress, 0%);
+    background: var(--accent);
+    transition: width .05s linear;
+  }
+
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+  .lang-switch {
+    display: inline-flex;
+    border: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 11px; letter-spacing: 0.12em;
+  }
+  .lang-opt {
+    padding: 8px 11px;
+    color: var(--fg-dim);
+    text-transform: uppercase;
+    transition: all .15s ease;
+    border-right: 1px solid var(--line);
+  }
+  .lang-opt:last-child { border-right: none; }
+  .lang-opt:hover { color: var(--fg); }
+  .lang-opt.active { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+  .lang-opt:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* Burger button (mobile only) */
+  .nav-burger {
+    display: none;
+    width: 44px; height: 44px;
+    padding: 0; margin: 0;
+    background: transparent;
+    border: 1px solid var(--line);
+    cursor: pointer;
+    position: relative;
+  }
+  .nav-burger span {
+    position: absolute;
+    left: 10px; right: 10px; height: 2px;
+    background: var(--fg);
+    transition: transform .2s ease, opacity .2s ease, top .2s ease;
+  }
+  .nav-burger span:nth-child(1) { top: 14px; }
+  .nav-burger span:nth-child(2) { top: 21px; }
+  .nav-burger span:nth-child(3) { top: 28px; }
+  .nav-burger[aria-expanded='true'] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-burger[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
+  .nav-burger[aria-expanded='true'] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+  .nav-burger:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* Drawer */
+  .nav-drawer {
+    position: fixed;
+    top: 64px; right: 0; bottom: 0; left: 0;
+    height: auto;
+    background: rgba(13, 13, 13, 0.96);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    z-index: 40;
+    overflow-y: auto;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity .22s ease, transform .22s ease;
+    pointer-events: none;
+  }
+  .nav-drawer[data-open='true'] {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .nav-drawer[hidden] { display: block; }
+  .nav-drawer-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 24px 48px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .nav-drawer-link {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: 14px;
+    padding: 18px 8px;
+    font-family: var(--font-display);
+    font-size: clamp(28px, 8vw, 44px);
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--fg);
+    border-bottom: 1px solid var(--line);
+    transition: color .18s ease, padding-left .18s ease;
+  }
+  .nav-drawer-link .idx {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fg-dim);
+    letter-spacing: 0.1em;
+  }
+  .nav-drawer-link .arrow {
+    font-family: var(--font-mono);
+    font-size: 16px; color: var(--fg-mute);
+  }
+  .nav-drawer-link:hover, .nav-drawer-link:focus-visible {
+    color: var(--accent);
+    padding-left: 16px;
+    outline: none;
+  }
+  .nav-drawer-link:hover .arrow, .nav-drawer-link:focus-visible .arrow { color: var(--accent); }
+
+  .nav-drawer-cta {
+    margin-top: 20px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 16px 20px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    text-align: center;
+    border: 2px solid var(--accent);
+    font-weight: 700;
+  }
+
+  .nav-drawer-lang {
+    display: inline-flex;
+    margin-top: 28px;
+    border: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    align-self: flex-start;
+  }
+  .nav-drawer-lang-opt {
+    padding: 10px 14px;
+    color: var(--fg-dim);
+    text-transform: uppercase;
+    transition: all .15s ease;
+    border-right: 1px solid var(--line);
+  }
+  .nav-drawer-lang-opt:last-child { border-right: none; }
+  .nav-drawer-lang-opt:hover { color: var(--fg); }
+  .nav-drawer-lang-opt.active { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .nav-burger { display: inline-flex; }
+  }
+
+  @media (max-width: 560px) {
+    .lang-switch { font-size: 10px; }
+    .lang-opt { padding: 7px 9px; }
+  }
+
+  /* Lock body scroll when drawer open */
+  :global(body.nav-open) { overflow: hidden; }
+</style>
+
+<script>
+  const burger = document.querySelector<HTMLButtonElement>('.nav-burger');
+  const drawer = document.getElementById('nav-drawer');
+  const drawerLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-drawer-link, .nav-drawer-cta');
+
+  function setDrawer(open: boolean) {
+    if (!burger || !drawer) return;
+    burger.setAttribute('aria-expanded', String(open));
+    drawer.dataset.open = String(open);
+    drawer.hidden = false;
+    document.body.classList.toggle('nav-open', open);
+    if (open) {
+      const first = drawer.querySelector<HTMLElement>('a');
+      first?.focus();
+    }
+  }
+
+  burger?.addEventListener('click', () => {
+    const isOpen = burger.getAttribute('aria-expanded') === 'true';
+    setDrawer(!isOpen);
+  });
+
+  drawerLinks.forEach((a) => a.addEventListener('click', () => setDrawer(false)));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && burger?.getAttribute('aria-expanded') === 'true') {
+      setDrawer(false);
+      burger.focus();
+    }
+  });
+
+  // Close drawer on resize above breakpoint
+  const mql = window.matchMedia('(min-width: 861px)');
+  mql.addEventListener('change', (e) => {
+    if (e.matches) setDrawer(false);
+  });
+
+  // Active-section scroll spy for desktop nav
+  const navLinksEls = [...document.querySelectorAll('.nav-links a')] as HTMLAnchorElement[];
+  const sections = navLinksEls
+    .map((a) => document.querySelector(a.getAttribute('href')!))
+    .filter(Boolean) as Element[];
+
+  const navIo = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          navLinksEls.forEach((l) => l.classList.remove('active'));
+          const i = sections.indexOf(e.target);
+          if (i >= 0) navLinksEls[i]?.classList.add('active');
+        }
+      });
+    },
+    { rootMargin: '-40% 0px -55% 0px' }
+  );
+  sections.forEach((s) => navIo.observe(s));
+
+  // Scroll progress bar + nav-shrink
+  const fill = document.querySelector<HTMLElement>('.scroll-progress-fill');
+  const nav = document.querySelector<HTMLElement>('.nav');
+  const update = () => {
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    fill?.style.setProperty('--scroll-progress', pct.toFixed(2) + '%');
+    nav?.classList.toggle('is-scrolled', window.scrollY > 40);
+  };
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+
+  // Reveal-on-scroll for anything tagged .reveal
+  const reveals = document.querySelectorAll<HTMLElement>('.reveal');
+  if (reveals.length && 'IntersectionObserver' in window) {
+    const revealIo = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            revealIo.unobserve(e.target);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.12 }
+    );
+    reveals.forEach((el) => revealIo.observe(el));
+  }
+</script>

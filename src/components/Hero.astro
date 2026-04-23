@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import type { Locale } from '../i18n/config';
+import { site } from '../data/site';
+import { t } from '../i18n/dictionaries';
+import profileImage from '../assets/profile.png';
+
+export interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dict = t(locale);
+const resumeUrl = site.resumeUrlByLocale[locale];
+---
+<section class="hero container" id="about">
+  <div class="hero-tag"><span>{dict.hero.tag}</span></div>
+
+  <h1>
+    <span class="line">{dict.hero.h1.line1}</span>
+    <span class="line"><span class="slash">/</span> {dict.hero.h1.line2Before.replace(/^\/\s*/, '')}</span>
+    <span class="line"><span class="accent">{dict.hero.h1.line3}</span></span>
+  </h1>
+
+  <div class="hero-grid">
+    <div>
+      <p class="hero-desc" set:html={dict.hero.description} />
+
+      <div class="hero-actions">
+        <a href={resumeUrl} class="btn primary" target="_blank" rel="noopener noreferrer">
+          {dict.hero.cta.resume} <span class="arrow">↗</span>
+        </a>
+        <a href="#work" class="btn">
+          {dict.hero.cta.work} <span class="arrow">→</span>
+        </a>
+        <a href={`mailto:${site.email}`} class="btn">
+          {dict.hero.cta.contact} <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-id-card corner-marks">
+      <div class="hero-portrait">
+        <span class="placeholder-label">// PORTRAIT.PNG</span>
+        <Image
+          src={profileImage}
+          alt="Martin Collado"
+          widths={[480, 720, 960]}
+          sizes="(max-width: 900px) 90vw, 420px"
+          class="portrait-img"
+          loading="eager"
+        />
+      </div>
+      <div class="hero-id-meta">
+        <div>{dict.hero.id.id}<br/><b>M. COLLADO</b></div>
+        <div>{dict.hero.id.age}<br/><b>{site.age}</b></div>
+        <div>{dict.hero.id.loc}<br/><b>{dict.hero.id.locValue}</b></div>
+        <div>{dict.hero.id.status}<br/><b style="color:var(--accent)">{dict.hero.id.statusValue}</b></div>
+      </div>
+    </div>
+  </div>
+
+  <dl class="hero-meta hero-meta-card">
+    <div><dt>{dict.hero.meta.email}</dt><dd><a href={`mailto:${site.email}`}>{site.email}</a></dd></div>
+    <div><dt>{dict.hero.meta.location}</dt><dd>{site.location}</dd></div>
+    <div><dt>{dict.hero.meta.freelance}</dt><dd class="status">{dict.hero.meta.freelanceValue}</dd></div>
+    <div><dt>{dict.hero.meta.years}</dt><dd>{dict.hero.meta.yearsValue}</dd></div>
+  </dl>
+
+  <a href="#skills" class="scroll-hint" aria-label={locale === 'es' ? 'Desplázate para explorar' : 'Scroll to explore'}>
+    <span>{locale === 'es' ? 'DESPLÁZATE' : 'SCROLL'}</span>
+  </a>
+</section>

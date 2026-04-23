@@ -1,0 +1,52 @@
+---
+import { Font } from 'astro:assets';
+import type { Locale } from '../i18n/config';
+import { t } from '../i18n/dictionaries';
+import { switchLocalePath, locales } from '../i18n/config';
+import '../styles/v2026.css';
+
+export interface Props {
+  locale: Locale;
+  title?: string;
+  description?: string;
+}
+
+const { locale, title, description } = Astro.props;
+const dict = t(locale);
+const metaTitle = title ?? dict.meta.title;
+const metaDesc = description ?? dict.meta.description;
+
+const alternates = locales.map((l) => ({
+  locale: l,
+  href: new URL(switchLocalePath(Astro.url, l), Astro.site).toString(),
+}));
+---
+<!doctype html>
+<html lang={locale}>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="description" content={metaDesc} />
+<title>{metaTitle}</title>
+
+<!-- Astro 6 Fonts API: self-hosted + preload automático -->
+<Font cssVariable="--font-display" preload />
+<Font cssVariable="--font-ui" preload />
+<Font cssVariable="--font-mono" />
+
+{alternates.map((a) => (
+  <link rel="alternate" hreflang={a.locale} href={a.href} />
+))}
+<link rel="alternate" hreflang="x-default" href={new URL(switchLocalePath(Astro.url, 'es'), Astro.site).toString()} />
+
+<meta property="og:title" content={metaTitle} />
+<meta property="og:description" content={metaDesc} />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content={locale === 'es' ? 'es_ES' : 'en_US'} />
+</head>
+<body>
+  <div class="concrete-bg" aria-hidden="true"></div>
+  <div class="scratches" aria-hidden="true"></div>
+  <slot />
+</body>
+</html>

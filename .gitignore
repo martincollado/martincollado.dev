@@ -28,3 +28,6 @@ pnpm-debug.log*
 pnpm-lock.yaml
 package-lock.json
 .vercel
+
+# Claude Code local config
+.claude/
