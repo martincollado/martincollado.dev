@@ -7,6 +7,7 @@ export interface Props { locale: Locale }
 const { locale } = Astro.props;
 const dict = t(locale);
 const resumeUrl = site.resumeUrlByLocale[locale];
+const linkedinUrl = `${site.socials.linkedin}?locale=${locale === 'es' ? 'es_ES' : 'en_US'}`;
 ---
 <section class="contact container" id="contact">
   <div class="section-meta">{dict.contact.sectionMeta}</div>
@@ -23,7 +24,7 @@ const resumeUrl = site.resumeUrlByLocale[locale];
         <span>{site.email.toUpperCase()}</span>
         <span class="arrow">↗</span>
       </a>
-      <a class="contact-link" href={site.socials.linkedin} target="_blank" rel="noopener">
+      <a class="contact-link" href={linkedinUrl} target="_blank" rel="noopener">
         <span>{dict.contact.linkedin}</span>
         <span class="arrow">↗</span>
       </a>
