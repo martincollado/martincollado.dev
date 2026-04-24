@@ -285,8 +285,8 @@
     .page:last-child{page-break-after:auto}
 
     /* ── Compact everything to fit A4 ── */
-    /* Tighter page padding */
-    .page{padding:9mm 12mm 9mm}
+    /* Tighter page padding — bottom 18mm leaves room for the absolute footer */
+    .page{padding:9mm 12mm 18mm}
     /* Header: smaller name, hide role-tag, compact role text */
     .hdr .name{font-size:36pt;line-height:.80}
     .hdr .role-tag{display:none}
