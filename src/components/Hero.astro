@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import type { Locale } from '../i18n/config';
 import { site } from '../data/site';
 import { t } from '../i18n/dictionaries';
-import profileImage from '../assets/profile.png';
+import profileImage from '../assets/profile.webp';
 
 export interface Props { locale: Locale }
 const { locale } = Astro.props;
@@ -38,12 +38,13 @@ const resumeUrl = site.resumeUrlByLocale[locale];
 
     <div class="hero-id-card corner-marks">
       <div class="hero-portrait">
-        <span class="placeholder-label">// PORTRAIT.PNG</span>
+        <span class="placeholder-label">// PORTRAIT.WEBP</span>
         <Image
           src={profileImage}
           alt="Martin Collado"
-          widths={[480, 720, 960]}
-          sizes="(max-width: 900px) 90vw, 420px"
+          quality={88}
+          widths={[420, 640, 960]}
+          sizes="(max-width: 680px) 92vw, (max-width: 900px) 45vw, 420px"
           class="portrait-img"
           loading="eager"
         />
