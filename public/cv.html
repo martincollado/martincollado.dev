@@ -106,7 +106,7 @@
   .tagline::before{content:"";width:26px;height:1px;background:var(--mute)}
 
   /* ---------- Section chrome ---------- */
-  .section{margin-top:7mm}
+  .section{margin-top:6mm}
   .section-head{
     display:flex;align-items:center;gap:10px;margin-bottom:4mm;
   }
@@ -241,7 +241,7 @@
     background:var(--rule);border:.8px solid var(--rule);
   }
   .interest{
-    background:var(--paper);padding:3mm 3mm 3mm;min-height:22mm;
+    background:var(--paper);padding:2.5mm 3mm 2.5mm;min-height:18mm;
     display:flex;flex-direction:column;justify-content:space-between;
   }
   .interest .n{
@@ -279,17 +279,53 @@
     .page{
       box-shadow:none;margin:0;
       page-break-after:always;
-      /* Hard-clip at exactly A4 — no overflow bleed */
       max-height:297mm;
       overflow:hidden;
     }
     .page:last-child{page-break-after:auto}
-    /* Never split a job entry across pages */
+
+    /* ── Compact everything to fit A4 ── */
+    /* Tighter page padding */
+    .page{padding:9mm 12mm 9mm}
+    /* Header: smaller name, hide role-tag, compact role text */
+    .hdr .name{font-size:36pt;line-height:.80}
+    .hdr .role-tag{display:none}
+    .hdr .role{font-size:9pt;line-height:1.2;margin-top:2px;max-width:none}
+    .hdr{padding-bottom:3mm;gap:12mm}
+    .hdr .meta{font-size:7pt;line-height:1.4}
+    /* Hide decorative tagline */
+    .tagline{display:none}
+    /* Tighter section spacing */
+    .section{margin-top:4mm}
+    .section-head{margin-bottom:2mm}
+    /* Compact summary */
+    .summary{font-size:8.5pt;line-height:1.35}
+    /* Tighter body grid */
+    .body{margin-top:3mm;gap:6mm}
+    /* Tighter work list */
+    .work{gap:3mm}
+    .job{padding-top:2mm;gap:3mm}
+    .job ul{gap:.8mm;margin-top:1mm}
+    .job li{font-size:8pt;line-height:1.3;padding-left:4mm}
+    .job .stack{margin-top:1.5mm}
+    .job .company{margin:1px 0 2px}
+    .job .dates{margin-bottom:1px}
+    /* Tighter sidebar */
+    .aside-block{margin-bottom:3.5mm}
+    .aside-block h3{margin-bottom:2mm;padding-bottom:1mm}
+    .aside-block .sub{margin:1.5mm 0 1mm}
+    /* Education */
+    .edu{gap:2mm}
+    .edu .item{padding-bottom:1.5mm}
+    .edu .item .desc{font-size:8pt;line-height:1.3;margin-top:1mm}
+
+    /* Break prevention */
     .job{break-inside:avoid;page-break-inside:avoid}
     .aside-block{break-inside:avoid;page-break-inside:avoid}
     .edu .item{break-inside:avoid;page-break-inside:avoid}
     .quote{break-inside:avoid;page-break-inside:avoid}
     .interests{break-inside:avoid;page-break-inside:avoid}
+    .ref-section{break-inside:avoid;page-break-inside:avoid}
   }
 </style>
 </head>
@@ -436,16 +472,12 @@
               </div>
               <ul>
                 <li class="lang-es"><b>Lideré el equipo SRE</b>: diseño, implementación y mantenimiento de infra y aplicaciones.</li>
-                <li class="lang-es"><b>Migración on-premise → GCP</b> con Kubernetes y Terraform — <span class="hl">−30% coste de infra</span>, mayor escalabilidad.</li>
-                <li class="lang-es"><b>GitOps con Argo CD</b> — <span class="hl">−70% time-to-deploy</span> en nuevas features.</li>
-                <li class="lang-es"><b>Keycloak como IdP corporativo</b> — <span class="hl">−90% onboarding</span> de nuevas aplicaciones.</li>
-                <li class="lang-es">Arquitecturas complejas con microservicios y serverless. Formación de developers en best practices.</li>
+                <li class="lang-es"><b>Migración on-premise → GCP</b> con Kubernetes y Terraform — <span class="hl">−30% coste de infra</span>.</li>
+                <li class="lang-es"><b>GitOps con Argo CD</b> — <span class="hl">−70% time-to-deploy</span>. <b>Keycloak</b> como IdP — <span class="hl">−90% onboarding</span>.</li>
 
                 <li class="lang-en"><b>Led the SRE team</b>: design, implementation and maintenance of infra and applications.</li>
-                <li class="lang-en"><b>On-prem → GCP migration</b> with Kubernetes and Terraform — <span class="hl">−30% infra cost</span>, higher scalability.</li>
-                <li class="lang-en"><b>GitOps with Argo CD</b> — <span class="hl">−70% time-to-deploy</span> on new features.</li>
-                <li class="lang-en"><b>Keycloak as corporate IdP</b> — <span class="hl">−90% onboarding time</span> for new applications.</li>
-                <li class="lang-en">Complex microservices &amp; serverless architectures. Developer enablement and best-practice training.</li>
+                <li class="lang-en"><b>On-prem → GCP migration</b> with Kubernetes and Terraform — <span class="hl">−30% infra cost</span>.</li>
+                <li class="lang-en"><b>GitOps with Argo CD</b> — <span class="hl">−70% time-to-deploy</span>. <b>Keycloak</b> as IdP — <span class="hl">−90% onboarding</span>.</li>
               </ul>
               <div class="stack">
                 <span class="tag primary">KUBERNETES</span>
@@ -478,12 +510,10 @@
               </div>
               <ul>
                 <li class="lang-es"><b>Infraestructura hybrid-cloud</b> con Kubernetes + GCP hospedando todos los servicios de la fundación.</li>
-                <li class="lang-es"><b>Digitalización de procesos manuales</b> — <span class="hl">−50% tiempo de tareas</span> y mayor calidad.</li>
-                <li class="lang-es">Lidero la transformación digital: productos, servicios y procesos internos optimizados.</li>
+                <li class="lang-es"><b>Digitalización de procesos</b> — <span class="hl">−50% tiempo de tareas</span>. Liderazgo de la transformación digital completa.</li>
 
                 <li class="lang-en"><b>Hybrid-cloud infrastructure</b> on Kubernetes + GCP hosting all foundation services.</li>
-                <li class="lang-en"><b>Digitized manual processes</b> — <span class="hl">−50% task time</span> and higher quality.</li>
-                <li class="lang-en">Leading digital transformation: new digital products, services and optimized internal processes.</li>
+                <li class="lang-en"><b>Digitized processes</b> — <span class="hl">−50% task time</span>. Leading the full digital transformation.</li>
               </ul>
               <div class="stack">
                 <span class="tag primary">KUBERNETES</span>
@@ -585,31 +615,6 @@
               <span class="v">
                 <span class="lang-es">PROFESIONAL</span>
                 <span class="lang-en">PROFESSIONAL</span>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div class="aside-block">
-          <h3>
-            <span>
-              <span class="lang-es">REFERENCIA</span>
-              <span class="lang-en">REFERENCE</span>
-            </span>
-            <span class="num">05</span>
-          </h3>
-          <div class="quote">
-            <p class="lang-es">
-              Martin es un profesional excepcional con amplio conocimiento en tecnología, optimización de procesos y mejora continua. Gracias a su expertise hemos digitalizado la fundación y agilizado procesos internos que antes eran mucho más complicados.
-            </p>
-            <p class="lang-en">
-              Martin is an exceptional professional with extensive knowledge in technology, process optimization and continuous improvement. Thanks to his expertise we have digitalized the foundation and streamlined internal processes that were previously much more complicated.
-            </p>
-            <div class="by">
-              <b>ALBERTO BORNSTEIN</b>
-              <span>
-                <span class="lang-es">DIRECTOR · FUND. A. BETANCOURT</span>
-                <span class="lang-en">DIRECTOR · A. BETANCOURT FOUNDATION</span>
               </span>
             </div>
           </div>
@@ -751,12 +756,8 @@
           <div class="school">UNIVERSIDAD POLITÉCNICA DE MADRID · ESPAÑA</div>
           <div class="dates">SEP 2017 — JUN 2022</div>
           <p class="desc">
-            <span class="lang-es">
-              Desde joven he sido apasionado de la tecnología y los ordenadores — horas explorando internet y videojuegos me llevaron a estudiar Informática en la UPM. Durante la carrera trabajé en proyectos del Laboratorio de Hidráulica e Hidrología y del dpto. de Puertos, desarrollando herramientas para optimizar experimentos.
-            </span>
-            <span class="lang-en">
-              Lifelong passion for tech &amp; computers — endless hours on the internet and gaming led me to study CS at UPM. During the degree I worked on projects at the Hydraulics &amp; Hydrology Lab and the Ports dept., building tools to optimize lab experiments.
-            </span>
+            <span class="lang-es">Apasionado de tecnología desde siempre. Trabajé en el Lab. de Hidráulica e Hidrología y dpto. de Puertos desarrollando herramientas de optimización.</span>
+            <span class="lang-en">Lifelong passion for tech. Worked at the Hydraulics Lab and Ports dept. building optimization tools for research experiments.</span>
           </p>
           <div class="stack" style="margin-top:2mm">
             <span class="tag">DOCKER</span>
@@ -776,12 +777,8 @@
           <div class="school">UNIVERSIDAD POLITÉCNICA DE MADRID · ESPAÑA</div>
           <div class="dates">SEP 2015 — JUN 2017</div>
           <p class="desc">
-            <span class="lang-es">
-              Pasión temprana por construir — horas con LEGO montando casas y puentes. Esa curiosidad me llevó a Ingeniería Civil en la UPM, donde adquirí una base sólida en matemáticas, física y principios de ingeniería.
-            </span>
-            <span class="lang-en">
-              Early love for building — countless hours with LEGO assembling houses and bridges. That curiosity took me to Civil Engineering at UPM, where I built a solid foundation in math, physics and engineering principles.
-            </span>
+            <span class="lang-es">Curiosidad por construir desde niño. Base sólida en matemáticas, física y principios de ingeniería que complementa mi perfil técnico.</span>
+            <span class="lang-en">Curiosity for building from an early age. Solid foundation in mathematics, physics and engineering that complements my technical background.</span>
           </p>
           <div class="stack" style="margin-top:2mm">
             <span class="tag">PYTHON</span>
@@ -802,21 +799,47 @@
         <span class="section-rule"></span>
       </div>
       <div class="tags" style="gap:4px">
+        <span class="tag primary">GCP · PROFESSIONAL CLOUD ARCHITECT</span>
+        <span class="tag primary">GCP · PROFESSIONAL ML ENGINEER</span>
         <span class="tag solid">PADI · OPEN WATER</span>
         <span class="tag solid">PADI · ADVANCED OW</span>
-        <span class="tag">
-          <span class="lang-es">DRONES AESA · A1/A3</span>
-          <span class="lang-en">DRONES AESA · A1/A3</span>
-        </span>
+        <span class="tag">DRONES AESA · A1/A3</span>
         <span class="tag">DRONES STS-ES-01</span>
         <span class="tag">DRONES STS-ES-02</span>
+      </div>
+    </section>
+
+    <!-- REFERENCE -->
+    <section class="section ref-section">
+      <div class="section-head">
+        <span class="section-idx">08</span>
+        <h2 class="section-title">
+          <span class="lang-es">REFERENCIA</span>
+          <span class="lang-en">REFERENCE</span>
+        </h2>
+        <span class="section-rule"></span>
+      </div>
+      <div class="quote">
+        <p class="lang-es">
+          Martin es un profesional excepcional con amplio conocimiento en tecnología, optimización de procesos y mejora continua. Gracias a su expertise hemos digitalizado la fundación y agilizado procesos internos que antes eran mucho más complicados.
+        </p>
+        <p class="lang-en">
+          Martin is an exceptional professional with extensive knowledge in technology, process optimization and continuous improvement. Thanks to his expertise we have digitalized the foundation and streamlined internal processes that were previously much more complicated.
+        </p>
+        <div class="by">
+          <b>ALBERTO BORNSTEIN</b>
+          <span>
+            <span class="lang-es">DIRECTOR · FUND. A. BETANCOURT</span>
+            <span class="lang-en">DIRECTOR · A. BETANCOURT FOUNDATION</span>
+          </span>
+        </div>
       </div>
     </section>
 
     <!-- INTERESTS -->
     <section class="section">
       <div class="section-head">
-        <span class="section-idx">08</span>
+        <span class="section-idx">09</span>
         <h2 class="section-title">
           <span class="lang-es">OFF-DUTY · INTERESES</span>
           <span class="lang-en">OFF-DUTY · INTERESTS</span>
@@ -867,26 +890,6 @@
           <div><h5>OPEN SOURCE</h5><div class="t">// CONTRIBS &amp; SIDE PROJECTS</div></div>
         </div>
       </div>
-    </section>
-
-    <!-- OUTRO -->
-    <section class="section" style="margin-top:9mm">
-      <div class="section-head">
-        <span class="section-idx">09</span>
-        <h2 class="section-title">
-          <span class="lang-es">¿HABLAMOS?</span>
-          <span class="lang-en">LET'S TALK</span>
-        </h2>
-        <span class="section-rule"></span>
-      </div>
-      <p class="summary">
-        <span class="lang-es">
-          Abierto a oportunidades <b>full-time remote</b> y <b>colaboraciones freelance</b> en SRE, plataformas cloud y backend Python. Contáctame en <span class="hl">info@martincollado.dev</span> o visita <b>martincollado.dev</b> para ver el portfolio completo.
-        </span>
-        <span class="lang-en">
-          Open to <b>full-time remote</b> opportunities and <b>freelance collaborations</b> in SRE, cloud platforms and Python backend. Reach me at <span class="hl">info@martincollado.dev</span> or visit <b>martincollado.dev</b> for the full portfolio.
-        </span>
-      </p>
     </section>
 
     <div class="pfoot">
