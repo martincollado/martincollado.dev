@@ -276,8 +276,20 @@
     html,body{background:var(--paper)}
     .toolbar{display:none}
     .doc{padding:0;gap:0}
-    .page{box-shadow:none;margin:0;page-break-after:always}
+    .page{
+      box-shadow:none;margin:0;
+      page-break-after:always;
+      /* Hard-clip at exactly A4 — no overflow bleed */
+      max-height:297mm;
+      overflow:hidden;
+    }
     .page:last-child{page-break-after:auto}
+    /* Never split a job entry across pages */
+    .job{break-inside:avoid;page-break-inside:avoid}
+    .aside-block{break-inside:avoid;page-break-inside:avoid}
+    .edu .item{break-inside:avoid;page-break-inside:avoid}
+    .quote{break-inside:avoid;page-break-inside:avoid}
+    .interests{break-inside:avoid;page-break-inside:avoid}
   }
 </style>
 </head>
@@ -320,8 +332,8 @@
       <div class="meta">
         <div><span class="k">EMAIL</span><b>info@martincollado.dev</b></div>
         <div><span class="k">WEB</span><b>martincollado.dev</b></div>
-        <div><span class="k">LINKEDIN</span><b>/in/mcollado</b></div>
-        <div><span class="k">GITHUB</span><b>@mcollado</b></div>
+        <div><span class="k">LINKEDIN</span><b>/in/martincolladodev</b></div>
+        <div><span class="k">GITHUB</span><b>@martincollado</b></div>
         <div><span class="k">LOC</span><b>Santander · ES</b></div>
         <div><span class="k">
           <span class="lang-es">DISPONIBILIDAD</span>
@@ -483,74 +495,6 @@
             </div>
           </article>
 
-          <!-- 04 ACCIONA DEVOPS -->
-          <article class="job">
-            <div class="num">04</div>
-            <div>
-              <h3 class="title">DEVOPS ENGINEER</h3>
-              <div class="company"><b>ACCIONA</b> / DIGITAL INNOVATION · SEVILLE</div>
-              <div class="dates">
-                <span>
-                  <span class="lang-es">FEB 2020 — ABR 2022</span>
-                  <span class="lang-en">FEB 2020 — APR 2022</span>
-                </span>
-                <span>ON-SITE</span>
-                <span>FULL-TIME</span>
-              </div>
-              <ul>
-                <li class="lang-es"><b>Migración OVH/IONOS → AWS</b> sobre Docker: escalabilidad y fiabilidad mejoradas.</li>
-                <li class="lang-es"><b>Cultura DevOps + GitLab CI/CD</b> desde cero — <span class="hl">−70% time-to-deploy</span>.</li>
-                <li class="lang-es">Diseño de <b>VPCs y VPNs</b> conectando red on-premise con AWS. Deployments en obras de construcción.</li>
-
-                <li class="lang-en"><b>Migration OVH/IONOS → AWS</b> on Docker: improved scalability and reliability.</li>
-                <li class="lang-en"><b>DevOps culture + GitLab CI/CD</b> from scratch — <span class="hl">−70% time-to-deploy</span>.</li>
-                <li class="lang-en">Designed <b>VPCs and VPNs</b> bridging on-prem with AWS. Rollouts for construction sites.</li>
-              </ul>
-              <div class="stack">
-                <span class="tag solid">PYTHON</span>
-                <span class="tag solid">AWS</span>
-                <span class="tag">DOCKER</span>
-                <span class="tag">TERRAFORM</span>
-                <span class="tag">GITLAB</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- 05 UPM -->
-          <article class="job">
-            <div class="num">05</div>
-            <div>
-              <h3 class="title">
-                <span class="lang-es">RESEARCH &amp; BACKEND DEVELOPER</span>
-                <span class="lang-en">RESEARCH &amp; BACKEND DEVELOPER</span>
-              </h3>
-              <div class="company"><b>UNIVERSIDAD POLITÉCNICA DE MADRID</b></div>
-              <div class="dates">
-                <span>
-                  <span class="lang-es">SEP 2015 — ENE 2020</span>
-                  <span class="lang-en">SEP 2015 — JAN 2020</span>
-                </span>
-                <span>ON-SITE</span>
-                <span>PART-TIME</span>
-              </div>
-              <ul>
-                <li class="lang-es">Backend e investigación para el dpto. de <b>Hidráulica e Hidrología</b> (ETSI Caminos).</li>
-                <li class="lang-es">Web apps y servicios para el dpto. de <b>Puertos e Ingeniería Costera</b>.</li>
-                <li class="lang-es">Modelos matemáticos procesados en backend; infra on-premise del laboratorio.</li>
-                <li class="lang-es">Introduje <b>Docker + GitLab CI/CD</b> al equipo — <span class="hl">−40% time-to-deploy</span>.</li>
-
-                <li class="lang-en">Backend &amp; research for the <b>Hydraulics &amp; Hydrology</b> dept. (ETSI Caminos).</li>
-                <li class="lang-en">Web apps and services for the <b>Ports &amp; Coastal Engineering</b> dept.</li>
-                <li class="lang-en">Mathematical models served from backend; on-premise lab infrastructure.</li>
-                <li class="lang-en">Introduced <b>Docker + GitLab CI/CD</b> to the team — <span class="hl">−40% time-to-deploy</span>.</li>
-              </ul>
-              <div class="stack">
-                <span class="tag solid">PYTHON</span>
-                <span class="tag">DOCKER</span>
-                <span class="tag">GITLAB</span>
-              </div>
-            </div>
-          </article>
         </div>
       </section>
 
@@ -701,6 +645,88 @@
       </div>
     </header>
 
+    <!-- EXPERIENCE CONT. (jobs 04–05) -->
+    <section class="section" style="margin-top:5mm">
+      <div class="section-head">
+        <span class="section-idx">01</span>
+        <h2 class="section-title">
+          <span class="lang-es">EXPERIENCIA · CONT.</span>
+          <span class="lang-en">EXPERIENCE · CONT.</span>
+        </h2>
+        <span class="section-rule"></span>
+      </div>
+      <div class="work" style="display:grid;grid-template-columns:1fr 1fr;gap:5mm 8mm">
+
+        <!-- 04 ACCIONA DEVOPS -->
+        <article class="job" style="border-top:none;padding-top:0">
+          <div class="num">04</div>
+          <div>
+            <h3 class="title">DEVOPS ENGINEER</h3>
+            <div class="company"><b>ACCIONA</b> / DIGITAL INNOVATION · SEVILLE</div>
+            <div class="dates">
+              <span>
+                <span class="lang-es">FEB 2020 — ABR 2022</span>
+                <span class="lang-en">FEB 2020 — APR 2022</span>
+              </span>
+              <span>ON-SITE</span>
+              <span>FULL-TIME</span>
+            </div>
+            <ul>
+              <li class="lang-es"><b>Migración OVH/IONOS → AWS</b> sobre Docker: escalabilidad y fiabilidad mejoradas.</li>
+              <li class="lang-es"><b>Cultura DevOps + GitLab CI/CD</b> desde cero — <span class="hl">−70% time-to-deploy</span>.</li>
+              <li class="lang-es">Diseño de <b>VPCs y VPNs</b> conectando on-premise con AWS.</li>
+              <li class="lang-en"><b>Migration OVH/IONOS → AWS</b> on Docker: improved scalability and reliability.</li>
+              <li class="lang-en"><b>DevOps culture + GitLab CI/CD</b> from scratch — <span class="hl">−70% time-to-deploy</span>.</li>
+              <li class="lang-en">Designed <b>VPCs and VPNs</b> bridging on-prem with AWS.</li>
+            </ul>
+            <div class="stack">
+              <span class="tag solid">PYTHON</span>
+              <span class="tag solid">AWS</span>
+              <span class="tag">DOCKER</span>
+              <span class="tag">TERRAFORM</span>
+              <span class="tag">GITLAB</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 05 UPM -->
+        <article class="job" style="border-top:none;padding-top:0">
+          <div class="num">05</div>
+          <div>
+            <h3 class="title">
+              <span class="lang-es">RESEARCH &amp; BACKEND DEVELOPER</span>
+              <span class="lang-en">RESEARCH &amp; BACKEND DEVELOPER</span>
+            </h3>
+            <div class="company"><b>UNIVERSIDAD POLITÉCNICA DE MADRID</b></div>
+            <div class="dates">
+              <span>
+                <span class="lang-es">SEP 2015 — ENE 2020</span>
+                <span class="lang-en">SEP 2015 — JAN 2020</span>
+              </span>
+              <span>ON-SITE</span>
+              <span>PART-TIME</span>
+            </div>
+            <ul>
+              <li class="lang-es">Backend e investigación para el dpto. de <b>Hidráulica e Hidrología</b> (ETSI Caminos).</li>
+              <li class="lang-es">Web apps para el dpto. de <b>Puertos e Ingeniería Costera</b>.</li>
+              <li class="lang-es">Modelos matemáticos en backend; infra on-premise del laboratorio.</li>
+              <li class="lang-es">Introduje <b>Docker + GitLab CI/CD</b> — <span class="hl">−40% time-to-deploy</span>.</li>
+              <li class="lang-en">Backend &amp; research for the <b>Hydraulics &amp; Hydrology</b> dept. (ETSI Caminos).</li>
+              <li class="lang-en">Web apps for the <b>Ports &amp; Coastal Engineering</b> dept.</li>
+              <li class="lang-en">Math models served from backend; on-premise lab infrastructure.</li>
+              <li class="lang-en">Introduced <b>Docker + GitLab CI/CD</b> — <span class="hl">−40% time-to-deploy</span>.</li>
+            </ul>
+            <div class="stack">
+              <span class="tag solid">PYTHON</span>
+              <span class="tag">DOCKER</span>
+              <span class="tag">GITLAB</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
     <!-- EDUCATION -->
     <section class="section">
       <div class="section-head">
@@ -801,7 +827,7 @@
       <div class="interests">
         <div class="interest">
           <div class="n">01</div>
-          <div><h5>SURF</h5><div class="t">// CANTABRIC BEACHES</div></div>
+          <div><h5>SURF</h5><div class="t">// CANTABRIAN BEACHES</div></div>
         </div>
         <div class="interest">
           <div class="n">02</div>
