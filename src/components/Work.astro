@@ -1,0 +1,40 @@
+---
+import type { Locale } from '../i18n/config';
+import { work, tr } from '../data/work';
+import { t } from '../i18n/dictionaries';
+import SkillTag from './SkillTag.astro';
+
+export interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dict = t(locale);
+---
+<section class="section container" id="work">
+  <div class="section-meta">{dict.work.sectionMeta}</div>
+  <div class="section-tag"><span>{dict.work.sectionTag}</span></div>
+  <h2 class="section-title reveal">{dict.work.titleL1}<br/><em>{dict.work.titleL2}</em><br/>{dict.work.titleL3}</h2>
+
+  <div class="work-list">
+    {work.map((job) => (
+      <article class="work-item reveal">
+        <div class="work-num">{job.num}</div>
+        <div class="work-main">
+          <h3>{tr(job.title, locale)}</h3>
+          <div class="work-company">
+            <a href={job.companyUrl} target="_blank" rel="noopener">{job.company} →</a>
+          </div>
+          <ul class="work-bullets">
+            {job.bullets[locale].map((b) => <li set:html={b} />)}
+          </ul>
+          <div class="work-stack">
+            {job.stack.map((tag) => <SkillTag tag={tag} size="sm" />)}
+          </div>
+        </div>
+        <div class="work-meta">
+          <div class="date" set:html={tr(job.date, locale)} />
+          <div class="meta-row"><span>{dict.work.labels.type}</span><b>{tr(job.type, locale)}</b></div>
+          <div class="meta-row"><span>{dict.work.labels.model}</span><b>{tr(job.model, locale)}</b></div>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
