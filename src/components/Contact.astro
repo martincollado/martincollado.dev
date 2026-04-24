@@ -7,7 +7,7 @@ export interface Props { locale: Locale }
 const { locale } = Astro.props;
 const dict = t(locale);
 const resumeUrl = site.resumeUrlByLocale[locale];
-const linkedinUrl = `${site.socials.linkedin}?locale=${locale === 'es' ? 'es_ES' : 'en_US'}`;
+const linkedinUrl = site.socials.linkedinByLocale[locale];
 ---
 <section class="contact container" id="contact">
   <div class="section-meta">{dict.contact.sectionMeta}</div>

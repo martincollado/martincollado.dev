@@ -25,7 +25,10 @@ export const site = {
     en: '/cv.html',
   } satisfies Record<Locale, string>,
   socials: {
-    linkedin: 'https://www.linkedin.com/in/martincolladodev/',
+    linkedinByLocale: {
+      es: 'https://www.linkedin.com/in/martincolladodev/?locale=es_ES',
+      en: 'https://www.linkedin.com/in/martincolladodev/?locale=en_US',
+    } satisfies Record<Locale, string>,
     github: 'https://github.com/martincollado',
     instagram: 'https://www.instagram.com/mcolladophotography/',
   },
