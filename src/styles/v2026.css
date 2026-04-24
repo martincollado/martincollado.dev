@@ -171,7 +171,11 @@ main { position: relative; z-index: 2; }
 }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
-.nav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+/* Nav-logo never wraps */
+.nav-logo { white-space: nowrap; }
+
+/* Nav-links: never wrap — scale instead */
+.nav-links { display: flex; gap: 4px; flex-wrap: nowrap; }
 .nav-links a {
   font-family: var(--font-mono);
   font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
@@ -180,6 +184,7 @@ main { position: relative; z-index: 2; }
   border: 1px solid transparent;
   transition: all .18s ease;
   position: relative;
+  white-space: nowrap;
 }
 .nav-links a:hover, .nav-links a.active {
   color: var(--accent-ink);
@@ -201,17 +206,27 @@ main { position: relative; z-index: 2; }
   display: inline-flex; align-items: center; gap: 8px;
   transition: transform .15s ease, background .15s ease;
   border: 2px solid var(--fg);
+  white-space: nowrap;
 }
 .nav-cta:hover { background: var(--accent); border-color: var(--accent); transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--accent-ink); }
 
-/* Mid-range: all 6 links + logo + lang-switch + CTA barely fit — compress & drop extras */
-@media (min-width: 861px) and (max-width: 1240px) {
-  .nav-logo { white-space: nowrap; font-size: 11px; gap: 8px; }
-  .nav-links { gap: 2px; flex-wrap: nowrap; }
-  .nav-links a { padding: 7px 9px; font-size: 11px; letter-spacing: 0.07em; }
+/*
+  Responsive nav tiers (desktop only — burger takes over at ≤860px):
+  1400px+  → full desktop: 13px, idx visible, CTA visible
+  1100–1399px → compress: hide idx, smaller padding, no CTA
+   861–1099px → very compact: minimal padding, tiny font, no CTA
+*/
+@media (min-width: 861px) and (max-width: 1399px) {
+  .nav-links a { padding: 8px 10px; font-size: 11px; letter-spacing: 0.07em; }
   .nav-links a .idx { display: none; }
-  .nav-cta { display: none; } /* CTA is in contact section, nav-links link is enough */
-  .nav-inner { gap: 14px; }
+  .nav-links { gap: 2px; }
+  .nav-cta { display: none; }
+  .nav-inner { gap: 12px; }
+}
+@media (min-width: 861px) and (max-width: 1099px) {
+  .nav-links a { padding: 6px 8px; font-size: 10.5px; letter-spacing: 0.05em; }
+  .nav-logo { font-size: 11px; gap: 7px; }
+  .nav-inner { gap: 8px; }
 }
 @media (max-width: 860px) {
   .nav-links { display: none; }
