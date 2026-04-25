@@ -231,7 +231,9 @@
     font-family:var(--f-disp);font-size:34pt;line-height:1;color:var(--accent);
   }
   .quote p{font-size:8.5pt;line-height:1.45;color:var(--ink-2);font-style:italic}
-  .quote .by{display:flex;flex-direction:column;margin-top:2mm}
+  .quote .by{display:flex;align-items:center;gap:3mm;margin-top:2mm}
+  .quote .by img{width:9mm;height:9mm;border-radius:50%;object-fit:cover;flex-shrink:0;border:1.5px solid var(--accent)}
+  .quote .by-text{display:flex;flex-direction:column}
   .quote .by b{font-family:var(--f-disp);font-size:9pt;text-transform:uppercase}
   .quote .by span{font-family:var(--f-mono);font-size:7pt;color:var(--mute);text-transform:uppercase;letter-spacing:.08em}
 
@@ -326,6 +328,23 @@
     .quote{break-inside:avoid;page-break-inside:avoid}
     .interests{break-inside:avoid;page-break-inside:avoid}
     .ref-section{break-inside:avoid;page-break-inside:avoid}
+  }
+  /* ---------- Mobile screen preview ---------- */
+  @media screen and (max-width: 820px) {
+    .toolbar{
+      top:8px;padding:6px;gap:4px;
+      font-size:9px;letter-spacing:.08em;
+    }
+    .toolbar button{padding:6px 10px}
+    .toolbar .hint{display:none}
+    .doc{padding:52px 0 40px;gap:12px}
+    .page{
+      /* Scale the A4 page to fit the viewport */
+      transform-origin:top center;
+      transform:scale(var(--page-scale,0.45));
+      /* Collapse layout space so scaled pages stack properly */
+      margin-bottom:calc((var(--page-scale,0.45) - 1) * 297mm);
+    }
   }
 </style>
 </head>
@@ -827,11 +846,14 @@
           Martin is an exceptional professional with extensive knowledge in technology, process optimization and continuous improvement. Thanks to his expertise we have digitalized the foundation and streamlined internal processes that were previously much more complicated.
         </p>
         <div class="by">
-          <b>ALBERTO BORNSTEIN</b>
-          <span>
-            <span class="lang-es">DIRECTOR · FUND. A. BETANCOURT</span>
-            <span class="lang-en">DIRECTOR · A. BETANCOURT FOUNDATION</span>
-          </span>
+          <img src="/alberto-bornstein.jpeg" alt="Alberto Bornstein" />
+          <div class="by-text">
+            <b>ALBERTO BORNSTEIN</b>
+            <span>
+              <span class="lang-es">DIRECTOR · FUND. A. BETANCOURT</span>
+              <span class="lang-en">DIRECTOR · A. BETANCOURT FOUNDATION</span>
+            </span>
+          </div>
         </div>
       </div>
     </section>
@@ -923,6 +945,19 @@
 
   const saved = localStorage.getItem('cv-lang');
   if (saved) setLang(saved);
+
+  // Mobile: scale A4 pages to fit viewport width
+  function updatePageScale() {
+    if (window.innerWidth >= 820) {
+      document.documentElement.style.removeProperty('--page-scale');
+      return;
+    }
+    const pageWidthPx = 210 * 3.7795; // 210mm in CSS px at 96dpi
+    const scale = (window.innerWidth - 16) / pageWidthPx;
+    document.documentElement.style.setProperty('--page-scale', scale.toFixed(4));
+  }
+  updatePageScale();
+  window.addEventListener('resize', updatePageScale);
 </script>
 
 </body>
