@@ -1,9 +1,11 @@
 ---
-import type { Locale } from '../i18n/config';
 import { education, references, trEdu } from '../data/education';
+import type { Locale } from '../i18n/config';
 import { t } from '../i18n/dictionaries';
 
-export interface Props { locale: Locale }
+export interface Props {
+  locale: Locale;
+}
 const { locale } = Astro.props;
 const dict = t(locale);
 ---
@@ -35,7 +37,9 @@ const dict = t(locale);
         <div class="quote corner-marks">
           <p class="quote-text">{trEdu(ref.text, locale)}</p>
           <div class="quote-by">
-            <div class="avatar"></div>
+            {ref.photo
+              ? <img src={ref.photo} alt={ref.author} class="avatar" />
+              : <div class="avatar"></div>}
             <div>
               <b>{ref.author}</b>
               <span>{trEdu(ref.role, locale)}</span>

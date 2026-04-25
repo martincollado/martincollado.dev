@@ -1,10 +1,12 @@
 ---
+import { tr, work } from '../data/work';
 import type { Locale } from '../i18n/config';
-import { work, tr } from '../data/work';
 import { t } from '../i18n/dictionaries';
 import SkillTag from './SkillTag.astro';
 
-export interface Props { locale: Locale }
+export interface Props {
+  locale: Locale;
+}
 const { locale } = Astro.props;
 const dict = t(locale);
 ---

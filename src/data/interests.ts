@@ -1,6 +1,9 @@
 import type { Locale } from '../i18n/config';
 
-export interface I18nString { es: string; en: string }
+export interface I18nString {
+  es: string;
+  en: string;
+}
 
 export interface Interest {
   num: string;
@@ -16,7 +19,10 @@ export const interests: Interest[] = [
   {
     num: '01',
     title: { es: 'SURF', en: 'SURF' },
-    tag: { es: '// PLAYAS CANTÁBRICAS · WIP', en: '// CANTABRIAN BEACHES · WIP' },
+    tag: {
+      es: '// PLAYAS CANTÁBRICAS · WIP',
+      en: '// CANTABRIAN BEACHES · WIP',
+    },
   },
   {
     num: '02',

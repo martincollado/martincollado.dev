@@ -22,7 +22,10 @@ export const skills: SkillCategory[] = [
     title: 'TECHNOLOGIES',
     groups: [
       {
-        subtitle: { es: '// CORE STACK · BACKEND & INFRA', en: '// CORE STACK · BACKEND & INFRA' },
+        subtitle: {
+          es: '// CORE STACK · BACKEND & INFRA',
+          en: '// CORE STACK · BACKEND & INFRA',
+        },
         tags: [
           { label: 'KUBERNETES', variant: 'primary' },
           { label: 'PYTHON', variant: 'primary' },
@@ -52,7 +55,10 @@ export const skills: SkillCategory[] = [
     title: 'PLATFORMS',
     groups: [
       {
-        subtitle: { es: '// CLOUD & DEPLOY TARGETS', en: '// CLOUD & DEPLOY TARGETS' },
+        subtitle: {
+          es: '// CLOUD & DEPLOY TARGETS',
+          en: '// CLOUD & DEPLOY TARGETS',
+        },
         tags: [
           { label: 'GOOGLE CLOUD', variant: 'primary' },
           { label: 'AWS', variant: 'primary' },
@@ -78,14 +84,20 @@ export const skills: SkillCategory[] = [
     title: 'OFF-STACK',
     groups: [
       {
-        subtitle: { es: '// LENGUAJES & CREATIVE TOOLS', en: '// LANGUAGES & CREATIVE TOOLS' },
+        subtitle: {
+          es: '// LENGUAJES & CREATIVE TOOLS',
+          en: '// LANGUAGES & CREATIVE TOOLS',
+        },
         tags: [
           { label: 'ESPAÑOL / NATIVO', variant: 'solid' },
           { label: 'ENGLISH / PRO', variant: 'solid' },
         ],
       },
       {
-        subtitle: { es: '// DISEÑO 3D + FOTO/VIDEO', en: '// 3D DESIGN + PHOTO/VIDEO' },
+        subtitle: {
+          es: '// DISEÑO 3D + FOTO/VIDEO',
+          en: '// 3D DESIGN + PHOTO/VIDEO',
+        },
         tags: [
           { label: 'SKETCHUP' },
           { label: 'AUTOCAD' },

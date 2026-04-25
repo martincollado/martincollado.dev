@@ -1,7 +1,10 @@
-import type { SkillTag } from './skills';
 import type { Locale } from '../i18n/config';
+import type { SkillTag } from './skills';
 
-export interface I18nString { es: string; en: string }
+export interface I18nString {
+  es: string;
+  en: string;
+}
 
 export interface WorkItem {
   num: string;
@@ -47,7 +50,10 @@ export const work: WorkItem[] = [
   },
   {
     num: '02',
-    title: { es: 'PRINCIPAL SITE RELIABILITY ENGINEER', en: 'PRINCIPAL SITE RELIABILITY ENGINEER' },
+    title: {
+      es: 'PRINCIPAL SITE RELIABILITY ENGINEER',
+      en: 'PRINCIPAL SITE RELIABILITY ENGINEER',
+    },
     company: 'ACCIONA / IT CONSTRUCTION',
     companyUrl: 'https://acciona.com/',
     date: { es: 'ABR 2022<br/>— DIC 2024', en: 'APR 2022<br/>— DEC 2024' },
@@ -144,7 +150,10 @@ export const work: WorkItem[] = [
   },
   {
     num: '05',
-    title: { es: 'RESEARCH & BACKEND DEVELOPER', en: 'RESEARCH & BACKEND DEVELOPER' },
+    title: {
+      es: 'RESEARCH & BACKEND DEVELOPER',
+      en: 'RESEARCH & BACKEND DEVELOPER',
+    },
     company: 'UNIVERSIDAD POLITÉCNICA DE MADRID',
     companyUrl: 'https://upm.es/',
     date: { es: 'SEP 2015<br/>— ENE 2020', en: 'SEP 2015<br/>— JAN 2020' },

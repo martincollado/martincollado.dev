@@ -1,11 +1,13 @@
 ---
 import { Image } from 'astro:assets';
-import type { Locale } from '../i18n/config';
-import { site } from '../data/site';
-import { t } from '../i18n/dictionaries';
 import profileImage from '../assets/profile.webp';
+import { site } from '../data/site';
+import type { Locale } from '../i18n/config';
+import { t } from '../i18n/dictionaries';
 
-export interface Props { locale: Locale }
+export interface Props {
+  locale: Locale;
+}
 const { locale } = Astro.props;
 const dict = t(locale);
 const resumeUrl = site.resumeUrlByLocale[locale];

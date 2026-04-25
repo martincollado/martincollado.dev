@@ -48,11 +48,33 @@ export default defineConfig({
 
   env: {
     schema: {
-      PUBLIC_UMAMI_WEBSITE_ID: envField.string({ context: 'client', access: 'public', optional: true }),
-      PUBLIC_POSTHOG_API_HOST: envField.string({ context: 'client', access: 'public', optional: true, url: true }),
-      PUBLIC_POSTHOG_API_KEY: envField.string({ context: 'client', access: 'public', optional: true }),
-      PUBLIC_SENTRY_DSN: envField.string({ context: 'client', access: 'public', optional: true, url: true }),
-      PRIVATE_SENTRY_AUTH_TOKEN: envField.string({ context: 'server', access: 'secret', optional: true }),
+      PUBLIC_UMAMI_WEBSITE_ID: envField.string({
+        context: 'client',
+        access: 'public',
+        optional: true,
+      }),
+      PUBLIC_POSTHOG_API_HOST: envField.string({
+        context: 'client',
+        access: 'public',
+        optional: true,
+        url: true,
+      }),
+      PUBLIC_POSTHOG_API_KEY: envField.string({
+        context: 'client',
+        access: 'public',
+        optional: true,
+      }),
+      PUBLIC_SENTRY_DSN: envField.string({
+        context: 'client',
+        access: 'public',
+        optional: true,
+        url: true,
+      }),
+      PRIVATE_SENTRY_AUTH_TOKEN: envField.string({
+        context: 'server',
+        access: 'secret',
+        optional: true,
+      }),
     },
   },
 

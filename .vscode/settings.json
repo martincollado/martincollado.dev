@@ -5,31 +5,33 @@
    */
   "css.customData": [".vscode/tailwind.json"],
 
-  /** Automatically formats code with Prettier and ESLint on save. */
+  /** Automatically formats and lints code with Biome on save. */
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.defaultFormatter": "biomejs.biome",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.biome": "explicit",
+    "source.organizeImports.biome": "explicit"
   },
+
+  /** Biome as formatter for all relevant file types. */
+  "[javascript]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[javascriptreact]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[typescript]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[typescriptreact]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[json]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[jsonc]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[astro]": { "editor.defaultFormatter": "biomejs.biome" },
+  "[css]": { "editor.defaultFormatter": "biomejs.biome" },
 
   /** Triggers autocompletion when editing strings. */
   "editor.quickSuggestions": {
     "strings": true
   },
 
-  /** Enables ESLint for JavaScript, TypeScript, and Astro files. */
-  "eslint.useFlatConfig": true,
-  "eslint.runtime": "node",
-  "eslint.validate": ["javascript", "typescript", "astro", "css"],
-
-  /** Enables Prettier in .astro and .svg files. */
-  "prettier.documentSelectors": ["**/*.astro", "**/*.svg"],
-
-  /** Disables formatting if we remove Prettier config file. */
-  "prettier.requireConfig": true,
-
   /** Enables Tailwind intellisense in cn function. */
-  "tailwindCSS.experimental.classRegex": [["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]],
+  "tailwindCSS.experimental.classRegex": [
+    ["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ],
 
   /** Uses TypeScript version installed within the project for intellisense. */
   "typescript.tsdk": "node_modules/typescript/lib",
@@ -44,5 +46,5 @@
   },
 
   /** Adds project specific words to the spell checker. */
-  "cSpell.words": ["astro", "favicons"]
+  "cSpell.words": ["astro", "biomejs", "favicons"]
 }
