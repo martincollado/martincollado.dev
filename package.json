@@ -26,22 +26,22 @@
     "format": "biome format --write ."
   },
   "dependencies": {
-    "@astrojs/check": "0.9.8",
-    "@astrojs/mdx": "5.0.3",
+    "@astrojs/check": "0.9.9",
+    "@astrojs/mdx": "5.0.4",
     "@astrojs/sitemap": "3.7.2",
-    "@astrojs/vercel": "10.0.4",
+    "@astrojs/vercel": "10.0.6",
     "@playform/compress": "0.2.3",
     "@sentry/astro": "8.48.0",
     "@sentry/vite-plugin": "2.23.0",
     "@tailwindcss/vite": "4.2.4",
-    "astro": "6.1.8",
+    "astro": "6.2.2",
     "astro-meta-tags": "0.4.1",
     "sharp": "0.34.5"
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "1.10.7",
     "@biomejs/biome": "^2.4.12",
-    "@spotlightjs/astro": "2.3.0",
+    "@spotlightjs/astro": "3.2.6",
     "@tailwindcss/typography": "0.5.19",
     "@total-typescript/ts-reset": "0.6.1",
     "tailwindcss": "4.2.4",

@@ -5,12 +5,13 @@ import compress from '@playform/compress';
 import sentry from '@sentry/astro';
 import spotlightjs from '@spotlightjs/astro';
 import tailwindcss from '@tailwindcss/vite';
-import { defineConfig, envField, fontProviders } from 'astro/config';
+import { defineConfig, envField, fontProviders, svgoOptimizer } from 'astro/config';
 import metaTags from 'astro-meta-tags';
 
 export default defineConfig({
   site: getSiteUrl(),
   output: 'static',
+  compressHTML: 'jsx',
 
   i18n: {
     defaultLocale: 'es',
@@ -76,6 +77,13 @@ export default defineConfig({
         optional: true,
       }),
     },
+  },
+
+  experimental: {
+    logger: {
+      entrypoint: 'astro/logger/json',
+    },
+    svgOptimizer: svgoOptimizer(),
   },
 
   vite: {
