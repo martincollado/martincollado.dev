@@ -26,6 +26,14 @@ const alternates = locales.map((l) => ({
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="color-scheme" content="dark light" />
+<!-- Anti-FOUC: apply saved theme class before first paint -->
+<script is:inline>
+  (function () {
+    var t = localStorage.getItem('theme');
+    if (t === 'dark' || t === 'light') document.documentElement.classList.add(t);
+  })();
+</script>
 <meta name="description" content={metaDesc} />
 <title>{metaTitle}</title>
 

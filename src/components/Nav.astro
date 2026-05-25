@@ -39,6 +39,15 @@ const dict = t(locale);
           >{l.toUpperCase()}</a>
         ))}
       </div>
+      <button
+        class="theme-toggle"
+        id="theme-toggle"
+        type="button"
+        aria-label={locale === 'es' ? 'Cambiar tema' : 'Toggle theme'}
+      >
+        <span class="icon-dark" aria-hidden="true">☀</span>
+        <span class="icon-light" aria-hidden="true">☽</span>
+      </button>
       <a href="#contact" class="nav-cta">{dict.nav.hireMe} <span aria-hidden="true">→</span></a>
       <button
         class="nav-burger"
@@ -161,7 +170,7 @@ const dict = t(locale);
     position: fixed;
     top: 64px; right: 0; bottom: 0; left: 0;
     height: auto;
-    background: rgba(13, 13, 13, 0.96);
+    background: var(--drawer-bg);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     z-index: 40;
@@ -367,6 +376,34 @@ const dict = t(locale);
   };
   window.addEventListener('scroll', updateBtt, { passive: true });
   btt?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // Theme toggle
+  const themeBtn = document.getElementById('theme-toggle') as HTMLButtonElement | null;
+  const html = document.documentElement;
+
+  function getEffectiveTheme(): 'dark' | 'light' {
+    if (html.classList.contains('dark')) return 'dark';
+    if (html.classList.contains('light')) return 'light';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function applyTheme(theme: 'dark' | 'light') {
+    html.classList.remove('dark', 'light');
+    html.classList.add(theme);
+    localStorage.setItem('theme', theme);
+    if (themeBtn) {
+      themeBtn.setAttribute(
+        'aria-label',
+        theme === 'dark'
+          ? (html.lang === 'es' ? 'Cambiar a modo claro' : 'Switch to light mode')
+          : (html.lang === 'es' ? 'Cambiar a modo oscuro' : 'Switch to dark mode'),
+      );
+    }
+  }
+
+  themeBtn?.addEventListener('click', () => {
+    applyTheme(getEffectiveTheme() === 'dark' ? 'light' : 'dark');
+  });
 
   // Reveal-on-scroll for anything tagged .reveal
   const reveals = document.querySelectorAll<HTMLElement>('.reveal');
