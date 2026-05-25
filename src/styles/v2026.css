@@ -72,6 +72,18 @@
     /* ── Decorative scratches overlay ── */
     --scratches-opacity: 0.12;
     --scratches-blend: normal;
+
+    /* ── Concrete camo layer (::after) ── */
+    --concrete-camo-opacity: 0.4;
+    --concrete-camo-blend: multiply;
+
+    /* ── Component surfaces ── */
+    --card-bg: #0e0e0e;
+    --card-fg: #f4f4ef;
+
+    /* ── Hero portrait ── */
+    --portrait-blend: screen;
+    --portrait-bg-glow: color-mix(in srgb, var(--accent) 10%, transparent);
   }
 
   /* ── Light mode: respects system preference ── */
@@ -113,6 +125,15 @@
       /* Scratches */
       --scratches-opacity: 0.05;
       --scratches-blend: multiply;
+      /* Concrete camo */
+      --concrete-camo-opacity: 0.05;
+      --concrete-camo-blend: multiply;
+      /* Component surfaces */
+      --card-bg: var(--bg-2);
+      --card-fg: var(--fg);
+      /* Hero portrait — normal blend on light bg, subtle accent key */
+      --portrait-blend: multiply;
+      --portrait-bg-glow: color-mix(in srgb, var(--accent) 4%, transparent);
     }
   }
 
@@ -145,6 +166,12 @@
     );
     --scratches-opacity: 0.05;
     --scratches-blend: multiply;
+    --concrete-camo-opacity: 0.05;
+    --concrete-camo-blend: multiply;
+    --card-bg: var(--bg-2);
+    --card-fg: var(--fg);
+    --portrait-blend: multiply;
+    --portrait-bg-glow: color-mix(in srgb, var(--accent) 4%, transparent);
   }
 
   /* ── Dark mode: manual override (for system-light users) ── */
@@ -176,6 +203,12 @@
     );
     --scratches-opacity: 0.12;
     --scratches-blend: normal;
+    --concrete-camo-opacity: 0.4;
+    --concrete-camo-blend: multiply;
+    --card-bg: #0e0e0e;
+    --card-fg: #f4f4ef;
+    --portrait-blend: screen;
+    --portrait-bg-glow: color-mix(in srgb, var(--accent) 10%, transparent);
   }
 
   html {
@@ -206,7 +239,11 @@
 
   a,
   button {
-    -webkit-tap-highlight-color: rgba(199, 242, 61, 0.18);
+    -webkit-tap-highlight-color: color-mix(
+      in srgb,
+      var(--accent) 18%,
+      transparent
+    );
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -272,8 +309,8 @@
     position: absolute;
     inset: 0;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='800'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3' seed='5'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/><feComponentTransfer><feFuncA type='discrete' tableValues='0 0.4 0 0.6 0 0'/></feComponentTransfer></filter><rect width='100%25' height='100%25' filter='url(%23c)'/></svg>");
-    opacity: 0.4;
-    mix-blend-mode: multiply;
+    opacity: var(--concrete-camo-opacity);
+    mix-blend-mode: var(--concrete-camo-blend);
   }
 
   /* cracks + scratches overlay (decorative) */
@@ -320,7 +357,7 @@
   }
   .nav.is-scrolled {
     background: var(--nav-bg-scrolled);
-    border-bottom-color: rgba(199, 242, 61, 0.2);
+    border-bottom-color: color-mix(in srgb, var(--accent) 20%, transparent);
   }
   .nav-inner {
     display: flex;
@@ -798,10 +835,10 @@
     /* `screen` blend treats the PNG's pure-black background as transparent,
      so the figure + neon outline float cleanly on whatever is behind the
      card — no banding, no visible rectangle edge. */
-    mix-blend-mode: screen;
+    mix-blend-mode: var(--portrait-blend);
     filter: contrast(1.04) saturate(1.08)
-      drop-shadow(0 0 18px rgba(199, 242, 61, 0.35))
-      drop-shadow(0 0 48px rgba(199, 242, 61, 0.16));
+      drop-shadow(0 0 18px color-mix(in srgb, var(--accent) 35%, transparent))
+      drop-shadow(0 0 48px color-mix(in srgb, var(--accent) 16%, transparent));
   }
   /* Mobile Safari can mis-render screen blend on compressed images; fall
    back to normal with a stronger accent glow to keep the subject punchy. */
@@ -809,8 +846,8 @@
     .hero-portrait .portrait-img {
       mix-blend-mode: normal;
       filter: contrast(1.04) saturate(1.08)
-        drop-shadow(0 0 18px rgba(199, 242, 61, 0.45))
-        drop-shadow(0 0 50px rgba(199, 242, 61, 0.22));
+        drop-shadow(0 0 18px color-mix(in srgb, var(--accent) 45%, transparent))
+        drop-shadow(0 0 50px color-mix(in srgb, var(--accent) 22%, transparent));
     }
   }
   /* Soft radial key light behind the figure — sits BEHIND the image, not on top. */
@@ -820,7 +857,7 @@
     inset: 0;
     background: radial-gradient(
       ellipse 70% 55% at 50% 52%,
-      rgba(199, 242, 61, 0.1),
+      var(--portrait-bg-glow),
       transparent 70%
     );
     pointer-events: none;
@@ -930,7 +967,8 @@
   }
 
   .skill-cat {
-    background: #0e0e0e;
+    background: var(--card-bg);
+    color: var(--card-fg);
     padding: 36px 32px;
     position: relative;
     transition: background 0.2s;
@@ -950,7 +988,7 @@
       -webkit-text-stroke-color 0.2s;
   }
   .skill-cat:hover .skill-cat-num {
-    color: rgba(199, 242, 61, 0.08);
+    color: color-mix(in srgb, var(--accent) 10%, transparent);
     -webkit-text-stroke-color: var(--accent);
   }
   .skill-cat h3 {
@@ -1018,7 +1056,7 @@
     border-bottom: 1px solid var(--line);
   }
   .work-item:hover {
-    background: rgba(199, 242, 61, 0.02);
+    background: color-mix(in srgb, var(--accent) 3%, transparent);
   }
   .work-item:hover .work-num {
     color: var(--accent);
@@ -1204,7 +1242,8 @@
   .quote {
     padding: 36px;
     border: 1px solid var(--line);
-    background: #0a0a0a;
+    background: var(--card-bg);
+    color: var(--card-fg);
     position: relative;
   }
   .quote::before {

@@ -29,38 +29,71 @@
 
 <script>
   type TweakState = { accent: string; grain: number; density: number };
-  const DEFAULTS: TweakState = { accent: '#C7F23D', grain: 55, density: 1 };
-  const STORAGE_KEY = 'mc.tweaks.v1';
+
+  /* ── Theme helpers ── */
+  function getEffectiveTheme(): 'dark' | 'light' {
+    const h = document.documentElement;
+    if (h.classList.contains('dark')) return 'dark';
+    if (h.classList.contains('light')) return 'light';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  const THEME_DEFAULTS: Record<'dark' | 'light', TweakState> = {
+    dark:  { accent: '#C7F23D', grain: 55, density: 1 },
+    light: { accent: '#7a9e17', grain: 18, density: 1 },
+  };
+
+  /* Per-theme swatch palettes */
+  const THEME_SWATCHES: Record<'dark' | 'light', string[]> = {
+    dark:  ['#C7F23D', '#D4FF3A', '#B8F000', '#FF4500', '#00E5FF', '#FFFFFF'],
+    light: ['#7a9e17', '#5a8a12', '#3d6b0a', '#b35400', '#0066cc', '#8b0000'],
+  };
+
+  /* Separate storage keys per theme so they don't bleed into each other */
+  const STORAGE_KEYS: Record<'dark' | 'light', string> = {
+    dark:  'mc.tweaks.dark.v1',
+    light: 'mc.tweaks.light.v1',
+  };
 
   const tweaksEl = document.getElementById('tweaks')!;
-  const grain = document.getElementById('grain') as HTMLInputElement;
-  const density = document.getElementById('density') as HTMLInputElement;
+  const grainInput = document.getElementById('grain') as HTMLInputElement;
+  const densityInput = document.getElementById('density') as HTMLInputElement;
   const grainVal = document.getElementById('grain-val')!;
   const densityVal = document.getElementById('density-val')!;
 
   function load(): TweakState {
+    const theme = getEffectiveTheme();
+    const defaults = THEME_DEFAULTS[theme];
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) return { ...DEFAULTS, ...(JSON.parse(raw) as Partial<TweakState>) };
+      const raw = localStorage.getItem(STORAGE_KEYS[theme]);
+      if (raw) return { ...defaults, ...(JSON.parse(raw) as Partial<TweakState>) };
     } catch {}
-    return { ...DEFAULTS };
+    return { ...defaults };
   }
 
   function save(s: TweakState) {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch {}
+    try { localStorage.setItem(STORAGE_KEYS[getEffectiveTheme()], JSON.stringify(s)); } catch {}
+  }
+
+  function updateSwatches(currentAccent: string) {
+    const swColors = THEME_SWATCHES[getEffectiveTheme()];
+    document.querySelectorAll<HTMLElement>('#tweaks .sw').forEach((sw, i) => {
+      const color = swColors[i] ?? swColors[0] ?? '';
+      sw.dataset.accent = color;
+      sw.style.background = color;
+      sw.classList.toggle('active', color.toLowerCase() === currentAccent.toLowerCase());
+    });
   }
 
   function apply(t: TweakState) {
     document.documentElement.style.setProperty('--accent', t.accent);
     document.documentElement.style.setProperty('--grain-opacity', (t.grain / 100).toFixed(2));
     document.documentElement.style.setProperty('--density', String(t.density));
-    grain.value = String(t.grain);
-    density.value = String(t.density);
+    grainInput.value = String(t.grain);
+    densityInput.value = String(t.density);
     grainVal.textContent = String(t.grain);
     densityVal.textContent = Number(t.density).toFixed(2);
-    document.querySelectorAll('#tweaks .sw').forEach((sw) => {
-      sw.classList.toggle('active', (sw as HTMLElement).dataset.accent === t.accent);
-    });
+    updateSwatches(t.accent);
   }
 
   const state = load();
@@ -72,11 +105,11 @@
     save(state);
   }
 
-  document.querySelectorAll('#tweaks .sw').forEach((sw) => {
-    sw.addEventListener('click', () => setKeys({ accent: (sw as HTMLElement).dataset.accent! }));
+  document.querySelectorAll<HTMLElement>('#tweaks .sw').forEach((sw) => {
+    sw.addEventListener('click', () => setKeys({ accent: sw.dataset.accent! }));
   });
-  grain.addEventListener('input', () => setKeys({ grain: Number(grain.value) }));
-  density.addEventListener('input', () => setKeys({ density: Number(density.value) }));
+  grainInput.addEventListener('input', () => setKeys({ grain: Number(grainInput.value) }));
+  densityInput.addEventListener('input', () => setKeys({ density: Number(densityInput.value) }));
 
   document.getElementById('tweaks-close')!.addEventListener('click', () => {
     tweaksEl.classList.remove('open');
