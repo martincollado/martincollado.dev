@@ -78,30 +78,39 @@
   @media (prefers-color-scheme: light) {
     :root:not(.dark) {
       color-scheme: light;
-      --bg: #f4f4ef;
-      --bg-2: #e8e8e2;
-      --concrete: #dcdcd4;
-      --line: #c0c0b8;
+      /* Surfaces — brand tokens */
+      --bg: #f5f4ef;
+      --bg-2: #ebe9e0;
+      --concrete: #dddbd2;
+      --line: #cfcabd;
+      /* Text */
       --fg: #0d0d0d;
-      --fg-dim: #555550;
-      --fg-mute: #8a8a80;
-      --ghost: #d0d0c8;
-      --accent: #c7f23d;
-      --accent-ink: #0d0d0d;
-      --grain-opacity: 0.2;
-      --nav-bg: rgba(244, 244, 239, 0.82);
-      --nav-bg-scrolled: rgba(244, 244, 239, 0.96);
-      --drawer-bg: rgba(244, 244, 239, 0.97);
-      --concrete-g1: rgba(0, 0, 0, 0.025);
-      --concrete-g2: rgba(0, 0, 0, 0.015);
-      --concrete-g3: rgba(0, 0, 0, 0.06);
+      --fg-dim: #5a5a54;
+      --fg-mute: #7a7a72;
+      --ghost: #bdb8a8;
+      /* Accent — dark olive in light mode (brand spec: #7a9e17) */
+      --accent: #7a9e17;
+      --accent-ink: #f5f4ef;
+      --grain-opacity: 0.18;
+      /* Nav backdrop */
+      --nav-bg: rgba(245, 244, 239, 0.9);
+      --nav-bg-scrolled: rgba(245, 244, 239, 0.97);
+      --drawer-bg: rgba(245, 244, 239, 0.97);
+      /* Concrete bg gradients */
+      --concrete-g1: rgba(0, 0, 0, 0.03);
+      --concrete-g2: rgba(0, 0, 0, 0.02);
+      --concrete-g3: rgba(0, 0, 0, 0.08);
+      /* Ghost numerals */
       --ghost-num: rgba(13, 13, 13, 0.05);
+      /* Card overlay */
       --card-overlay: rgba(0, 0, 0, 0.04);
+      /* Avatar placeholder */
       --avatar-bg: repeating-linear-gradient(
         45deg,
-        #b8b8b0 0 6px,
-        #ccccc4 6px 12px
+        #cfcabd 0 6px,
+        #dddbd2 6px 12px
       );
+      /* Scratches */
       --scratches-opacity: 0.05;
       --scratches-blend: multiply;
     }
@@ -110,29 +119,29 @@
   /* ── Light mode: manual override ── */
   :root.light {
     color-scheme: light;
-    --bg: #f4f4ef;
-    --bg-2: #e8e8e2;
-    --concrete: #dcdcd4;
-    --line: #c0c0b8;
+    --bg: #f5f4ef;
+    --bg-2: #ebe9e0;
+    --concrete: #dddbd2;
+    --line: #cfcabd;
     --fg: #0d0d0d;
-    --fg-dim: #555550;
-    --fg-mute: #8a8a80;
-    --ghost: #d0d0c8;
-    --accent: #c7f23d;
-    --accent-ink: #0d0d0d;
-    --grain-opacity: 0.2;
-    --nav-bg: rgba(244, 244, 239, 0.82);
-    --nav-bg-scrolled: rgba(244, 244, 239, 0.96);
-    --drawer-bg: rgba(244, 244, 239, 0.97);
-    --concrete-g1: rgba(0, 0, 0, 0.025);
-    --concrete-g2: rgba(0, 0, 0, 0.015);
-    --concrete-g3: rgba(0, 0, 0, 0.06);
+    --fg-dim: #5a5a54;
+    --fg-mute: #7a7a72;
+    --ghost: #bdb8a8;
+    --accent: #7a9e17;
+    --accent-ink: #f5f4ef;
+    --grain-opacity: 0.18;
+    --nav-bg: rgba(245, 244, 239, 0.9);
+    --nav-bg-scrolled: rgba(245, 244, 239, 0.97);
+    --drawer-bg: rgba(245, 244, 239, 0.97);
+    --concrete-g1: rgba(0, 0, 0, 0.03);
+    --concrete-g2: rgba(0, 0, 0, 0.02);
+    --concrete-g3: rgba(0, 0, 0, 0.08);
     --ghost-num: rgba(13, 13, 13, 0.05);
     --card-overlay: rgba(0, 0, 0, 0.04);
     --avatar-bg: repeating-linear-gradient(
       45deg,
-      #b8b8b0 0 6px,
-      #ccccc4 6px 12px
+      #cfcabd 0 6px,
+      #dddbd2 6px 12px
     );
     --scratches-opacity: 0.05;
     --scratches-blend: multiply;

@@ -5,7 +5,12 @@ import compress from '@playform/compress';
 import sentry from '@sentry/astro';
 import spotlightjs from '@spotlightjs/astro';
 import tailwindcss from '@tailwindcss/vite';
-import { defineConfig, envField, fontProviders, svgoOptimizer } from 'astro/config';
+import {
+  defineConfig,
+  envField,
+  fontProviders,
+  svgoOptimizer,
+} from 'astro/config';
 import metaTags from 'astro-meta-tags';
 
 export default defineConfig({
