@@ -1,4 +1,3 @@
-import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 import compress from '@playform/compress';
@@ -11,7 +10,6 @@ import {
   fontProviders,
   svgoOptimizer,
 } from 'astro/config';
-import metaTags from 'astro-meta-tags';
 
 export default defineConfig({
   site: getSiteUrl(),
@@ -97,8 +95,6 @@ export default defineConfig({
   },
 
   integrations: [
-    metaTags(),
-    mdx(),
     sitemap({
       i18n: { defaultLocale: 'es', locales: { es: 'es-ES', en: 'en-US' } },
     }),
