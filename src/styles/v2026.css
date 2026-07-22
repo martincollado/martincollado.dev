@@ -39,7 +39,7 @@
     --line: #2a2a2a;
     --fg: #f4f4ef;
     --fg-dim: #8a8a82;
-    --fg-mute: #4a4a44;
+    --fg-mute: #7c7c74; /* 4.62:1 on --bg (was 2.18:1) */
     --ghost: #2e2e2a;
     --accent: #c7f23d;
     --accent-ink: #0d0d0d;
@@ -98,10 +98,10 @@
       /* Text */
       --fg: #0d0d0d;
       --fg-dim: #5a5a54;
-      --fg-mute: #7a7a72;
+      --fg-mute: #6e6e66; /* 4.67:1 on --bg (was 3.93:1) */
       --ghost: #bdb8a8;
-      /* Accent — dark olive in light mode (brand spec: #7a9e17) */
-      --accent: #7a9e17;
+      /* Accent — dark olive in light mode (brand handoff --mc-accent-dark) */
+      --accent: #4a6a14; /* 5.67:1 as text and as fill (was 2.83:1) */
       --accent-ink: #f5f4ef;
       --grain-opacity: 0.18;
       /* Nav backdrop */
@@ -146,9 +146,9 @@
     --line: #cfcabd;
     --fg: #0d0d0d;
     --fg-dim: #5a5a54;
-    --fg-mute: #7a7a72;
+    --fg-mute: #6e6e66; /* 4.67:1 on --bg (was 3.93:1) */
     --ghost: #bdb8a8;
-    --accent: #7a9e17;
+    --accent: #4a6a14; /* 5.67:1 as text and as fill (was 2.83:1) */
     --accent-ink: #f5f4ef;
     --grain-opacity: 0.18;
     --nav-bg: rgba(245, 244, 239, 0.9);
@@ -183,7 +183,7 @@
     --line: #2a2a2a;
     --fg: #f4f4ef;
     --fg-dim: #8a8a82;
-    --fg-mute: #4a4a44;
+    --fg-mute: #7c7c74; /* 4.62:1 on --bg (was 2.18:1) */
     --ghost: #2e2e2a;
     --accent: #c7f23d;
     --accent-ink: #0d0d0d;
